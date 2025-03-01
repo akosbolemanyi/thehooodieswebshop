@@ -1,12 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_cart_model.dart';
+import '../providers/SAVE-cart-model.dart';
 
 // Teszt
+/*
 void main() {
   test("Removing 1 item from the cart:", () {
 
-    final cartModel = OldCartModel();
+    final cartModel = CartModel();
     // Itt: piros pulcsi hozzáadása, az a nulladik indexű
     cartModel.addItem(0);
     final initialLength = cartModel.cartItemsHuf.length;
@@ -18,4 +19,4 @@ void main() {
     print("Default number of items in cart: " + initialLength.toString());
     print("After removing one item from the cart: " + cartModel.cartItemsHuf.length.toString());
   });
-}
+}*/

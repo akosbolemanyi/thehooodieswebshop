@@ -1,13 +1,9 @@
 import 'package:android_studio_projects/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
-import 'package:hidden_drawer_menu/model/item_hidden_menu.dart';
-import 'package:hidden_drawer_menu/model/screen_hidden_drawer.dart';
 import 'package:provider/provider.dart';
-
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_products.dart';
+import '../SAVE-products.dart';
 import '../providers/theme_changer_provider.dart';
 
 class HiddenDrawer extends StatefulWidget {
@@ -20,11 +16,10 @@ class HiddenDrawer extends StatefulWidget {
 class _HiddenDrawerState extends State<HiddenDrawer> {
   List<ScreenHiddenDrawer> _pages = [];
 
-  final customTextStyle =
-    GoogleFonts.cabin(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
+  final customTextStyle = GoogleFonts.cabin(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
   );
 
   @override
@@ -37,8 +32,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
             name: 'Home',
             baseStyle: customTextStyle,
             selectedStyle: TextStyle(),
-          colorLineSelected: Colors.red
-        ),
+            colorLineSelected: Colors.red),
         HomePage(),
       ),
       ScreenHiddenDrawer(
@@ -47,7 +41,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           baseStyle: TextStyle(),
           selectedStyle: TextStyle(),
         ),
-        OldProductsPage(),
+        ProductsPage(),
       ),
     ];
   }
@@ -56,7 +50,9 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   Widget build(BuildContext context) {
     final themeChanger = Provider.of<ThemeChanger>(context);
     return HiddenDrawerMenu(
-      backgroundColorMenu: themeChanger.themeMode == ThemeMode.dark ? Colors.black12 : Colors.grey,
+      backgroundColorMenu: themeChanger.themeMode == ThemeMode.dark
+          ? Colors.black12
+          : Colors.grey,
       screens: _pages,
       initPositionSelected: 0,
       slidePercent: 40,

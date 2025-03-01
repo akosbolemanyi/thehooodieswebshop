@@ -11,7 +11,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_cart_model.dart';
 import '../providers/SAVE-cart-model.dart';
 import 'auth_page.dart';
 import 'utils.dart';
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
           final themeChanger = Provider.of<ThemeChanger>(context);
           return LocaleBuilder(
             builder: (locale) => ChangeNotifierProvider(
-              create: (context) => OldCartModel(),
+              create: (context) => CartModel(),
               child: MaterialApp(
                 title: 'Hooodies!',
                 localizationsDelegates: Locales.delegates,

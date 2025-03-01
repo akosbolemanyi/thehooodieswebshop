@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../constants.dart';
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_hoodie_item_tile.dart';
 import '../components/SAVE-hoodie_item_tile.dart';
 
 class Description extends StatelessWidget {

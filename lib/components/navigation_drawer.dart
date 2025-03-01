@@ -1,13 +1,11 @@
-import 'package:android_studio_projects/components/hidden-drawer-menu.dart';
 import 'package:android_studio_projects/map.dart';
 import 'package:android_studio_projects/profile.dart';
-import 'package:android_studio_projects/providers/favourites.provider.dart';
 import 'package:android_studio_projects/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_cart.dart';
+import '../SAVE-cart.dart';
 import '../SAVE-products.dart';
 import '../contact_us.dart';
 import '../favourites.dart';
@@ -113,7 +111,7 @@ class NavigationDrawer extends StatelessWidget {
               // Előző navigator drawer bezárása
               Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const OldCartPage(),
+                builder: (context) => const CartPage(),
               ));
             },
           ),

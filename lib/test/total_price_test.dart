@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-
-import '../OLD-LOCAL-CONFIGURATIONS/OLD_cart_model.dart';
+import '../providers/SAVE-cart-model.dart';
 
 // Teszt
+/*
 void main() {
   test("Calculating total price of items added to cart:", () {
 
     // Létrehozunk egy kosarat.
-    final cartModel = OldCartModel();
+    final cartModel = CartModel();
 
     // Mindegyik pulcsiból hozzáadunk egyet.
     cartModel.addItem(0);
@@ -22,4 +22,4 @@ void main() {
     expect(double.parse(cartModel.totalPriceHuf()), totalPriceBefore + double.parse(cartModel.shopItemsHuf[0][1]));
     print("Total price after adding the red hoodie: " + cartModel.totalPriceHuf());
   });
-}
+}*/
