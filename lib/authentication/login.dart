@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'package:android_studio_projects/authentication/verify_email_page.dart';
 import 'package:android_studio_projects/constants.dart';
-import 'package:android_studio_projects/providers/favourites.provider.dart';
-import 'package:android_studio_projects/providers/theme_changer_provider.dart';
-import 'package:android_studio_projects/providers/theme_provider.dart';
+import 'package:android_studio_projects/provider/favourites.provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +8,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-import '../providers/SAVE-cart-model.dart';
-import 'auth_page.dart';
-import 'utils.dart';
+import '../provider/cart.provider.dart';
+import '../provider/theme-changer.provider.dart';
+import '../provider/theme.provider.dart';
+import '../utils/utils.dart';
 import 'package:flutter/services.dart';
+
+import 'auth.dart';
+import 'email-verification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
