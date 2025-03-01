@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:android_studio_projects/menu/custom-navigation-bar.dart';
 import 'package:android_studio_projects/profile/update-profile.dart';
 import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:android_studio_projects/profile/shipping-address.dart';
@@ -10,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../menu/navigation_drawer.dart' as sidebar;
+import '../menu/custom-bottom-navigation-bar.dart';
+import '../menu/custom-drawer.dart' as sidebar;
 
 class ProfilePage extends StatefulWidget {
   @override

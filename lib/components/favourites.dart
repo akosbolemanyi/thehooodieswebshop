@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
-import '../menu/custom-navigation-bar.dart';
-import '../menu/navigation_drawer.dart' as sidebar;
+import '../menu/custom-bottom-navigation-bar.dart';
+import '../menu/custom-drawer.dart' as sidebar;
 import '../provider/favourites.provider.dart';
 import 'cart.dart';
 

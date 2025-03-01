@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../components/cart.dart';
 import '../components/contacts.dart';
 import '../components/map.dart';
@@ -10,28 +11,43 @@ import '../components/favourites.dart';
 import '../components/main.dart';
 import '../components/products.dart';
 import '../profile/profile.dart';
+import '../provider/theme-changer.provider.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) => Drawer(
-        width: 220,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildHeader(context),
-              buildMenuItems(context),
-            ],
-          ),
+  Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    return Drawer(
+      backgroundColor: themeChanger.themeMode == ThemeMode.dark
+          ? Colors.grey.shade900
+          : Colors.white,
+      width: 220,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            buildHeader(context),
+            Container(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+              child: const Divider(
+                color: Colors.black,
+                thickness: 2.0,
+              ),
+            ),
+            buildMenuItems(context),
+          ],
         ),
-      );
+      ),
+    );
+  }
+
   Widget buildHeader(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     String? _uid = FirebaseAuth.instance.currentUser?.uid;
     return Container(
-      color: Colors.grey.shade800,
+      // color: Colors.red.shade700,
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
         bottom: 30,
@@ -40,19 +56,35 @@ class NavigationDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 15),
-          (user.photoURL != null)
-              ? CircleAvatar(
-                  radius: 70.0, backgroundImage: NetworkImage(user.photoURL!))
-              : CircleAvatar(
-                  radius: 70.0,
-                  backgroundImage:
-                      AssetImage('assets/img/default_profile.png')),
-
-          // Text(
-          //   "Hooodies!",
-          //   style: GoogleFonts.lobster(
-          //       fontSize: 35, color: Colors.white, fontWeight: FontWeight.bold),
-          // )
+          Container(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.black,
+                  width: 3.0,
+                )),
+            child: (user.photoURL != null)
+                ? CircleAvatar(
+                    radius: 50.0, backgroundImage: NetworkImage(user.photoURL!))
+                : CircleAvatar(
+                    radius: 50.0,
+                    backgroundImage:
+                        AssetImage('assets/img/default_profile.png')),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 7.5),
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            "Bolemányi Ákos",
+            style:
+                GoogleFonts.lobster(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            "bolemanyi.akos@gmail.com",
+            style: GoogleFonts.cabin(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -143,7 +175,13 @@ class NavigationDrawer extends StatelessWidget {
               ));
             },
           ),
-          const Divider(color: Colors.black54),
+          Container(
+            padding: EdgeInsets.only(left: 15.0, right: 15.0),
+            child: const Divider(
+              color: Colors.black,
+              thickness: 2.0,
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: LocaleText(

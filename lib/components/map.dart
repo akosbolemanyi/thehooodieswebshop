@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import '../menu/custom-navigation-bar.dart';
-import '../menu/navigation_drawer.dart' as sidebar;
+import '../menu/custom-bottom-navigation-bar.dart';
+import '../menu/custom-drawer.dart' as sidebar;
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});

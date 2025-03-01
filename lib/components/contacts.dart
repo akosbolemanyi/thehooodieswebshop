@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../menu/custom-navigation-bar.dart';
+import '../menu/custom-bottom-navigation-bar.dart';
 import '../utils/utils.dart';
-import '../menu/navigation_drawer.dart' as sidebar;
+import '../menu/custom-drawer.dart' as sidebar;
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
