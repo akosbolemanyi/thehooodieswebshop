@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../menu/custom-navigation-bar.dart';
 import '../menu/navigation_drawer.dart' as sidebar;
 
 class CartPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class CartPage extends StatelessWidget {
     final nation = Locales.currentLocale(context)?.languageCode;
     return Scaffold(
       drawer: const sidebar.NavigationDrawer(),
+      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: LocaleText(

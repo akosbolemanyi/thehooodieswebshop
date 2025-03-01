@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import '../menu/custom-navigation-bar.dart';
 import '../menu/navigation_drawer.dart' as sidebar;
 import 'cart.dart';
 
@@ -150,6 +151,7 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const sidebar.NavigationDrawer(),
+      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Products',

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../menu/custom-navigation-bar.dart';
 import '../menu/navigation_drawer.dart' as sidebar;
 
 class MyApp extends StatelessWidget {
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: sidebar.NavigationDrawer(),
+      bottomNavigationBar: CustomNavigationBar(),
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         child: ListView(

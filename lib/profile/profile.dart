@@ -26,8 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
-        bottomNavigationBar: CustomNavigationBar(),
         drawer: const sidebar.NavigationDrawer(),
+        bottomNavigationBar: CustomNavigationBar(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           title: LocaleText(

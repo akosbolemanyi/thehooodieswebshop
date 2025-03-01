@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:provider/provider.dart';
+import '../components/cart.dart';
+import '../components/contacts.dart';
+import '../components/favourites.dart';
+import '../components/map.dart';
 import '../components/products.dart';
+import '../profile/profile.dart';
 import '../provider/theme-changer.provider.dart';
+import '../settings/settings.dart';
 
 class HiddenDrawer extends StatefulWidget {
   const HiddenDrawer({Key? key}) : super(key: key);
@@ -42,6 +48,54 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           selectedStyle: TextStyle(),
         ),
         ProductsPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Favourites',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        FavouritesPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Cart',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        CartPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Map',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        MapPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Contacts',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        ContactPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Settings',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        SettingsPage(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: 'Profile',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle(),
+        ),
+        ProfilePage(),
       ),
     ];
   }

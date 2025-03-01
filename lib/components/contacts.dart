@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../menu/custom-navigation-bar.dart';
 import '../utils/utils.dart';
 import '../menu/navigation_drawer.dart' as sidebar;
 
@@ -29,7 +30,7 @@ class _ContactPageState extends State<ContactPage> {
     final String _phoneNumber = "+36 70/123-4567";
     final String _landPhoneNumber = "+36 27/123-456";
     return Scaffold(
-      bottomNavigationBar: Container(
+      /*bottomNavigationBar: Container(
         color: Colors.grey.shade800,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
@@ -47,8 +48,9 @@ class _ContactPageState extends State<ContactPage> {
                 GButton(icon: Icons.person, text: 'Profile'),
               ]),
         ),
-      ),
+      ),*/
       drawer: const sidebar.NavigationDrawer(),
+      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: LocaleText(

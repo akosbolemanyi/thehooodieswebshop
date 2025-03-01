@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import '../menu/custom-navigation-bar.dart';
 import '../menu/navigation_drawer.dart' as sidebar;
 
 class MapPage extends StatefulWidget {
@@ -133,6 +134,7 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const sidebar.NavigationDrawer(),
+        bottomNavigationBar: CustomNavigationBar(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           toolbarHeight: 70,
