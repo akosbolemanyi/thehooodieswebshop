@@ -1,0 +1,61 @@
+{
+  "menu_motto": "Hooodies!",
+  "menu_home": "Főoldal",
+  "menu_products": "Termékeink",
+  "menu_cart": "Bevásárlókosár",
+  "menu_map": "Boltunk",
+  "menu_contact_us": "Kapcsolat",
+  "menu_settings": "Beállítások",
+  "menu_profile": "Profilom",
+
+  "theme": "Téma",
+  "dark_mode": "Sötét mód",
+  "light_mode": "Világos mód",
+
+  "language": "Nyelv",
+  "language_what": "Nyelv: Magyar",
+  "hungarian": "Magyar",
+  "english": "English",
+  "german": "Deutsch",
+
+  "home_title": "Mindenkinek kell egy ilyen otthonra!",
+  "made_in_szeged": "Készült itt: Szeged",
+  "shop_now": "Vásároljon!",
+
+  "hello_there": "Üdvözletem!",
+  "products_motto": "Akkor nézzük is a kínálatot!",
+  "click_me": "Kosárhoz",
+
+  "total_price": "Végösszeg:",
+  "pay_now": "Fizetés",
+
+  "signed_in_as": "Bejelentkezve, mint",
+  "sign_out": "Kijelentkezés",
+
+  "main_map": "Székhely: Szeged,\nTisza Lajos krt. 103, 6725",
+
+  "email": "E-mail",
+  "password": "Jelszó",
+
+  "sign_in_motto": "Üdv újra itt!",
+  "sign_in": "Bejelentkezés",
+  "no_acc": "Nincs még fiókod?  ",
+
+  "contact": "Kapcsolat",
+  "contact_motto": "Kérdés esetén keresse ügyfélszolgálatunkat az alábbi elérhetőségeken:",
+  "contact_email": "E-mail cím:",
+  "contact_email_str": "hooodies@gmail.com",
+  "contact_phone": "Vezetékes telefonszám:",
+  "contact_phone_num": "+36 27/123-456",
+  "contact_mobile": "Mobil telefonszám:",
+  "contact_mobile_num": "+36 70/123-4567",
+
+  "select_profile_picture": "Válassz profil képet!",
+  "change_profile_picture": "Profilkép lecserélése",
+  "sign_up_motto": "Megtisztelő lenne,\nha csatlakozna hozzánk.",
+  "sign_up": "Regisztrálás",
+  "have_acc": "Van már fiókod?  ",
+
+  "camera": "Kamera",
+  "pick_a_file": "Galéria"
+}

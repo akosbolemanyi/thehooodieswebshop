@@ -1,0 +1,61 @@
+{
+  "menu_motto": "Hooodies!",
+  "menu_home": "Titelseite",
+  "menu_products": "Produkte",
+  "menu_cart": "Einkaufswagen",
+  "menu_map": "Unser Laden",
+  "menu_contact_us": "Konkakte",
+  "menu_settings": "Einstellungen",
+  "menu_profile": "Mein Profil",
+
+  "theme": "Thema",
+  "dark_mode": "Dunkelmodus",
+  "light_mode": "Lichtmodus",
+
+  "language": "Sprache",
+  "language_what": "Sprache: Deutsch",
+  "hungarian": "Magyar",
+  "english": "English",
+  "german": "Deutsch",
+
+  "home_title": "Pullis von Uns zu Dir nach Hause.",
+  "made_in_szeged": "Hergestellt in Szeged",
+  "shop_now": "Kauft jetzt!",
+
+  "hello_there": "Hallo, wie gehts denn so?",
+  "products_motto": "Dann schauen wir uns das Angebot an!",
+  "click_me": "Zum Einkaufswagen",
+
+  "total_price": "Gesamtpreis:",
+  "pay_now": "Zahlen",
+
+  "signed_in_as": "Eingeloggt als",
+  "sign_out": "Abmelden",
+
+  "main_map": "Hauptquartier: Szeged,\nTisza Lajos Rgstr. 103, 6725",
+
+  "email": "E-Mail",
+  "password": "Kennwort",
+
+  "sign_in_motto": "Wilkommen zurück!",
+  "sign_in": "Anmeldung",
+  "no_acc": "Hast du noch kein Konto?  ",
+
+  "contact": "Kontakte",
+  "contact_motto": "Bei Fragen erreichen Sie unseren Kundenservice unter folgenden Kontaktdaten:",
+  "contact_email": "E-Mail-Adresse:",
+  "contact_email_str": "hooodies@gmail.com",
+  "contact_phone": "Festnetz-Telefonnummer:",
+  "contact_phone_num": "+36 27/123-456",
+  "contact_mobile": "Handynummer:",
+  "contact_mobile_num": "+36 70/123-4567",
+
+  "select_profile_picture": "Wählst ein Profilbild",
+  "change_profile_picture": "Wechselst den Profilbild",
+  "sign_up_motto": "Es wäre uns eine Ehre, wenn\nSie sich zu uns gesellen würden.",
+  "sign_up": "Registrierung",
+  "have_acc": "Hast du bereits ein Konto?  ",
+
+  "camera": "Kamera",
+  "pick_a_file": "Galerie"
+}

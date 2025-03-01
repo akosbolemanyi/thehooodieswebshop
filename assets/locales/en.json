@@ -1,0 +1,61 @@
+{
+  "menu_motto": "Hooodies!",
+  "menu_home": "Home",
+  "menu_products": "Products",
+  "menu_cart": "Shopping Cart",
+  "menu_map": "Our shop",
+  "menu_contact_us": "Contact us",
+  "menu_settings": "Settings",
+  "menu_profile": "My profile",
+
+  "theme": "Theme",
+  "dark_mode": "Dark mode",
+  "light_mode": "Light mode",
+
+  "language": "Language",
+  "language_what": "Language: English",
+  "hungarian": "Magyar",
+  "english": "English",
+  "german": "Deutsch",
+
+  "home_title": "Hoodies from us to your home.",
+  "made_in_szeged": "Made in Szeged",
+  "shop_now": "Buy now!",
+
+  "hello_there": "Hello there!",
+  "products_motto": "Let's order some beauties!",
+  "click_me": "View Cart",
+
+  "total_price": "Total price:",
+  "pay_now": "Pay Now",
+
+  "signed_in_as": "Signed In As",
+  "sign_out": "Sign Out",
+
+  "main_map": "Headquarter: Szeged,\nTisza Lajos cct. 103, 6725",
+
+  "email": "Email",
+  "password": "Password",
+
+  "sign_in_motto": "Welcome back!",
+  "sign_in": "Sign in",
+  "no_acc": "Don't have an account?  ",
+
+  "contact": "Contacts",
+  "contact_motto": "If you have any questions, contact our customer service:",
+  "contact_email": "Email address:",
+  "contact_email_str": "hooodies@gmail.com",
+  "contact_phone": "Landline phone:",
+  "contact_phone_num": "+36 27/123-456",
+  "contact_mobile": "Mobile phone:",
+  "contact_mobile_num": "+36 70/123-4567",
+
+  "select_profile_picture": "Select profile picture",
+  "change_profile_picture": "Change profile picture",
+  "sign_up_motto": "We would be honoured\nif you would join us.",
+  "sign_up": "Sign up",
+  "have_acc": "Already have an account?  ",
+
+  "camera": "Camera",
+  "pick_a_file": "Gallery"
+}
