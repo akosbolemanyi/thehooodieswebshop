@@ -1,6 +1,5 @@
 import 'package:android_studio_projects/components/favourites.dart';
 import 'package:android_studio_projects/components/products.dart';
-import 'package:android_studio_projects/provider/bottom-menu-event-change.provider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'custom-drawer.dart' as MyDrawer;

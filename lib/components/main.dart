@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../abstract-classes/page-contect.dart';
+import '../abstract-classes/page-contact.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:android_studio_projects/abstract-classes/page-contect.dart';
+import 'package:android_studio_projects/abstract-classes/page-contact.dart';
 import 'package:flutter/material.dart';
 import 'package:android_studio_projects/provider/cart.provider.dart';
 import 'package:google_fonts/google_fonts.dart';

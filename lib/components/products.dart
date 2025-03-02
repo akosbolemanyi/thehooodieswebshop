@@ -1,4 +1,4 @@
-import 'package:android_studio_projects/abstract-classes/page-contect.dart';
+import 'package:android_studio_projects/abstract-classes/page-contact.dart';
 import 'package:android_studio_projects/model/product.model.dart';
 import 'package:android_studio_projects/product-details/product-details.dart';
 import 'package:android_studio_projects/provider/cart.provider.dart';
