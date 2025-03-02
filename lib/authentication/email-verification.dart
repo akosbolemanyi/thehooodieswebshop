@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:android_studio_projects/menu/custom-bottom-navigation-bar.dart'
+    as OwnBar;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../components/main.dart';
 import '../utils/utils.dart';
 import 'auth.dart';
 
@@ -97,7 +98,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? HomePage() //HiddenDrawer
+      ? OwnBar.CustomBottomNavigationBar(page: OwnBar.Page.HOME) //HiddenDrawer
       : Scaffold(
           appBar: AppBar(
             title: Text(

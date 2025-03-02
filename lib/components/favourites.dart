@@ -60,7 +60,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
     return Scaffold(
       drawer: const sidebar.NavigationDrawer(),
-      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Favourites',

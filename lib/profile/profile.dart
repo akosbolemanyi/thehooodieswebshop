@@ -27,7 +27,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
         drawer: const sidebar.NavigationDrawer(),
-        bottomNavigationBar: CustomNavigationBar(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           title: LocaleText(

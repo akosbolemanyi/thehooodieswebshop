@@ -134,7 +134,6 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const sidebar.NavigationDrawer(),
-        bottomNavigationBar: CustomNavigationBar(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           toolbarHeight: 70,

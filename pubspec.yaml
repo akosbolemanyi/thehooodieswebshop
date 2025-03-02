@@ -70,6 +70,7 @@ dependencies:
   dio: ^5.8.0+1
   mailer: ^6.4.1
   http: ^1.2.0
+  flutter_obx: ^0.0.8
 
 
 dev_dependencies:

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../menu/custom-bottom-navigation-bar.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 import '../menu/custom-drawer.dart' as sidebar;
 
 class MyApp extends StatelessWidget {
@@ -14,18 +14,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocaleBuilder(
       builder: (locale) => MaterialApp(
-        title: 'Hooodies!',
-        localizationsDelegates: Locales.delegates,
-        supportedLocales: Locales.supportedLocales,
-        locale: locale,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.orange,
+          title: 'Hooodies!',
+          localizationsDelegates: Locales.delegates,
+          supportedLocales: Locales.supportedLocales,
+          locale: locale,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.orange,
+            ),
           ),
-        ),
-        home: const HomePage(),
-      ),
+          home: OwnBar.CustomBottomNavigationBar(page: OwnBar.Page.HOME)),
     );
   }
 }
@@ -52,7 +51,6 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: sidebar.NavigationDrawer(),
-      bottomNavigationBar: CustomNavigationBar(),
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         child: ListView(

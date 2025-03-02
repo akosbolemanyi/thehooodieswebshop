@@ -1,17 +1,15 @@
+import 'package:android_studio_projects/menu/custom-bottom-navigation-bar.dart';
 import 'package:android_studio_projects/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../components/cart.dart';
 import '../components/contacts.dart';
 import '../components/map.dart';
-import '../components/favourites.dart';
-import '../components/main.dart';
-import '../components/products.dart';
 import '../profile/profile.dart';
 import '../provider/theme-changer.provider.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});
@@ -103,7 +101,8 @@ class NavigationDrawer extends StatelessWidget {
               ),
               onTap: () =>
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomePage(),
+                    builder: (context) =>
+                        CustomBottomNavigationBar(page: OwnBar.Page.HOME),
                   ))),
           ListTile(
             leading: const Icon(Icons.shopping_cart),
@@ -115,7 +114,8 @@ class NavigationDrawer extends StatelessWidget {
               // Előző navigator drawer bezárása
               Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProductsPage(),
+                builder: (context) =>
+                    CustomBottomNavigationBar(page: OwnBar.Page.PRODUCTS),
               ));
             },
           ),
@@ -129,7 +129,8 @@ class NavigationDrawer extends StatelessWidget {
               // Előző navigator drawer bezárása
               Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => FavouritesPage(),
+                builder: (context) =>
+                    CustomBottomNavigationBar(page: OwnBar.Page.FAVOURITES),
               ));
             },
           ),
@@ -143,7 +144,8 @@ class NavigationDrawer extends StatelessWidget {
               // Előző navigator drawer bezárása
               Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const CartPage(),
+                builder: (context) =>
+                    CustomBottomNavigationBar(page: OwnBar.Page.CART),
               ));
             },
           ),

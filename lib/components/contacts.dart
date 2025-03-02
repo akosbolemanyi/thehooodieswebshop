@@ -29,27 +29,7 @@ class _ContactPageState extends State<ContactPage> {
     final String _phoneNumber = "+36 70/123-4567";
     final String _landPhoneNumber = "+36 27/123-456";
     return Scaffold(
-      /*bottomNavigationBar: Container(
-        color: Colors.grey.shade800,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-          child: GNav(
-              backgroundColor: Colors.grey.shade800,
-              color: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: Colors.grey.shade600,
-              gap: 8,
-              padding: EdgeInsets.all(16),
-              tabs: const [
-                GButton(icon: Icons.home, text: 'Home'),
-                GButton(icon: Icons.shopping_cart, text: 'Products'),
-                GButton(icon: Icons.map_rounded, text: 'Map'),
-                GButton(icon: Icons.person, text: 'Profile'),
-              ]),
-        ),
-      ),*/
       drawer: const sidebar.NavigationDrawer(),
-      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: LocaleText(

@@ -15,7 +15,6 @@ class CartPage extends StatelessWidget {
     final nation = Locales.currentLocale(context)?.languageCode;
     return Scaffold(
       drawer: const sidebar.NavigationDrawer(),
-      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: LocaleText(

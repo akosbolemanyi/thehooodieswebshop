@@ -151,7 +151,6 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const sidebar.NavigationDrawer(),
-      bottomNavigationBar: CustomNavigationBar(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Products',
