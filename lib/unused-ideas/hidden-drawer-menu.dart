@@ -1,4 +1,3 @@
-import 'package:android_studio_projects/components/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
@@ -8,9 +7,9 @@ import '../components/contacts.dart';
 import '../components/favourites.dart';
 import '../components/map.dart';
 import '../components/products.dart';
-import '../profile/profile.dart';
+import '../components/profile.dart';
 import '../provider/theme-changer.provider.dart';
-import '../settings/settings.dart';
+import '../components/settings.dart';
 
 class HiddenDrawer extends StatefulWidget {
   const HiddenDrawer({Key? key}) : super(key: key);

@@ -56,15 +56,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
-    return AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
-      title: Text(
-        'Hooodies!',
-        style: GoogleFonts.lobster(
-            fontWeight: FontWeight.bold, fontSize: 40, color: Colors.black),
-      ),
-      centerTitle: true,
-    );
+    return PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight + 15),
+        child: Container(
+            color: Colors.red,
+            padding: EdgeInsets.only(top: 15),
+            child: AppBar(
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Text(
+                'Hooodies!',
+                style: GoogleFonts.lobster(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40,
+                    color: Colors.black),
+              ),
+              centerTitle: true,
+            )));
   }
 
   Widget buildBody(BuildContext context) {

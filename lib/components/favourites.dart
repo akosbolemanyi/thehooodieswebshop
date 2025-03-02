@@ -72,44 +72,49 @@ class _FavouritesPageState extends State<FavouritesPage> {
   }
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
-    return AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
-      title: Text('Favourites',
-          style: GoogleFonts.cabin(
-              fontWeight: FontWeight.bold, color: Colors.black)),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.grid_view),
-          onPressed: _toggleGridCount,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: Consumer<CartModel>(
-            builder: (context, cartModel, child) {
-              return badges.Badge(
-                position: badges.BadgePosition.topEnd(top: -5, end: -6),
-                showBadge: cartModel.cartItems.isNotEmpty,
-                badgeStyle: badges.BadgeStyle(
-                  badgeColor: Colors.white,
-                  shape: badges.BadgeShape.circle,
-                  borderRadius: BorderRadius.circular(10),
+    return PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight + 15),
+        child: Container(
+            color: Colors.red,
+            padding: EdgeInsets.only(top: 15),
+            child: AppBar(
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Text('Favourites',
+                  style: GoogleFonts.cabin(
+                      fontWeight: FontWeight.bold, color: Colors.black)),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.grid_view),
+                  onPressed: _toggleGridCount,
                 ),
-                badgeContent: Text(cartModel.totalQuantity.toString()),
-                child: IconButton(
-                  icon: Icon(Icons.shopping_cart),
-                  iconSize: 25,
-                  color: Colors.black,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CartPage()),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Consumer<CartModel>(
+                    builder: (context, cartModel, child) {
+                      return badges.Badge(
+                        position: badges.BadgePosition.topEnd(top: -5, end: -6),
+                        showBadge: cartModel.cartItems.isNotEmpty,
+                        badgeStyle: badges.BadgeStyle(
+                          badgeColor: Colors.white,
+                          shape: badges.BadgeShape.circle,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        badgeContent: Text(cartModel.totalQuantity.toString()),
+                        child: IconButton(
+                          icon: Icon(Icons.shopping_cart),
+                          iconSize: 25,
+                          color: Colors.black,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CartPage()),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
+              ],
+            )));
   }
 
   Widget buildBody(BuildContext context) {

@@ -30,14 +30,19 @@ class _ContactPageState extends State<ContactPage> {
     final String _landPhoneNumber = "+36 27/123-456";
     return Scaffold(
       drawer: sidebar.NavigationDrawer(),
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: LocaleText(
-          'menu_contact_us',
-          style: GoogleFonts.cabin(
-              fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          child: Container(
+              color: Colors.red,
+              padding: EdgeInsets.only(top: 15),
+              child: AppBar(
+                iconTheme: IconThemeData(color: Colors.black),
+                title: LocaleText(
+                  'menu_contact_us',
+                  style: GoogleFonts.cabin(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+              ))),
       body: Padding(
         padding: const EdgeInsets.all(40),
         child: Column(

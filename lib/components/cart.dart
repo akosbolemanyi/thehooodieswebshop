@@ -18,16 +18,22 @@ class CartPage extends StatelessWidget {
   }
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
-    return AppBar(
-      iconTheme: const IconThemeData(color: Colors.black),
-      title: LocaleText(
-        'menu_cart',
-        style: GoogleFonts.cabin(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
-    );
+    return PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight + 15),
+        child: Container(
+          color: Colors.red,
+          padding: EdgeInsets.only(top: 15),
+          child: AppBar(
+            iconTheme: const IconThemeData(color: Colors.black),
+            title: LocaleText(
+              'menu_cart',
+              style: GoogleFonts.cabin(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget buildBody(BuildContext context) {

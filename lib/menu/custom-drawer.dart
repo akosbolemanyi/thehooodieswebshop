@@ -1,5 +1,5 @@
 import 'package:android_studio_projects/menu/custom-bottom-navigation-bar.dart';
-import 'package:android_studio_projects/settings/settings.dart';
+import 'package:android_studio_projects/components/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../components/contacts.dart';
 import '../components/map.dart';
-import '../profile/profile.dart';
+import '../components/profile.dart';
 import '../provider/theme-changer.provider.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
@@ -50,10 +50,11 @@ class NavigationDrawerState extends State<NavigationDrawer> {
 
   Widget buildHeader(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Stack(alignment: Alignment.center, children: [
       Positioned(
-        top: 28,
-        left: 5,
+        top: 44,
+        left: 3,
         child: IconButton(
             icon: Icon(Icons.menu),
             onPressed: () {
@@ -62,7 +63,7 @@ class NavigationDrawerState extends State<NavigationDrawer> {
       ),
       Container(
         padding: EdgeInsets.only(
-          top: 65,
+          top: 35,
           bottom: 20,
         ),
         child: Column(
@@ -73,6 +74,9 @@ class NavigationDrawerState extends State<NavigationDrawer> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     width: 3.0,
+                    color: themeChanger.themeMode == ThemeMode.dark
+                        ? Colors.white
+                        : Colors.black,
                   )),
               child: (user.photoURL != null)
                   ? CircleAvatar(

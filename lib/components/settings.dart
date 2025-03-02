@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../menu/custom-drawer.dart' as sidebar;
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -14,15 +15,22 @@ class SettingsPage extends StatelessWidget {
     final nation = Locales.currentLocale(context)?.languageCode;
     final themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: LocaleText(
-          'menu_settings',
-          style: GoogleFonts.cabin(
-              fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-        // backgroundColor: Colors.indigo.shade300,
-      ),
+      drawer: sidebar.NavigationDrawer(),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          child: Container(
+            color: Colors.red,
+            padding: EdgeInsets.only(top: 15),
+            child: AppBar(
+              iconTheme: IconThemeData(color: Colors.black),
+              title: LocaleText(
+                'menu_settings',
+                style: GoogleFonts.cabin(
+                    fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+              // backgroundColor: Colors.indigo.shade300,
+            ),
+          )),
       body: Column(
         children: [
           ListTile(

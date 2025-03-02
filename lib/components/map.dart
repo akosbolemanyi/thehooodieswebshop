@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:android_studio_projects/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -8,8 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import '../menu/custom-bottom-navigation-bar.dart';
+import 'package:provider/provider.dart';
 import '../menu/custom-drawer.dart' as sidebar;
+import '../provider/theme-changer.provider.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -20,6 +20,9 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   Location _locationController = new Location();
+
+  String dayTheme = '';
+  String nightTheme = '';
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
@@ -36,7 +39,9 @@ class _MapPageState extends State<MapPage> {
   // TODO - Shouldn't be part of initstate, only if direction is requested.
   @override
   void initState() {
+    print('This is the INITSTATE!');
     super.initState();
+    _loadMapStyles();
     getLocationUpdates().then((_) => {
           print('This is the current position: ' + _currentPosition.toString()),
           _currentPosition = LatLng(49, 23),
@@ -46,6 +51,15 @@ class _MapPageState extends State<MapPage> {
                   (coordinates) => generatePolylineFromPoints(coordinates))
             }
         });
+  }
+
+  Future _loadMapStyles() async {
+    // TODO - Make designs work!
+    print('This is the LOADMAYSTYLES!');
+    dayTheme = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/day-mode.json');
+    nightTheme = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/night-mode.json');
   }
 
   void _launchMaps() {
@@ -132,25 +146,37 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
         drawer: sidebar.NavigationDrawer(),
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          toolbarHeight: 70,
-          title: LocaleText(
-            'main_map',
-            style: GoogleFonts.cabin(
-                fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          // backgroundColor: Colors.green.shade200,
-        ),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight + 15),
+            child: Container(
+                color: Colors.red,
+                padding: EdgeInsets.only(top: 15),
+                child: AppBar(
+                  iconTheme: IconThemeData(color: Colors.black),
+                  toolbarHeight: 70,
+                  title: Text(
+                    'Üzletünk',
+                    style: GoogleFonts.cabin(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  // backgroundColor: Colors.green.shade200,
+                ))),
         body: /*_currentPosition != null
           ?*/
             Stack(
           children: [
             GoogleMap(
-                onMapCreated: ((GoogleMapController controller) =>
-                    _mapController.complete(controller)),
+                onMapCreated: ((GoogleMapController controller) {
+                  print('This is the dayTheme: ' + dayTheme);
+                  controller.setMapStyle(
+                      themeChanger.themeMode == ThemeMode.dark
+                          ? nightTheme
+                          : dayTheme);
+                  _mapController.complete(controller);
+                }),
                 initialCameraPosition: CameraPosition(
                   target: TIK_Coordinates,
                   zoom: 18,

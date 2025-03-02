@@ -26,15 +26,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
         drawer: sidebar.NavigationDrawer(),
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          title: LocaleText(
-            'menu_profile',
-            style: GoogleFonts.cabin(
-                fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          // backgroundColor: Colors.indigo.shade300,
-        ),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight + 15),
+            child: Container(
+              color: Colors.red,
+              padding: EdgeInsets.only(top: 15),
+              child: AppBar(
+                iconTheme: IconThemeData(color: Colors.black),
+                title: LocaleText(
+                  'menu_profile',
+                  style: GoogleFonts.cabin(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+                // backgroundColor: Colors.indigo.shade300,
+              ),
+            )),
         body: SingleChildScrollView(
             child: Container(
                 padding: const EdgeInsets.all(20),
