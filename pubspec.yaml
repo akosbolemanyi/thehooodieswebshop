@@ -71,6 +71,7 @@ dependencies:
   mailer: ^6.4.1
   http: ^1.2.0
   flutter_obx: ^0.0.8
+  event: ^2.1.2
 
 
 dev_dependencies:

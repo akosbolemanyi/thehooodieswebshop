@@ -79,7 +79,7 @@ class AddToCart extends StatelessWidget {
                             onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CartPage()),
+                                  builder: (context) => CartPage()),
                             ),
                             child: Text(
                               'Click me',
@@ -128,8 +128,7 @@ class AddToCart extends StatelessWidget {
                         cartModel.addItem(index, selectedSize, quantity);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const CartPage()),
+                          MaterialPageRoute(builder: (context) => CartPage()),
                         );
                       }
                     },

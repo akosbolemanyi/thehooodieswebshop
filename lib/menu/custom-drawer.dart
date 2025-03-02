@@ -11,9 +11,14 @@ import '../profile/profile.dart';
 import '../provider/theme-changer.provider.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
-class NavigationDrawer extends StatelessWidget {
+class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({super.key});
 
+  @override
+  NavigationDrawerState createState() => NavigationDrawerState();
+}
+
+class NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     final themeChanger = Provider.of<ThemeChanger>(context);
@@ -45,7 +50,6 @@ class NavigationDrawer extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser!;
     String? _uid = FirebaseAuth.instance.currentUser?.uid;
     return Container(
-      // color: Colors.red.shade700,
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
         bottom: 30,

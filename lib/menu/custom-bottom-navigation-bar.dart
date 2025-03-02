@@ -2,6 +2,7 @@ import 'package:android_studio_projects/components/favourites.dart';
 import 'package:android_studio_projects/components/products.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'custom-drawer.dart' as MyDrawer;
 import '../components/cart.dart';
 import '../components/main.dart';
 
@@ -16,13 +17,12 @@ class CustomBottomNavigationBar extends StatefulWidget {
   }) : super(key: key) {}
 
   @override
-  _CustomBottomNavigationBarState createState() =>
-      _CustomBottomNavigationBarState();
+  CustomBottomNavigationBarState createState() =>
+      CustomBottomNavigationBarState();
 }
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+class CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   late int currentIndex;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   void initState() {
@@ -57,7 +57,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         children: screens,
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
         height: 50,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         color: Colors.red.shade600,
@@ -70,7 +69,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         ],
         index: currentIndex,
         onTap: (index) => setState(() {
-          // Navigator.pop(context);
           currentIndex = index;
         }),
       ),

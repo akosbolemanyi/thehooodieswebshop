@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../menu/custom-bottom-navigation-bar.dart';
 import '../menu/custom-drawer.dart' as sidebar;
 
 class ProfilePage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
-        drawer: const sidebar.NavigationDrawer(),
+        drawer: sidebar.NavigationDrawer(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           title: LocaleText(

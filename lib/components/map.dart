@@ -133,7 +133,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const sidebar.NavigationDrawer(),
+        drawer: sidebar.NavigationDrawer(),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           toolbarHeight: 70,

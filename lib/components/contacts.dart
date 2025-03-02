@@ -29,7 +29,7 @@ class _ContactPageState extends State<ContactPage> {
     final String _phoneNumber = "+36 70/123-4567";
     final String _landPhoneNumber = "+36 27/123-456";
     return Scaffold(
-      drawer: const sidebar.NavigationDrawer(),
+      drawer: sidebar.NavigationDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: LocaleText(

@@ -59,7 +59,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
     final favouritesProvider = FavouriteProvider.of(context);
 
     return Scaffold(
-      drawer: const sidebar.NavigationDrawer(),
+      drawer: sidebar.NavigationDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Favourites',
@@ -89,7 +89,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                     color: Colors.black,
                     onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CartPage()),
+                      MaterialPageRoute(builder: (context) => CartPage()),
                     ),
                   ),
                 );

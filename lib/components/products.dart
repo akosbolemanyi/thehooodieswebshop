@@ -150,7 +150,7 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const sidebar.NavigationDrawer(),
+      drawer: sidebar.NavigationDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Products',
@@ -184,7 +184,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     color: Colors.black,
                     onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CartPage()),
+                      MaterialPageRoute(builder: (context) => CartPage()),
                     ),
                   ),
                 );

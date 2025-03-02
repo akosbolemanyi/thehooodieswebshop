@@ -33,14 +33,14 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     super.initState();
 
     _pages = [
-      ScreenHiddenDrawer(
+      /*ScreenHiddenDrawer(
         ItemHiddenMenu(
             name: 'Home',
             baseStyle: customTextStyle,
             selectedStyle: TextStyle(),
             colorLineSelected: Colors.red),
         HomePage(),
-      ),
+      ),*/
       ScreenHiddenDrawer(
         ItemHiddenMenu(
           name: 'Products',

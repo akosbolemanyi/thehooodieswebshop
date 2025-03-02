@@ -70,7 +70,7 @@ class _HoodieDetailsPageState extends State<HoodieDetailsPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CartPage()),
+                  MaterialPageRoute(builder: (context) => CartPage()),
                 );
               },
             ),
