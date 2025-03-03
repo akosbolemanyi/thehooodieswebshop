@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -10,22 +11,31 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-
-
   @override
   Widget build(BuildContext context) {
-   String? selectedLanguage = Locales.currentLocale(context)?.languageCode;
+    String? selectedLanguage = Locales.currentLocale(context)?.languageCode;
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: LocaleText(
-          'language_what',
-          style: GoogleFonts.cabin(
-            fontWeight: FontWeight.bold,
-            color: Colors.black
-          ),
-        ),
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          child: Container(
+            color: Colors.red,
+            padding: EdgeInsets.only(top: 15),
+            child: AppBar(
+              leading: IconButton(
+                icon:
+                    Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              iconTheme: IconThemeData(color: Colors.black),
+              title: LocaleText(
+                'language_what',
+                style: GoogleFonts.cabin(
+                    fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+            ),
+          )),
       body: Padding(
         padding: const EdgeInsets.only(top: 18.0),
         child: Column(
@@ -39,7 +49,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 });
                 Locales.change(context, value!);
               },
-              title: const Text("Magyar"),
+              title: Text(
+                "Magyar",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
               activeColor: Colors.red,
             ),
             RadioListTile(
@@ -51,7 +66,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 });
                 Locales.change(context, value!);
               },
-              title: const Text("English"),
+              title: Text(
+                "English",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
               activeColor: Colors.red,
             ),
             RadioListTile(
@@ -63,7 +83,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 });
                 Locales.change(context, value!);
               },
-              title: const Text("Deutsch"),
+              title: Text(
+                "Deutsch",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
               activeColor: Colors.red,
             ),
           ],

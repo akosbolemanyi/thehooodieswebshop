@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:android_studio_projects/profile/update-profile.dart';
 import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:android_studio_projects/profile/shipping-address.dart';
 import 'package:android_studio_projects/user-image/user-image.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../menu/custom-drawer.dart' as sidebar;
+import '../profile/profile-form.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -92,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       onPress: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return ProfileDetailsPage(readonly: true);
+                          return ProfileForm(isReadOnly: true);
                         }),
                       ),
                     ),

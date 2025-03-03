@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:android_studio_projects/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -39,11 +38,9 @@ class _MapPageState extends State<MapPage> {
   // TODO - Shouldn't be part of initstate, only if direction is requested.
   @override
   void initState() {
-    print('This is the INITSTATE!');
     super.initState();
     _loadMapStyles();
     getLocationUpdates().then((_) => {
-          print('This is the current position: ' + _currentPosition.toString()),
           _currentPosition = LatLng(49, 23),
           if (_currentPosition != null)
             {
@@ -54,12 +51,10 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future _loadMapStyles() async {
-    // TODO - Make designs work!
-    print('This is the LOADMAYSTYLES!');
     dayTheme = await DefaultAssetBundle.of(context)
-        .loadString('assets/json/day-mode.json');
+        .loadString('assets/google-maps-json/day-mode.json');
     nightTheme = await DefaultAssetBundle.of(context)
-        .loadString('assets/json/night-mode.json');
+        .loadString('assets/google-maps-json/night-mode.json');
   }
 
   void _launchMaps() {
@@ -148,19 +143,30 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     final themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
+        extendBodyBehindAppBar: true,
         drawer: sidebar.NavigationDrawer(),
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(kToolbarHeight + 15),
             child: Container(
-                color: Colors.red,
+                color: Colors.transparent,
                 padding: EdgeInsets.only(top: 15),
                 child: AppBar(
-                  iconTheme: IconThemeData(color: Colors.black),
+                  /* backgroundColor: themeChanger.themeMode == ThemeMode.light
+                      ? Colors.white12
+                      : Colors.indigo,*/
+                  backgroundColor: Colors.transparent,
+                  iconTheme: IconThemeData(
+                      color: themeChanger.themeMode == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white),
                   toolbarHeight: 70,
                   title: Text(
                     'Üzletünk',
                     style: GoogleFonts.cabin(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                        fontWeight: FontWeight.bold,
+                        color: themeChanger.themeMode == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white),
                   ),
                   // backgroundColor: Colors.green.shade200,
                 ))),

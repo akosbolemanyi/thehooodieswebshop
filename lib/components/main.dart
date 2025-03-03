@@ -115,7 +115,8 @@ class _HomePageState extends State<HomePage> {
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProductsPage(),
+                  builder: (context) => OwnBar.CustomBottomNavigationBar(
+                      page: OwnBar.Page.PRODUCTS),
                 ),
               ),
               child: Align(
