@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
                         //_showImageDialog
@@ -62,44 +62,29 @@ class _ProfilePageState extends State<ProfilePage> {
                         });
                       }),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
+                    Container(
+                      padding: EdgeInsets.only(left: 45.0, right: 45.0),
+                      child: Divider(
+                        thickness: 1.0,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     Text(
-                      'Test Name',
-                      style: GoogleFonts.cabin(
-                          fontSize: 25, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                      "Bolemányi Ákos",
+                      style: GoogleFonts.lobster(
+                          fontSize: 35, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     Text(
+                      textAlign: TextAlign.center,
                       user.email!,
-                      style: GoogleFonts.abel(fontSize: 25),
+                      style: GoogleFonts.cabin(fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return EditProfilePage();
-                          }),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow,
-                          side: BorderSide.none,
-                          shape: const StadiumBorder(),
-                        ),
-                        child: Text('Edit profile',
-                            style: GoogleFonts.akayaKanadaka(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                      ),
-                    ),
-                    const SizedBox(height: 25),
                     const Divider(),
-                    const SizedBox(height: 25),
-
+                    const SizedBox(height: 20),
                     // MENU
                     ProfileMenuWidget(
                       title: 'Profile details',
@@ -107,10 +92,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       onPress: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return ProfileDetailsPage();
+                          return ProfileDetailsPage(readonly: true);
                         }),
                       ),
                     ),
+                    const SizedBox(height: 5.0),
                     ProfileMenuWidget(
                         title: 'Shipping address',
                         icon: Icons.local_shipping,
@@ -121,6 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             return ShippingAddressPage();
                           }));
                         }),
+                    const SizedBox(height: 10),
                     const Divider(),
                     const SizedBox(height: 10),
                     ProfileMenuWidget(
@@ -129,6 +116,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         textColor: Colors.red,
                         endIcon: false,
                         onPress: () {}),
+                    const SizedBox(height: 10),
+                    const Divider(),
+                    const SizedBox(height: 10),
                   ],
                 ))));
   }

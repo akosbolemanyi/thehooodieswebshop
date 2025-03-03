@@ -27,8 +27,8 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
-  String? addressType = "apartment"; // Default type "Lakás"
-  String? notificationType = "email"; // Default notification type
+  String? addressType = "apartment";
+  String? notificationType = "email";
 
   @override
   Widget build(BuildContext context) {
@@ -37,43 +37,41 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 130),
             Text(
               "Shipping address",
               style: GoogleFonts.lobster(
-                fontSize: 40,
+                fontSize: 50,
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             // Common Fields
             _buildCountryField(),
+            const SizedBox(height: 30),
             _buildPostalCodeField(),
+            const SizedBox(height: 30),
             _buildCityField(),
-            _buildStreetAddressField(), // Now below city field
-
-            const SizedBox(height: 20),
-
+            const SizedBox(height: 30),
+            _buildStreetAddressField(),
+            const SizedBox(height: 30),
             // Address Type Selection
             _buildAddressTypeSelector(),
-
+            const SizedBox(height: 30),
             // Fields based on address type
             if (addressType == "apartment") _buildApartmentFields(),
+            const SizedBox(height: 30),
             if (addressType == "house") _buildHouseFields(),
+            const SizedBox(height: 30),
             if (addressType == "company") _buildCompanyFields(),
-
+            const SizedBox(height: 30),
             _buildNotesFields(),
-
-            const SizedBox(height: 20),
-
-            // Notification Method
+            const SizedBox(height: 30),
             _buildNotificationSelector(),
-
+            const SizedBox(height: 30),
             if (notificationType == "email") _buildEmailNotificationField(),
             if (notificationType == "phone") _buildPhoneNotificationField(),
-
             const SizedBox(height: 40),
-
             // Button - Save or Payment depending on the mode
             widget.isPaymentMode
                 ? ElevatedButton(
@@ -350,7 +348,6 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                   value?.isEmpty ?? true ? 'This field is required' : null
               : null,
         ),
-        const SizedBox(height: 20),
       ],
     );
   }

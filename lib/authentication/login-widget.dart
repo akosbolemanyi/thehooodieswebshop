@@ -1,5 +1,5 @@
 import 'package:android_studio_projects/authentication/reset-password.dart';
-import 'package:android_studio_projects/components/main.dart';
+import 'package:android_studio_projects/menu/custom-bottom-navigation-bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/utils.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class LoginWidget extends StatefulWidget {
   final VoidCallback onClickedSignUp;
@@ -236,10 +237,11 @@ class _LoginWidgetState extends State<LoginWidget> {
             }
           });
         } else {
-          // Ha az email verifikálva van, menjen a főoldalra
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => HomePage()),
+            MaterialPageRoute(
+                builder: (_) =>
+                    CustomBottomNavigationBar(page: OwnBar.Page.HOME)),
           );
         }
       }

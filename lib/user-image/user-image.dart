@@ -82,13 +82,13 @@ class _UserImageState extends State<UserImage> {
         InkWell(
           onTap: () => _selectPhoto(),
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(top: 25),
             child: LocaleText(
               imageUrl != null && imageUrl != ''
                   ? 'change_profile_picture'
                   : 'select_profile_picture',
-              style:
-                  TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.red.shade900, fontWeight: FontWeight.bold),
             ),
           ),
         )

@@ -2,6 +2,7 @@ import 'package:android_studio_projects/model/user.model.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -63,7 +64,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Profile")),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          child: Container(
+            color: Colors.red,
+            padding: EdgeInsets.only(top: 15),
+            child: AppBar(
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Text(
+                'Edit profile',
+                style: GoogleFonts.cabin(
+                    fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+              // backgroundColor: Colors.indigo.shade300,
+            ),
+          )),
       body: ProfileFormWidget(
         firstNameController: firstNameController,
         lastNameController: lastNameController,
@@ -82,6 +97,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 }
 
 class ProfileDetailsPage extends StatelessWidget {
+  final bool readonly;
+  ProfileDetailsPage({super.key, required this.readonly});
   final user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -93,14 +110,56 @@ class ProfileDetailsPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData || !snapshot.data!.exists) {
           return Scaffold(
-            appBar: AppBar(title: Text("Profile Details")),
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                child: Container(
+                  color: Colors.red,
+                  padding: EdgeInsets.only(top: 15),
+                  child: AppBar(
+                    leading: IconButton(
+                      icon: Icon(Icons.save_alt_outlined, color: Colors.black),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    iconTheme: IconThemeData(color: Colors.black),
+                    title: Text(
+                      'Profile details',
+                      style: GoogleFonts.cabin(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    // backgroundColor: Colors.indigo.shade300,
+                  ),
+                )),
             body: Center(child: CircularProgressIndicator()),
           );
         }
 
         var userData = snapshot.data!;
         return Scaffold(
-          appBar: AppBar(title: Text("Profile Details")),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight + 15),
+              child: Container(
+                color: Colors.red,
+                padding: EdgeInsets.only(top: 15),
+                child: AppBar(
+                  // TODO - Spread this.
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios_new_rounded,
+                        color: Colors.black),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  iconTheme: IconThemeData(color: Colors.black),
+                  title: Text(
+                    'Profile details',
+                    style: GoogleFonts.cabin(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  // backgroundColor: Colors.indigo.shade300,
+                ),
+              )),
           body: ProfileFormWidget(
             firstNameController:
                 TextEditingController(text: userData['firstName']),
@@ -111,7 +170,7 @@ class ProfileDetailsPage extends StatelessWidget {
             birthDateController:
                 TextEditingController(text: userData['birthday']),
             emailController: TextEditingController(text: userData['email']),
-            isReadOnly: true,
+            isReadOnly: readonly,
           ),
         );
       },

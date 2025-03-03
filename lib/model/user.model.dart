@@ -1,7 +1,10 @@
+import 'package:android_studio_projects/components/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
+
+import '../profile/update-profile.dart';
 
 class ProfileFormWidget extends StatelessWidget {
   final TextEditingController firstNameController;
@@ -26,38 +29,65 @@ class ProfileFormWidget extends StatelessWidget {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: 20),
           Text(
-            isReadOnly ? "Profile Details" : "Edit Profile",
-            style: GoogleFonts.lobster(
-              fontSize: 40,
-              color: Colors.red,
-            ),
+            "Hooodies!",
+            style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           _buildTextField(context, 'firstname', firstNameController),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           _buildTextField(context, 'lastname', lastNameController),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           _buildTextField(context, 'nickname_optional', nicknameController),
-          const SizedBox(height: 20),
-          _buildTextField(context, 'birthday', birthDateController, isDate: true),
-          const SizedBox(height: 20),
-          _buildTextField(context, 'email', emailController),
+          const SizedBox(height: 30),
+          _buildTextField(context, 'birthday', birthDateController,
+              isDate: true),
+          const SizedBox(height: 30),
+          _buildTextField(context, 'email', emailController,
+              isNotModifiable: true),
+          const SizedBox(height: 40),
           if (!isReadOnly) ...[
-            const SizedBox(height: 40),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey.shade300,
-                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Colors.green,
+                minimumSize: const Size(8.0, 50.0),
               ),
-              icon: const Icon(Icons.save, size: 32, color: Colors.black),
-              label: LocaleText(
-                'save_changes',
+              icon: const Icon(Icons.save_alt_outlined,
+                  size: 32, color: Colors.black),
+              label: Text(
+                'Save',
                 style: GoogleFonts.cabin(fontSize: 24, color: Colors.black),
               ),
               onPressed: () {
-                // Itt lesz a mentés funkció
+                /* Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );*/
+              },
+            ),
+          ],
+          if (isReadOnly) ...[
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.shade400,
+                minimumSize: const Size(8.0, 50.0),
+              ),
+              icon: const Icon(Icons.draw_outlined,
+                  size: 32, color: Colors.black),
+              label: Text(
+                'Edit profile',
+                style: GoogleFonts.cabin(fontSize: 24, color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return ProfileDetailsPage(readonly: false);
+                  }),
+                );
               },
             ),
           ],
@@ -66,7 +96,9 @@ class ProfileFormWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(BuildContext context, String labelKey, TextEditingController controller, {bool isDate = false}) {
+  Widget _buildTextField(
+      BuildContext context, String labelKey, TextEditingController controller,
+      {bool isDate = false, bool isNotModifiable = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -78,24 +110,29 @@ class ProfileFormWidget extends StatelessWidget {
           ),
         ),
         TextFormField(
+          textAlign: isReadOnly || isNotModifiable
+              ? TextAlign.center
+              : TextAlign.start,
           controller: controller,
-          readOnly: isReadOnly || isDate,
+          textInputAction: TextInputAction.next,
+          readOnly: isReadOnly || isDate || isNotModifiable,
           decoration: InputDecoration(
             suffixIcon: isDate && !isReadOnly
                 ? IconButton(
-              icon: const Icon(Icons.calendar_today),
-              onPressed: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime(2000),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                );
-                if (pickedDate != null) {
-                  controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-                }
-              },
-            )
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime(2000),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null) {
+                        controller.text =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                      }
+                    },
+                  )
                 : null,
           ),
         ),
