@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           final themeChanger = Provider.of<ThemeChanger>(context);
           return LocaleBuilder(
             builder: (locale) => ChangeNotifierProvider(
-              create: (context) => CartModel(),
+              create: (context) => CartModel()..fetchShopItems(),
               child: MaterialApp(
                 title: 'Hooodies!',
                 localizationsDelegates: Locales.delegates,

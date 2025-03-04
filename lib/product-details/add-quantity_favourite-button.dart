@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../model/product.model.dart';
 import '../provider/favourites.provider.dart';
 import 'cart-quantity-counter.dart';
@@ -31,6 +32,13 @@ class _CounterWithFavBtnState extends State<CounterWithFavBtn> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CartCounter(onQuantityChanged: updateQuantity),
+        Text(
+          'Darrow',
+          style: GoogleFonts.lobster(
+            fontSize: 25,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
         GestureDetector(
           onTap: () {
             favouritesProvider.toggleFavourite(

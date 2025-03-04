@@ -1,4 +1,3 @@
-import 'package:android_studio_projects/components/products.dart';
 import 'package:android_studio_projects/provider/theme.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -6,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../abstract-classes/page-contact.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
+import '../menu/custom-drawer.dart' as MyDrawer;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer.NavigationDrawer(),
       appBar: widget.buildAppBar(context),
       body: buildBody(context),
     );

@@ -159,7 +159,7 @@ class SizeOption extends StatelessWidget {
           size,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isSelected ? kTextColor : Colors.black,
+            color: isSelected ? kTextColor : Colors.grey,
           ),
         ),
       ),

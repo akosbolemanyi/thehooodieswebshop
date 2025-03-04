@@ -1,10 +1,12 @@
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:android_studio_projects/service/payment.service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:email_validator/email_validator.dart';
-
-import '../service/order-email.service.dart';
+import 'package:provider/provider.dart';
+import '../utils/utils.dart';
 
 class ShippingAddressPage extends StatefulWidget {
   final bool isPaymentMode;
@@ -16,314 +18,287 @@ class ShippingAddressPage extends StatefulWidget {
 }
 
 class _ShippingAddressPageState extends State<ShippingAddressPage> {
-  final TextEditingController postalCodeController = TextEditingController();
+  final addressFormKey = GlobalKey<FormState>();
+  final TextEditingController zipController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-  final TextEditingController streetAddressController = TextEditingController();
-  final TextEditingController floorController = TextEditingController();
-  final TextEditingController doorNumberController = TextEditingController();
-  final TextEditingController doorBellController = TextEditingController();
-  final TextEditingController entranceController = TextEditingController();
-  final TextEditingController companyController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController notesController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   String? addressType = "apartment";
   String? notificationType = "email";
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const SizedBox(height: 130),
-            Text(
-              "Shipping address",
-              style: GoogleFonts.lobster(
-                fontSize: 50,
-                color: Colors.red,
-              ),
-            ),
-            const SizedBox(height: 40),
-            // Common Fields
-            _buildCountryField(),
-            const SizedBox(height: 30),
-            _buildPostalCodeField(),
-            const SizedBox(height: 30),
-            _buildCityField(),
-            const SizedBox(height: 30),
-            _buildStreetAddressField(),
-            const SizedBox(height: 30),
-            // Address Type Selection
-            _buildAddressTypeSelector(),
-            const SizedBox(height: 30),
-            // Fields based on address type
-            if (addressType == "apartment") _buildApartmentFields(),
-            const SizedBox(height: 30),
-            if (addressType == "house") _buildHouseFields(),
-            const SizedBox(height: 30),
-            if (addressType == "company") _buildCompanyFields(),
-            const SizedBox(height: 30),
-            _buildNotesFields(),
-            const SizedBox(height: 30),
-            _buildNotificationSelector(),
-            const SizedBox(height: 30),
-            if (notificationType == "email") _buildEmailNotificationField(),
-            if (notificationType == "phone") _buildPhoneNotificationField(),
-            const SizedBox(height: 40),
-            // Button - Save or Payment depending on the mode
-            widget.isPaymentMode
-                ? ElevatedButton(
-                    onPressed: () {
-                      if (_validateFields()) {
-                        StripeService.instance.makePayment();
-                      } else {
-                        // SnackBar üzenet hiányzó mezőkről
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                "Kérlek, töltsd ki az összes kötelező mezőt!"),
-                          ),
-                        );
-                        sendEmail();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.green,
-                    ),
-                    child: LocaleText(
-                      'pay',
-                      style: GoogleFonts.cabin(fontSize: 18),
-                    ),
-                  )
-                : ElevatedButton(
-                    onPressed: () {
-                      // Save logic
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.grey.shade300,
-                    ),
-                    child: LocaleText(
-                      'save',
-                      style: GoogleFonts.cabin(fontSize: 18),
-                    ),
-                  ),
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    loadUserAddress();
   }
 
-  bool _validateFields() {
-    if (postalCodeController.text.isEmpty ||
-        cityController.text.isEmpty ||
-        streetAddressController.text.isEmpty) {
-      return false;
+  Future<void> loadUserAddress() async {
+    if (user != null) {
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .get();
+      DocumentSnapshot userAddressData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .get();
+      // TODO - There is collection inside this, named 'address'. This 'address' collection has the fields below in database! - Part 1/2
+      if (userAddressData.exists) {
+        setState(() {
+          zipController.text = userAddressData['zip'] ?? '';
+          cityController.text = userAddressData['city'] ?? '';
+          addressController.text = userAddressData['address'] ?? '';
+          notesController.text = userAddressData['notes'] ?? '';
+          phoneController.text = userData['phone'] ?? '';
+        });
+      }
     }
-    switch (addressType) {
-      case 'apartment':
-        if (floorController.text.isEmpty ||
-            doorNumberController.text.isEmpty ||
-            entranceController.text.isEmpty) {
-          return false;
-        }
-        break;
-      case 'house':
-        if (doorBellController.text.isEmpty) {
-          return false;
-        }
-        break;
-      case 'company':
-        if (companyController.text.isEmpty) {
-          return false;
-        }
+  }
+
+  Future<void> updateUserAddress() async {
+    if (user == null) return;
+    try {
+      // TODO - There is collection inside this, named 'address'. This 'address' collection has the fields below in database! - Part 2/2
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .update({
+        'zip': zipController.text.trim(),
+        'city': cityController.text.trim(),
+        'address': addressController.text.trim(),
+        'notes': notesController.text.trim(),
+      });
+      if (phoneController.text.trim() != '') {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .update({
+          'phone': phoneController.text.trim(),
+        });
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Profile updated successfully!')));
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update profile: $error')));
     }
-    switch (notificationType) {
-      case 'email':
-        if (!EmailValidator.validate(emailController.text)) {
-          return false;
-        }
-        break;
-      case 'phone':
-        if (phoneController.text.isEmpty) {
-          return false;
-        }
-    }
-    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final themeMode = Provider.of<ThemeChanger>(context);
+    return FutureBuilder<DocumentSnapshot>(
+        future: user != null
+            ? FirebaseFirestore.instance
+                .collection('users')
+                .doc(user!.uid)
+                .get()
+            : null,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Scaffold(
+                appBar: PreferredSize(
+                    preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                    child: Container(
+                      color: Colors.red,
+                      padding: EdgeInsets.only(top: 15),
+                      child: AppBar(
+                        leading: IconButton(
+                          icon: Icon(Icons.arrow_back_ios_new_rounded,
+                              color: Colors.black),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        iconTheme: IconThemeData(color: Colors.black),
+                        title: Text(
+                          'Shipping details',
+                          style: GoogleFonts.cabin(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                        // backgroundColor: Colors.indigo.shade300,
+                      ),
+                    )),
+                body: Center(child: CircularProgressIndicator()));
+          }
+          return Scaffold(
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                child: Container(
+                  color: Colors.red,
+                  padding: EdgeInsets.only(top: 15),
+                  child: AppBar(
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios_new_rounded,
+                          color: Colors.black),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    iconTheme: IconThemeData(color: Colors.black),
+                    title: Text(
+                      'Shipping details',
+                      style: GoogleFonts.cabin(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    // backgroundColor: Colors.indigo.shade300,
+                  ),
+                )),
+            body: Form(
+              key: addressFormKey,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      "Hooodies!",
+                      style:
+                          GoogleFonts.lobster(fontSize: 50, color: Colors.red),
+                    ),
+                    const SizedBox(height: 20),
+                    _buildCountryField(nation!, themeMode),
+                    const SizedBox(height: 30),
+                    _buildZipField(nation, themeMode),
+                    const SizedBox(height: 30),
+                    _buildCityField(nation, themeMode),
+                    const SizedBox(height: 30),
+                    _buildAddressField(nation, themeMode),
+                    const SizedBox(height: 30),
+                    _buildNotesFields(nation, themeMode),
+                    const SizedBox(height: 30),
+                    _buildPhoneNotificationField(nation, themeMode),
+                    const SizedBox(height: 40),
+                    widget.isPaymentMode
+                        ? ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              minimumSize: const Size(8.0, 50.0),
+                            ),
+                            icon: const Icon(Icons.payment_rounded,
+                                size: 32, color: Colors.black),
+                            label: Text(
+                              'Pay via Credit Card',
+                              style: GoogleFonts.cabin(
+                                  fontSize: 24, color: Colors.black),
+                            ),
+                            onPressed: () {
+                              print('Ez a formKey: ' +
+                                  addressFormKey.currentState.toString());
+                              final isValid =
+                                  addressFormKey.currentState!.validate();
+                              if (!isValid) {
+                                Utils.showSnackBar(
+                                    'Please, fill the required fields!');
+                                return;
+                              }
+                              ;
+                              StripeService.instance.makePayment();
+                            },
+                          )
+                        : ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              minimumSize: const Size(8.0, 50.0),
+                            ),
+                            icon: const Icon(Icons.save_alt_outlined,
+                                size: 32, color: Colors.black),
+                            label: Text(
+                              'Save',
+                              style: GoogleFonts.cabin(
+                                  fontSize: 24, color: Colors.black),
+                            ),
+                            onPressed: () {
+                              updateUserAddress();
+                            },
+                          ),
+                    const SizedBox(height: 40)
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   // Common Fields
-  Widget _buildCountryField() {
+  Widget _buildCountryField(String languageCode, ThemeChanger themeMode) {
     return _buildTextField(
       label: 'country',
       controller: TextEditingController(text: "Magyarország"),
+      languageCode: languageCode,
+      themeMode: themeMode,
       isReadOnly: true,
     );
   }
 
-  Widget _buildPostalCodeField() {
+  Widget _buildZipField(String languageCode, ThemeChanger themeMode) {
     return _buildTextField(
       label: 'postal_code',
-      controller: postalCodeController,
+      controller: zipController,
+      languageCode: languageCode,
+      themeMode: themeMode,
       isRequired: widget.isPaymentMode,
     );
   }
 
-  Widget _buildCityField() {
+  Widget _buildCityField(String languageCode, ThemeChanger themeMode) {
     return _buildTextField(
       label: 'city',
       controller: cityController,
+      languageCode: languageCode,
+      themeMode: themeMode,
       isRequired: widget.isPaymentMode,
     );
   }
 
-  // Street Address below city field
-  Widget _buildStreetAddressField() {
+  Widget _buildAddressField(String languageCode, ThemeChanger themeMode) {
     return _buildTextField(
       label: 'street_address',
-      controller: streetAddressController,
+      controller: addressController,
+      languageCode: languageCode,
+      themeMode: themeMode,
       isRequired: widget.isPaymentMode,
     );
   }
 
-  // Address Type Selector (Radio buttons)
-  Widget _buildAddressTypeSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'address_type',
-          style: GoogleFonts.cabin(fontWeight: FontWeight.bold),
-        ),
-        Row(
-          children: [
-            _buildRadioButton('apartment', 'Lakás'),
-            _buildRadioButton('house', 'Ház'),
-            _buildRadioButton('company', 'Cég'),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRadioButton(String value, String label) {
-    return Row(
-      children: [
-        Radio<String>(
-          value: value,
-          groupValue: addressType,
-          onChanged: (String? newValue) {
-            setState(() {
-              addressType = newValue;
-            });
-          },
-        ),
-        Text(label),
-      ],
-    );
-  }
-
-  // Fields based on address type
-  Widget _buildApartmentFields() {
-    return Column(
-      children: [
-        _buildTextField(label: 'floor', controller: floorController),
-        _buildTextField(label: 'door_number', controller: doorNumberController),
-        _buildTextField(label: 'entrance', controller: entranceController),
-      ],
-    );
-  }
-
-  Widget _buildHouseFields() {
-    return Column(
-      children: [
-        _buildTextField(label: 'door_bell', controller: doorBellController),
-      ],
-    );
-  }
-
-  Widget _buildCompanyFields() {
-    return Column(
-      children: [
-        _buildTextField(label: 'company_name', controller: companyController),
-      ],
-    );
-  }
-
-  Widget _buildNotesFields() {
+  Widget _buildNotesFields(String languageCode, ThemeChanger themeMode) {
     return Column(
       children: [
         _buildTextField(
-            label: 'additional_notes', controller: entranceController),
-      ],
-    );
-  }
-
-  // Notification Method Selection
-  Widget _buildNotificationSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'notification_method',
-          style: GoogleFonts.cabin(fontWeight: FontWeight.bold),
-        ),
-        Row(
-          children: [
-            _buildRadioButtonNotification('email', 'Email'),
-            _buildRadioButtonNotification('phone', 'Telefon'),
-          ],
+          label: 'Additional notes (optional)',
+          controller: notesController,
+          languageCode: languageCode,
+          themeMode: themeMode,
         ),
       ],
     );
   }
 
-  Widget _buildRadioButtonNotification(String value, String label) {
-    return Row(
-      children: [
-        Radio<String>(
-          value: value,
-          groupValue: notificationType,
-          onChanged: (String? newValue) {
-            setState(() {
-              notificationType = newValue;
-            });
-          },
-        ),
-        Text(label),
-      ],
-    );
-  }
-
-  // Email Notification Field
-  Widget _buildEmailNotificationField() {
+  Widget _buildPhoneNotificationField(
+      String languageCode, ThemeChanger themeMode) {
     return _buildTextField(
-      label: 'email',
-      controller: emailController,
-      keyboardType: TextInputType.emailAddress,
-      isRequired: widget.isPaymentMode,
-    );
-  }
-
-  Widget _buildPhoneNotificationField() {
-    return _buildTextField(
-      label: 'phone',
+      label: 'Phone number for notification (optional)',
       controller: phoneController,
-      keyboardType: TextInputType.phone, // Numerikus billentyűzet beállítása
-      isRequired: widget.isPaymentMode,
+      languageCode: languageCode,
+      themeMode: themeMode,
+      keyboardType: TextInputType.phone,
     );
   }
 
   Widget _buildTextField({
     required String label,
     required TextEditingController controller,
+    required String languageCode,
+    required ThemeChanger themeMode,
     bool isReadOnly = false,
     bool isRequired = false,
-    TextInputType keyboardType =
-        TextInputType.text, // Alapértelmezett érték text
+    TextInputType keyboardType = TextInputType.text,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -336,16 +311,33 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
           ),
         ),
         TextFormField(
+          style: TextStyle(
+              color: isReadOnly
+                  ? (themeMode == ThemeMode.light
+                      ? Colors.black54
+                      : Colors.white54)
+                  : (themeMode == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white)),
           controller: controller,
           cursorColor: Colors.black,
           textAlign: TextAlign.center,
-          textInputAction: TextInputAction.next,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           readOnly: isReadOnly,
           keyboardType: keyboardType,
+          textInputAction: TextInputAction.done,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: isRequired
-              ? (value) =>
-                  value?.isEmpty ?? true ? 'This field is required' : null
+              ? (value) => (value != null &&
+                      languageCode == 'hu' &&
+                      value.length == 0)
+                  ? "A mező nem lehet üres."
+                  : (value != null && languageCode == 'en' && value.length == 0)
+                      ? "Field cannot be empty."
+                      : (value != null &&
+                              languageCode == 'de' &&
+                              value.length == 0)
+                          ? "Das Feld darf nicht leer sein."
+                          : null
               : null,
         ),
       ],

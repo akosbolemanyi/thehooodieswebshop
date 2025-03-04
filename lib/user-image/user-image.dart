@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:android_studio_projects/provider/theme.provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:firebase_storage/firebase_storage.dart' as storage;
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/theme-changer.provider.dart';
 import 'image-rounder.dart';
 
 class UserImage extends StatefulWidget {
@@ -53,7 +56,7 @@ class _UserImageState extends State<UserImage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TODO: Check if database is used or the FireBase module.
     super.initState();
     //_getDataFromDatabase();
     getData();
@@ -61,7 +64,8 @@ class _UserImageState extends State<UserImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    return Stack(
       children: [
         if (imageUrl == '' || imageUrl == null)
           CircleAvatar(
@@ -79,19 +83,28 @@ class _UserImageState extends State<UserImage> {
               height: 150,
             ),
           ),
-        InkWell(
-          onTap: () => _selectPhoto(),
-          child: Padding(
-            padding: EdgeInsets.only(top: 25),
-            child: LocaleText(
-              imageUrl != null && imageUrl != ''
-                  ? 'change_profile_picture'
-                  : 'select_profile_picture',
-              style: TextStyle(
-                  color: Colors.red.shade900, fontWeight: FontWeight.bold),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: themeChanger.themeMode == ThemeMode.dark
+                  ? Colors.yellow
+                  : Colors.blue,
+            ),
+            child: Center(
+              child: IconButton(
+                onPressed: () => _selectPhoto(),
+                icon: Icon(Icons.change_circle_outlined,
+                    color: Colors.black, size: 30),
+                padding: EdgeInsets.zero,
+              ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

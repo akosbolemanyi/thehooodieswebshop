@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../components/profile.dart';
+import '../provider/theme-changer.provider.dart';
 
 class ProfileForm extends StatefulWidget {
   final bool isReadOnly;
@@ -70,6 +72,7 @@ class _ProfileFormState extends State<ProfileForm> {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = Provider.of<ThemeChanger>(context);
     return FutureBuilder<DocumentSnapshot>(
       future: user != null
           ? FirebaseFirestore.instance.collection('users').doc(user!.uid).get()
@@ -130,23 +133,26 @@ class _ProfileFormState extends State<ProfileForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Text(
                     "Hooodies!",
                     style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
                   ),
-                  const SizedBox(height: 30),
-                  _buildTextField(context, 'firstname', firstNameController),
-                  const SizedBox(height: 30),
-                  _buildTextField(context, 'lastname', lastNameController),
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                      context, 'firstname', firstNameController, themeMode),
                   const SizedBox(height: 30),
                   _buildTextField(
-                      context, 'nickname_optional', nicknameController),
+                      context, 'lastname', lastNameController, themeMode),
                   const SizedBox(height: 30),
-                  _buildTextField(context, 'birthday', birthDateController,
+                  _buildTextField(context, 'nickname_optional',
+                      nicknameController, themeMode),
+                  const SizedBox(height: 30),
+                  _buildTextField(
+                      context, 'birthday', birthDateController, themeMode,
                       isDate: true),
                   const SizedBox(height: 30),
-                  _buildTextField(context, 'email', emailController,
+                  _buildTextField(context, 'email', emailController, themeMode,
                       isNotModifiable: true),
                   const SizedBox(height: 40),
                   if (!widget.isReadOnly) ...[
@@ -202,8 +208,8 @@ class _ProfileFormState extends State<ProfileForm> {
     );
   }
 
-  Widget _buildTextField(
-      BuildContext context, String labelKey, TextEditingController controller,
+  Widget _buildTextField(BuildContext context, String labelKey,
+      TextEditingController controller, ThemeChanger themeMode,
       {bool isDate = false, bool isNotModifiable = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -216,6 +222,14 @@ class _ProfileFormState extends State<ProfileForm> {
           ),
         ),
         TextFormField(
+          style: TextStyle(
+              color: isNotModifiable
+                  ? (themeMode == ThemeMode.light
+                      ? Colors.black54
+                      : Colors.white54)
+                  : (themeMode == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white)),
           textAlign: widget.isReadOnly || isNotModifiable
               ? TextAlign.center
               : TextAlign.start,

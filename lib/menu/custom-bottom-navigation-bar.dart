@@ -2,7 +2,6 @@ import 'package:android_studio_projects/components/favourites.dart';
 import 'package:android_studio_projects/components/products.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'custom-drawer.dart' as MyDrawer;
 import '../components/cart.dart';
 import '../components/main.dart';
 
@@ -43,22 +42,19 @@ class CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   final screens = [
-    HomePage(),
-    ProductsPage(),
-    FavouritesPage(),
-    CartPage(),
+    new HomePage(),
+    new ProductsPage(),
+    new FavouritesPage(),
+    new CartPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (screens[currentIndex] as dynamic).buildAppBar(context),
-      drawer: MyDrawer.NavigationDrawer(),
-      body: (screens[currentIndex] as dynamic).buildBody(context),
-      /*body: IndexedStack(
+      body: IndexedStack(
         index: currentIndex,
         children: screens,
-      ),*/
+      ),
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

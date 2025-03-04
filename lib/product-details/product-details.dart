@@ -1,3 +1,4 @@
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart' as badges;
@@ -43,16 +44,23 @@ class _HoodieDetailsPageState extends State<HoodieDetailsPage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final cartModel = Provider.of<CartModel>(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
-      backgroundColor: widget.hoodie.color,
+      backgroundColor: themeChanger.themeMode == ThemeMode.dark
+          ? Colors.grey.shade800
+          : Colors.grey.shade400,
       appBar: AppBar(
-        backgroundColor: widget.hoodie.color,
-        elevation: 0,
         leading: IconButton(
-          icon: SvgPicture.asset('assets/icons/back.svg', color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
+        backgroundColor: themeChanger.themeMode == ThemeMode.dark
+            ? Colors.grey.shade800
+            : Colors.grey.shade400,
+        elevation: 0,
         actions: <Widget>[
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: -5, end: -6),
@@ -92,8 +100,8 @@ class _HoodieDetailsPageState extends State<HoodieDetailsPage> {
                       left: kDefaultPaddin,
                       right: kDefaultPaddin,
                     ),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),

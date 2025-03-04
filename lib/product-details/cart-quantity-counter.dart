@@ -39,7 +39,10 @@ class _CartCounterState extends State<CartCounter> {
                 updateQuantity(numOfItems - 1);
               }
             },
-            child: const Icon(Icons.remove),
+            child: const Icon(
+              Icons.remove,
+              color: Colors.red,
+            ),
           ),
         ),
         Padding(
@@ -62,7 +65,7 @@ class _CartCounterState extends State<CartCounter> {
             onPressed: () {
               updateQuantity(numOfItems + 1);
             },
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.add, color: Colors.green),
           ),
         ),
       ],

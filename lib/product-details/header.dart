@@ -1,4 +1,7 @@
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../model/product.model.dart';
 
@@ -8,37 +11,40 @@ class ProductTitleWithImage extends StatelessWidget {
   final HoodieItemTile hoodie;
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            "Aristocratic Hand Bag",
-            style: TextStyle(color: Colors.white),
-          ),
           Text(
-            hoodie.itemName,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            'Darrow', // hoodie.itemName,
+            style: GoogleFonts.lobster(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: kDefaultPaddin),
           Row(
             children: <Widget>[
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(text: "Price\n"),
                     TextSpan(
-                      text: "\$${hoodie.itemPrice}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
+                        text: "Price\n",
+                        style: GoogleFonts.cabin(
+                          fontSize: 17.5,
+                          color: themeChanger.themeMode == ThemeMode.dark
+                              ? Colors.white
+                              : Colors.black,
+                        )),
+                    TextSpan(
+                        text: "\$${hoodie.itemPrice}",
+                        style: GoogleFonts.cabin(
+                            fontSize: 25,
+                            color: themeChanger.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),

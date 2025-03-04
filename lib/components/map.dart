@@ -35,7 +35,7 @@ class _MapPageState extends State<MapPage> {
 
   Map<PolylineId, Polyline> polylines = {};
 
-  // TODO - Shouldn't be part of initstate, only if direction is requested.
+  // TODO - Shouldn't be part of initState, only if direction is requested.
   @override
   void initState() {
     super.initState();
@@ -194,7 +194,7 @@ class _MapPageState extends State<MapPage> {
                       position: TIK_Coordinates),
                   /*Marker(
                     markerId: MarkerId('_currentPosition'),
-                    // TODO - Custom marker.
+                    // TODO - Add a custom marker here!
                     icon: BitmapDescriptor.defaultMarker,
                     position: _currentPosition!,
                   )*/
@@ -229,7 +229,7 @@ class _MapPageState extends State<MapPage> {
             ),
           ],
         )
-        // TODO - This is the normal widget.
+        // TODO - This is the normal widget. DO NOT DELETE! Add a Google billing account!
         /*: Stack(
               children: [
                 GoogleMap(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import '../menu/custom-drawer.dart' as MyDrawer;
 import 'cart.dart';
 
 class ProductsPage extends StatefulWidget implements PageContent {
@@ -62,7 +63,7 @@ class _ProductsPageState extends State<ProductsPage> {
     });
   }
 
-  // Nyitja a szűrő ablakot
+  // TODO - Redesign it to work with dark mode as well.
   void openFilterSheet() {
     showModalBottomSheet(
       context: context,
@@ -159,6 +160,7 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer.NavigationDrawer(),
       appBar: buildAppBar(context),
       body: buildBody(context),
     );
@@ -220,7 +222,6 @@ class _ProductsPageState extends State<ProductsPage> {
         if (cartModel.shopItems.isEmpty) {
           return Center(child: CircularProgressIndicator());
         }
-
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

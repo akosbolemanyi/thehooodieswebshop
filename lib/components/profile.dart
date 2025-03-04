@@ -103,7 +103,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPress: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            // TODO - A fizetés utáni oldal mezői nem kötelezőek. Nézd meg miért, avagy hogyan kell ezt megvalósítani!
                             return ShippingAddressPage();
                           }));
                         }),
@@ -147,7 +146,7 @@ class ProfileMenuWidget extends StatelessWidget {
         ? textColor
         : themeChanger.themeMode == ThemeMode.dark
             ? Colors.yellow
-            : Colors.blue;
+            : Colors.blue.shade700;
     return ListTile(
       onTap: onPress,
       leading: Container(
@@ -155,11 +154,18 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Colors.blue.withOpacity(0.1),
+          color: Colors.grey.withOpacity(0.1),
         ),
         child: Icon(icon, color: iconColor),
       ),
-      title: Text(title),
+      title: Text(title,
+          style: GoogleFonts.cabin(
+              fontWeight: FontWeight.w400,
+              fontSize: 17,
+              color: textColor ??
+                  (themeChanger.themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black))),
       trailing: endIcon
           ? Container(
               width: 30,
@@ -168,7 +174,7 @@ class ProfileMenuWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 color: Colors.grey.withOpacity(0.1),
               ),
-              child: const Icon(Icons.arrow_circle_right,
+              child: const Icon(Icons.arrow_forward_ios_outlined,
                   size: 18.0, color: Colors.grey),
             )
           : null,

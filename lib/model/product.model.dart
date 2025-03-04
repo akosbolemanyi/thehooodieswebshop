@@ -58,10 +58,12 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                // TODO - Research cached network images!
                 Image.network(
                   widget.imagePath,
                   height: widget.imageHeight,
                 ),
+                // TODO - Redesign the price display. Think about what else to display, if needed.
                 MaterialButton(
                   onPressed: widget.onPressed,
                   color: Colors.grey[800],

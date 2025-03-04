@@ -4,6 +4,7 @@ import 'package:android_studio_projects/provider/cart.provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import '../menu/custom-drawer.dart' as MyDrawer;
 import '../model/product.model.dart';
 import '../product-details/product-details.dart';
 import '../provider/favourites.provider.dart';
@@ -66,6 +67,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer.NavigationDrawer(),
       appBar: buildAppBar(context),
       body: buildBody(context),
     );
