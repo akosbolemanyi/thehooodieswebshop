@@ -44,9 +44,7 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
       child: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,30 +62,33 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
                   height: widget.imageHeight,
                 ),
                 // TODO - Redesign the price display. Think about what else to display, if needed.
-                MaterialButton(
-                  onPressed: widget.onPressed,
-                  color: Colors.grey[800],
-                  child: Text(
-                    nation == 'hu'
-                        ? '${widget.itemPrice} Ft'
-                        : nation == 'en'
-                            ? '\$${widget.itemPrice}'
-                            : '\€ ${widget.itemPrice}',
-                    style: GoogleFonts.cabin(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: widget.buttonFontSize,
-                    ),
+                Text(
+                  nation == 'hu'
+                      ? '${widget.itemPrice} Ft'
+                      : nation == 'en'
+                          ? '\$${widget.itemPrice}'
+                          : '\€ ${widget.itemPrice}',
+                  style: GoogleFonts.cabin(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: widget.buttonFontSize,
                   ),
                 ),
-                const Divider(),
+                widget.crossAxisCount == 1
+                    ? Container(
+                        padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                        child: Divider(
+                          thickness: 2.0,
+                        ),
+                      )
+                    : Container(),
               ],
             ),
           ),
           // Kedvenc ikon, amely dinamikusan változik
           Positioned(
             top: 10, // Fix pozíció a jobb felső sarokban
-            right: 10,
+            right: widget.crossAxisCount == 2 ? 10 : 30,
             child: GestureDetector(
               onTap: () {
                 favouritesProvider.toggleFavourite(
@@ -100,7 +101,7 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
                 color: favouritesProvider.isExist(widget)
                     ? Colors.red
                     : Colors.black,
-                size: 28,
+                size: widget.crossAxisCount == 2 ? 30 : 40,
               ),
             ),
           ),

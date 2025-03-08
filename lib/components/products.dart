@@ -2,6 +2,7 @@ import 'package:android_studio_projects/abstract-classes/page-contact.dart';
 import 'package:android_studio_projects/model/product.model.dart';
 import 'package:android_studio_projects/product-details/product-details.dart';
 import 'package:android_studio_projects/provider/cart.provider.dart';
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +69,6 @@ class _ProductsPageState extends State<ProductsPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
@@ -76,16 +76,18 @@ class _ProductsPageState extends State<ProductsPage> {
         ),
       ),
       builder: (context) {
+        final themeChanger = Provider.of<ThemeChanger>(context);
+        // TODO - Request the highest and lowest price from database!
+        // TODO - Make the coloring!
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Szűrés és Rendezés",
+              Text("Szűrés",
                   style: GoogleFonts.cabin(
                       fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Színválasztás"),
                 value: selectedColor,
@@ -97,6 +99,10 @@ class _ProductsPageState extends State<ProductsPage> {
                 }).toList(),
               ),
               SizedBox(height: 16),
+              // TODO - Is buggy. Does not work, cannot modify slide.
+              Text("Rendezés",
+                  style: GoogleFonts.cabin(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Rendezés"),
                 value: selectedSort,
@@ -104,6 +110,12 @@ class _ProductsPageState extends State<ProductsPage> {
                   setState(() => selectedSort = value);
                 },
                 items: [
+                  // TODO - Implement logic!
+                  DropdownMenuItem(child: Text('Legnépszerűbb')),
+                  DropdownMenuItem(
+                      value: "asc", child: Text("Ár szerint növekvő")),
+                  DropdownMenuItem(
+                      value: "desc", child: Text("Ár szerint csökkenő")),
                   DropdownMenuItem(value: "asc", child: Text("ABC növekvő")),
                   DropdownMenuItem(value: "desc", child: Text("ABC csökkenő")),
                 ],
@@ -113,15 +125,21 @@ class _ProductsPageState extends State<ProductsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade300),
                     onPressed: () => Navigator.pop(context),
-                    child: Text("Mégse"),
+                    child: Text("Mégse",
+                        style: GoogleFonts.cabin(color: Colors.black)),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade300),
                     onPressed: () {
                       Navigator.pop(context);
                       // Szűrés és rendezés logika ide jön
                     },
-                    child: Text("Alkalmaz"),
+                    child: Text("Alkalmaz",
+                        style: GoogleFonts.cabin(color: Colors.black)),
                   ),
                 ],
               )
@@ -235,7 +253,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         filled: true,
                         fillColor: Colors.grey.withOpacity(0.4),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(50.0),
                             borderSide: BorderSide.none),
                         hintText: "Keresés...",
                         prefixIcon: Icon(Icons.search),
@@ -269,7 +287,7 @@ class _ProductsPageState extends State<ProductsPage> {
                           index), // Navigálás a részletes oldalra
                       onPressed: () {},
                       imageHeight: _crossAxisCount == 2 ? 120 : 310,
-                      textSize: _crossAxisCount == 2 ? 20 : 25,
+                      textSize: _crossAxisCount == 2 ? 25 : 35,
                       buttonFontSize: _crossAxisCount == 2 ? 20 : 30,
                       crossAxisCount: _crossAxisCount,
                     );

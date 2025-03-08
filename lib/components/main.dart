@@ -1,3 +1,4 @@
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:android_studio_projects/provider/theme.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -77,10 +78,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBody(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      child: ListView(
-        children: [
+        duration: const Duration(milliseconds: 200),
+        child: ListView(children: [
           Padding(
             padding: const EdgeInsets.all(0.0),
             child: Image.asset('assets/img/main.png'),
@@ -141,8 +142,170 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ],
-      ),
-    );
+          Padding(
+            padding: const EdgeInsets.only(top: 10, bottom: 30),
+            child: Icon(size: 50, Icons.expand_more_sharp),
+          ),
+          Column(
+            children: [
+              Text('About us',
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.lobster(
+                      fontWeight: FontWeight.bold, fontSize: 35)),
+              Container(
+                padding: EdgeInsets.only(left: 100.0, right: 100.0),
+                child: Divider(
+                  color: themeChanger.themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black,
+                  thickness: 1.0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 30.0, left: 12.5, right: 12.5, bottom: 20),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: themeChanger.themeMode == ThemeMode.dark
+                          ? Colors.grey.shade500
+                          : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 15,
+                      right: 10,
+                      left: 10,
+                    ),
+                    child: Column(children: [
+                      Text('Our purpose',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.lobster(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 35)),
+                      Text(
+                        'Our dream is not only to give style but comfort for those who seek the power of the '
+                        'hoodies. Our concept relies on one simple rule: quality over quantity. '
+                        'You have seen all the colors, felt all the kinds of materials. What we give you is simple. '
+                        'The simplest yet most desired design: our hooodies.',
+                        style: GoogleFonts.cabin(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 12.5, right: 12.5, bottom: 20),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: themeChanger.themeMode == ThemeMode.dark
+                          ? Colors.grey.shade500
+                          : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 15,
+                      right: 10,
+                      left: 10,
+                    ),
+                    child: Column(children: [
+                      Text('How it started',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.lobster(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 35)),
+                      Text(
+                        'We have always wanted to give quality products to people, to make a trend, to give style. '
+                        'We started out as a little group - a handful of friends - who wanted to make a difference. '
+                        'We collected the best clothing materials we have always wanted, and started to make our dreams come true. '
+                        'It was a love project. '
+                        'With this passion, we decided to give this, and other ideas to the world, to YOU!',
+                        style: GoogleFonts.cabin(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 12.5, right: 12.5, bottom: 20),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: themeChanger.themeMode == ThemeMode.dark
+                          ? Colors.grey.shade500
+                          : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 15,
+                      right: 10,
+                      left: 10,
+                    ),
+                    child: Column(children: [
+                      Text('Our materials',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.lobster(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 35)),
+                      Text(
+                        'The quality is the single most significant component of the perfect hoodie. '
+                        'We do not believe in giving this task of manufacturing to other companies. '
+                        'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                        style: GoogleFonts.cabin(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 12.5, right: 12.5, bottom: 20),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: themeChanger.themeMode == ThemeMode.dark
+                          ? Colors.grey.shade500
+                          : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 15,
+                      right: 10,
+                      left: 10,
+                    ),
+                    child: Column(children: [
+                      Text('Work with us!',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.lobster(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 35)),
+                      Text(
+                        'We are continuously expanding. We would like to share our joy and passion with you!'
+                        'We have our first shop in Szeged, and we would like to expand. Either on phone, email or in person, feel free'
+                        ' to contact us! We would be honoured, if you would join us!',
+                        style: GoogleFonts.cabin(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ]));
   }
 }
