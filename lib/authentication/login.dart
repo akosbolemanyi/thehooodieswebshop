@@ -32,30 +32,15 @@ Future<void> main() async {
               projectId: 'myfirstmobileapp-c8750',
               storageBucket: "myfirstmobileapp-c8750.appspot.com"))
       : await Firebase.initializeApp();
-
-  String? userId = await FirebaseAuth.instance.currentUser?.uid;
-  var userData =
-      await FirebaseFirestore.instance.collection('users').doc(userId).get();
-  ThemeMode themeMode =
-      userData['themeMode'] == 'dark' ? ThemeMode.dark : ThemeMode.light;
-  String languageCode = userData['languageCode'] ?? 'hu';
-  print('This is the theme-mode: $themeMode');
-  print('This is the language-code: $languageCode');
   runApp(
-    DevicePreview(
-        enabled: false,
-        builder: (context) =>
-            MyApp(themeMode: themeMode, languageCode: languageCode)),
+    DevicePreview(enabled: false, builder: (context) => MyApp()),
   );
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
-  final ThemeMode themeMode;
-  final String languageCode;
-
-  const MyApp({super.key, required this.themeMode, required this.languageCode});
+  const MyApp({super.key});
   static const String title = 'Firebase Auth';
 
   @override
@@ -72,20 +57,20 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => CartModel()),
         ],
         child: Builder(builder: (BuildContext context) {
+          final themeChanger = Provider.of<ThemeChanger>(context);
           return LocaleBuilder(
             builder: (locale) {
-              var userLocale = Locale(languageCode);
               return ChangeNotifierProvider(
                 create: (context) => CartModel()..fetchShopItems(),
                 child: MaterialApp(
                   title: 'Hooodies!',
                   localizationsDelegates: Locales.delegates,
                   supportedLocales: Locales.supportedLocales,
-                  locale: userLocale ?? locale,
+                  locale: locale,
                   scaffoldMessengerKey: Utils.messengerKey,
                   navigatorKey: navigatorKey,
                   debugShowCheckedModeBanner: false,
-                  themeMode: themeMode,
+                  themeMode: themeChanger.themeMode,
                   theme: ThemeData(
                     brightness: Brightness.light,
                     primarySwatch: Colors.red,
