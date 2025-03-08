@@ -3,10 +3,12 @@ import 'package:android_studio_projects/provider/theme.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../abstract-classes/page-contact.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 import '../menu/custom-drawer.dart' as MyDrawer;
+import '../post-order/order-confirmation.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -115,12 +117,18 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OwnBar.CustomBottomNavigationBar(
-                      page: OwnBar.Page.PRODUCTS),
-                ),
-              ),
+              onTap: () async {
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: OrderConfirmationPage(),
+                ));
+              },
+              // onTap: () => Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => OwnBar.CustomBottomNavigationBar(
+              //         page: OwnBar.Page.PRODUCTS),
+              //   ),
+              // ),
               child: Align(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,

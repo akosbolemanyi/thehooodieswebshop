@@ -72,6 +72,8 @@ dependencies:
   http: ^1.2.0
   flutter_obx: ^0.0.8
   event: ^2.1.2
+  page_transition: ^2.1.0
+  lottie: ^3.1.3
 
 
 dev_dependencies:
@@ -119,6 +121,7 @@ flutter:
     - assets/img/google-maps.png
     - assets/icons/
     - assets/google-maps-json/
+    - assets/animation/success.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
