@@ -24,7 +24,7 @@ class HoodieDetailsPage extends StatefulWidget {
 }
 
 class _HoodieDetailsPageState extends State<HoodieDetailsPage> {
-  String selectedSize = "m";
+  String selectedSize = "M";
   int selectedQuantity = 1; // Mennyiség változó
   int stockQuantity = 0;
 

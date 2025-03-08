@@ -153,14 +153,13 @@ class _ProductsPageState extends State<ProductsPage> {
   // Navigálás a termék részletes oldalára
   void navigateToDetailsPage(int index) {
     final item = _filteredItems[index];
-
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => HoodieDetailsPage(
           hoodie: HoodieItemTile(
             itemName: item['name'],
-            itemPrice: item['sizes']['m']['priceHuf'],
+            itemPrice: item['prices']['HUF']['raw'].toString(),
             imagePath: item['imageUrl'],
             color: Colors.red,
             onTap: () {},
@@ -280,7 +279,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     final item = _filteredItems[index];
                     return HoodieItemTile(
                       itemName: item['name'],
-                      itemPrice: item['sizes']['m']['priceHuf'],
+                      itemPrice: item['prices']['HUF']['raw'].toString(),
                       imagePath: item['imageUrl'],
                       color: Colors.white,
                       onTap: () => navigateToDetailsPage(

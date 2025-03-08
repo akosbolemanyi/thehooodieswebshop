@@ -20,6 +20,7 @@ class CartModel extends ChangeNotifier {
         String productName = productData['name'] ?? 'N/A';
         String imageUrl = productData['imageUrl'] ?? '';
         Map<String, dynamic> sizes = {};
+        Map<String, dynamic> prices = {};
 
         // Méretek betöltése a "sizes" alkollekcióból
         var sizeCollection = await _firestore
@@ -28,15 +29,26 @@ class CartModel extends ChangeNotifier {
             .collection('sizes')
             .get();
 
+        var priceCollection = await _firestore
+            .collection('products')
+            .doc(productId)
+            .collection('prices')
+            .get();
+
         for (var sizeDoc in sizeCollection.docs) {
           sizes[sizeDoc.id] = sizeDoc.data();
+        }
+
+        for (var priceDoc in priceCollection.docs) {
+          prices[priceDoc.id] = priceDoc.data();
         }
 
         _shopItems.add({
           'id': productId,
           'name': productName,
           'imageUrl': imageUrl,
-          'sizes': sizes, // Méretek és áraik
+          'sizes': sizes,
+          'prices': prices, // Méretek és áraik
         });
       }
 
@@ -59,8 +71,6 @@ class CartModel extends ChangeNotifier {
       (item) =>
           item['id'] == selectedItem['id'] && item['size'] == selectedSize,
     );
-
-    print('SelectedItem: ' + selectedItem.toString() + " | " + selectedSize);
 
     if (existingIndex != -1) {
       _cartItems[existingIndex]['quantity'] += quantity; // Mennyiség növelése

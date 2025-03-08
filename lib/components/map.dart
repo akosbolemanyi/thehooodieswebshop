@@ -95,7 +95,6 @@ class _MapPageState extends State<MapPage> {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
         setState(() {
-          print('Lefut időben...................................');
           _currentPosition =
               LatLng(currentLocation.latitude!, currentLocation.longitude!);
         });
