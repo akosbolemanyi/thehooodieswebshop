@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import '../menu/custom-bottom-navigation-bar.dart';
 import '../menu/custom-drawer.dart' as MyDrawer;
-import 'cart.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class ProductsPage extends StatefulWidget implements PageContent {
   @override
@@ -158,6 +159,7 @@ class _ProductsPageState extends State<ProductsPage> {
       MaterialPageRoute(
         builder: (context) => HoodieDetailsPage(
           hoodie: HoodieItemTile(
+            id: item['id'],
             itemName: item['name'],
             itemPrice: item['prices']['HUF']['raw'].toString(),
             imagePath: item['imageUrl'],
@@ -222,7 +224,9 @@ class _ProductsPageState extends State<ProductsPage> {
                           color: Colors.black,
                           onPressed: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CartPage()),
+                            MaterialPageRoute(
+                                builder: (context) => CustomBottomNavigationBar(
+                                    page: OwnBar.Page.CART)),
                           ),
                         ),
                       );
@@ -278,6 +282,7 @@ class _ProductsPageState extends State<ProductsPage> {
                   itemBuilder: (context, index) {
                     final item = _filteredItems[index];
                     return HoodieItemTile(
+                      id: item['id'],
                       itemName: item['name'],
                       itemPrice: item['prices']['HUF']['raw'].toString(),
                       imagePath: item['imageUrl'],

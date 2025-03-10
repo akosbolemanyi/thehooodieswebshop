@@ -1,5 +1,6 @@
 import 'package:android_studio_projects/provider/cart.provider.dart';
 import 'package:android_studio_projects/profile/shipping-address.dart';
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,6 +41,7 @@ class CartPage extends StatelessWidget {
 
   Widget buildBody(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Consumer<CartModel>(
       builder: (context, cartModel, child) {
         return Column(
@@ -55,9 +57,12 @@ class CartPage extends StatelessWidget {
                     child: Container(
                       height: 120, // Nagyobb hely a méretnek és gomboknak
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(8),
+                        color: themeChanger.themeMode == ThemeMode.dark
+                            ? Colors.grey.shade500
+                            : Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      // TODO - Redesign!
                       child: ListTile(
                         leading: Image.network(
                           item['imageUrl'],
@@ -82,7 +87,7 @@ class CartPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              "Méret: ${item['size'].toUpperCase()}", // Méret kiírása
+                              "Méret: ${item['size']}", // Méret kiírása
                               style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,

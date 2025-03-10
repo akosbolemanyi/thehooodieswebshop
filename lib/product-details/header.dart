@@ -18,7 +18,7 @@ class ProductTitleWithImage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Darrow', // hoodie.itemName,
+            hoodie.itemName, // hoodie.itemName,
             style: GoogleFonts.lobster(
               fontSize: 40,
               fontWeight: FontWeight.bold,

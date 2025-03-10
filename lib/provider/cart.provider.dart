@@ -71,17 +71,16 @@ class CartModel extends ChangeNotifier {
       (item) =>
           item['id'] == selectedItem['id'] && item['size'] == selectedSize,
     );
-
     if (existingIndex != -1) {
       _cartItems[existingIndex]['quantity'] += quantity; // Mennyiség növelése
     } else {
       _cartItems.add({
         ...selectedItem,
         'size': selectedSize,
-        'priceHuf': selectedItem['sizes'][selectedSize]['priceHuf'],
-        'priceEuro': selectedItem['sizes'][selectedSize]['priceEuro'],
-        'priceDollar': selectedItem['sizes'][selectedSize]['priceDollar'],
-        'onStock': selectedItem['sizes'][selectedSize]['onStock'],
+        'priceHuf': selectedItem['prices']['HUF']['raw'].toString(),
+        'priceEuro': selectedItem['prices']['EUR']['raw'].toString(),
+        'priceDollar': selectedItem['prices']['USD']['raw'].toString(),
+        'inStock': selectedItem['sizes'][selectedSize]['inStock'],
         'quantity': quantity, // Kezdeti mennyiség
       });
     }
@@ -92,7 +91,7 @@ class CartModel extends ChangeNotifier {
   void increaseQuantity(int index) {
     var item = _cartItems[index];
     int currentQuantity = item['quantity'] ?? 0;
-    int stockQuantity = item['onStock']; // Készlet
+    int stockQuantity = item['inStock']; // Készlet
 
     if (currentQuantity < stockQuantity) {
       _cartItems[index]['quantity'] += 1;

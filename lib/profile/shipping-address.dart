@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '../post-order/order-confirmation.dart';
 import '../utils/utils.dart';
 
 class ShippingAddressPage extends StatefulWidget {
@@ -199,6 +201,10 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                               }
                               ;
                               StripeService.instance.makePayment();
+                              // Navigator.of(context).push(PageTransition(
+                              //   type: PageTransitionType.fade,
+                              //   child: OrderConfirmationPage(),
+                              // ));
                             },
                           )
                         : ElevatedButton.icon(

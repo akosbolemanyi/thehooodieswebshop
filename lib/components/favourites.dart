@@ -8,7 +8,7 @@ import '../menu/custom-drawer.dart' as MyDrawer;
 import '../model/product.model.dart';
 import '../product-details/product-details.dart';
 import '../provider/favourites.provider.dart';
-import 'cart.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class FavouritesPage extends StatefulWidget implements PageContent {
   @override
@@ -47,6 +47,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
       MaterialPageRoute(
         builder: (context) => HoodieDetailsPage(
           hoodie: HoodieItemTile(
+            id: item['id'],
             itemName: item['name'],
             itemPrice: item['sizes']['m']
                 ['priceHuf'], // Alapértelmezett M méretű ár
@@ -108,7 +109,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           color: Colors.black,
                           onPressed: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CartPage()),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OwnBar.CustomBottomNavigationBar(
+                                        page: OwnBar.Page.HOME)),
                           ),
                         ),
                       );
@@ -151,6 +155,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
               double buttonFontSize = _crossAxisCount == 2 ? 20 : 30;
 
               return HoodieItemTile(
+                id: item['id'],
                 itemName: item['name'],
                 itemPrice: item['sizes']['m']
                     ['priceHuf'], // Alapértelmezett M méretű ár

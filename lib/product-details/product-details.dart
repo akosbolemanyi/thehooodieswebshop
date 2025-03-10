@@ -1,8 +1,8 @@
 import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 import 'package:badges/badges.dart' as badges;
-import '../components/cart.dart';
+import '../menu/custom-bottom-navigation-bar.dart';
 import '../model/product.model.dart';
 import '../constants.dart';
 import '../provider/cart.provider.dart';
@@ -78,7 +78,9 @@ class _HoodieDetailsPageState extends State<HoodieDetailsPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartPage()),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CustomBottomNavigationBar(page: OwnBar.Page.CART)),
                 );
               },
             ),

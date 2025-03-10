@@ -4,6 +4,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HoodieItemTile extends StatefulWidget {
+  final String id;
   final String itemName;
   final String itemPrice;
   final String imagePath;
@@ -17,6 +18,7 @@ class HoodieItemTile extends StatefulWidget {
 
   const HoodieItemTile({
     super.key,
+    required this.id,
     required this.itemName,
     required this.itemPrice,
     required this.imagePath,

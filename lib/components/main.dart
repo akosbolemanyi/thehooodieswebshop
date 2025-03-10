@@ -1,3 +1,4 @@
+import 'package:android_studio_projects/post-order/payment-background.dart';
 import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:android_studio_projects/provider/theme.provider.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () async {
                 Navigator.of(context).push(PageTransition(
                   type: PageTransitionType.fade,
-                  child: OrderConfirmationPage(),
+                  child: PaymentBackground(),
                 ));
               },
               // onTap: () => Navigator.of(context).push(

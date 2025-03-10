@@ -20,7 +20,7 @@ class ColorAndSize extends StatefulWidget {
 }
 
 class _ColorAndSizeState extends State<ColorAndSize> {
-  String selectedSize = "m";
+  String selectedSize = "M";
   int stockQuantity = 0;
 
   @override
@@ -34,13 +34,14 @@ class _ColorAndSizeState extends State<ColorAndSize> {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('products')
-          .doc(widget.hoodie.itemName)
+          .doc(widget.hoodie.id)
           .collection('sizes')
           .doc(size)
           .get();
 
+      print(snapshot);
       if (snapshot.exists && snapshot.data() != null) {
-        return snapshot['onStock'] ?? 0;
+        return snapshot['inStock'] ?? 0;
       }
     } catch (e) {
       print("Error fetching stock quantity: $e");
@@ -54,6 +55,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
     });
 
     // Aszinkron hívás, hogy frissítse a stockQuantity-t
+    print(size);
     int newStockQuantity = await fetchStockQuantity(size);
     setState(() {
       stockQuantity = newStockQuantity; // Frissíti a készlet értékét
@@ -79,7 +81,7 @@ class _ColorAndSizeState extends State<ColorAndSize> {
               ),
               const SizedBox(height: 8),
               Row(
-                children: ["s", "m", "l", "xl"]
+                children: ["S", "M", "L", "XL"]
                     .map((size) => SizeOption(
                           size: size,
                           isSelected: selectedSize == size,

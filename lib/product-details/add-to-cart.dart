@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
-import '../components/cart.dart';
+import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
+import '../menu/custom-bottom-navigation-bar.dart';
 import '../model/product.model.dart';
 import '../utils/utils.dart';
 import '../provider/cart.provider.dart';
@@ -71,7 +72,7 @@ class AddToCart extends StatelessWidget {
                   ? showOutOfStockMessage
                   : () async {
                       int index = cartModel.shopItems
-                          .indexWhere((item) => item['id'] == hoodie.itemName);
+                          .indexWhere((item) => item['id'] == hoodie.id);
                       if (index != -1) {
                         cartModel.addItem(index, selectedSize, quantity);
                         await Flushbar(
@@ -79,7 +80,9 @@ class AddToCart extends StatelessWidget {
                             onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CartPage()),
+                                  builder: (context) =>
+                                      CustomBottomNavigationBar(
+                                          page: OwnBar.Page.CART)),
                             ),
                             child: Text(
                               'Click me',
@@ -123,12 +126,14 @@ class AddToCart extends StatelessWidget {
                   ? showOutOfStockMessage
                   : () async {
                       int index = cartModel.shopItems
-                          .indexWhere((item) => item['id'] == hoodie.itemName);
+                          .indexWhere((item) => item['id'] == hoodie.id);
                       if (index != -1) {
                         cartModel.addItem(index, selectedSize, quantity);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CartPage()),
+                          MaterialPageRoute(
+                              builder: (context) => CustomBottomNavigationBar(
+                                  page: OwnBar.Page.CART)),
                         );
                       }
                     },

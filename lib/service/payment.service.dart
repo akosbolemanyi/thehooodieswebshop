@@ -7,17 +7,20 @@ class StripeService {
 
   static final StripeService instance = StripeService._();
 
-  Future<void> makePayment() async {
+  Future<bool> makePayment() async {
     try {
       String? paymentIntentClientSecret = await _createPaymentIntent(10, 'usd');
-      if (paymentIntentClientSecret == null) return;
+      if (paymentIntentClientSecret == null) return false;
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
+              // TODO - Make styling.
               paymentIntentClientSecret: paymentIntentClientSecret,
               merchantDisplayName: 'Bolemányi Ákos'));
       await _processPayment();
+      return true;
     } catch (error) {
       print('1 | The following error was caught:\n$error');
+      return false;
     }
   }
 
@@ -48,7 +51,8 @@ class StripeService {
   Future<void> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      await Stripe.instance.confirmPaymentSheetPayment();
+      // TODO - Track and handle the payment status!
+      // await Stripe.instance.confirmPaymentSheetPayment();
     } catch (error) {
       print('3 | The following error was caught:\n$error');
     }
