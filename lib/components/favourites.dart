@@ -157,8 +157,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
               return HoodieItemTile(
                 id: item['id'],
                 itemName: item['name'],
-                itemPrice: item['sizes']['m']
-                    ['priceHuf'], // Alapértelmezett M méretű ár
+                itemPrice: item['prices']['HUF']['raw']
+                    .toString(), // Alapértelmezett M méretű ár
                 imagePath: item['imageUrl'],
                 color: Colors.white,
                 onTap: () => navigateToDetailsPage(index, cartModel),

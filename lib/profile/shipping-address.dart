@@ -1,5 +1,5 @@
+import 'package:android_studio_projects/post-order/payment-background.dart';
 import 'package:android_studio_projects/provider/theme-changer.provider.dart';
-import 'package:android_studio_projects/service/payment.service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import '../post-order/order-confirmation.dart';
 import '../utils/utils.dart';
 
 class ShippingAddressPage extends StatefulWidget {
@@ -46,11 +45,13 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
       DocumentSnapshot userAddressData = await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
+          .collection('address')
+          .doc('shipping')
           .get();
       // TODO - There is collection inside this, named 'address'. This 'address' collection has the fields below in database! - Part 1/2
       if (userAddressData.exists) {
         setState(() {
-          zipController.text = userAddressData['zip'] ?? '';
+          zipController.text = userAddressData['zip'].toString();
           cityController.text = userAddressData['city'] ?? '';
           addressController.text = userAddressData['address'] ?? '';
           notesController.text = userAddressData['notes'] ?? '';
@@ -77,6 +78,8 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
         await FirebaseFirestore.instance
             .collection('users')
             .doc(user!.uid)
+            .collection('address')
+            .doc('shipping')
             .update({
           'phone': phoneController.text.trim(),
         });
@@ -200,11 +203,10 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                                 return;
                               }
                               ;
-                              StripeService.instance.makePayment();
-                              // Navigator.of(context).push(PageTransition(
-                              //   type: PageTransitionType.fade,
-                              //   child: OrderConfirmationPage(),
-                              // ));
+                              Navigator.of(context).push(PageTransition(
+                                type: PageTransitionType.fade,
+                                child: PaymentBackground(),
+                              ));
                             },
                           )
                         : ElevatedButton.icon(
@@ -317,6 +319,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
           ),
         ),
         TextFormField(
+          decoration: InputDecoration(hintText: controller.text.trim()),
           style: TextStyle(
               color: isReadOnly
                   ? (themeMode == ThemeMode.light

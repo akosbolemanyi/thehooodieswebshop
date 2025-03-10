@@ -1,5 +1,7 @@
 import 'package:android_studio_projects/constants.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 class StripeService {
@@ -13,13 +15,19 @@ class StripeService {
       if (paymentIntentClientSecret == null) return false;
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
-              // TODO - Make styling.
+              style: ThemeMode.dark,
+              // customFlow: false,
+              // appearance: PaymentSheetAppearance(
+              //     primaryButton: PaymentSheetPrimaryButtonAppearance(
+              //         shapes: PaymentSheetPrimaryButtonShape(blurRadius: 20.0)),
+              //     shapes: PaymentSheetShape(
+              //       borderRadius: 20.0, // Corner radius of components.
+              //     )),
               paymentIntentClientSecret: paymentIntentClientSecret,
               merchantDisplayName: 'Bolemányi Ákos'));
-      await _processPayment();
-      return true;
+      return await _processPayment();
     } catch (error) {
-      print('1 | The following error was caught:\n$error');
+      print('Payment setup related error was caught! | $error');
       return false;
     }
   }
@@ -48,13 +56,17 @@ class StripeService {
     return null;
   }
 
-  Future<void> _processPayment() async {
+  Future<bool> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      // TODO - Track and handle the payment status!
-      // await Stripe.instance.confirmPaymentSheetPayment();
+      Stripe.instance.confirmPaymentSheetPayment();
+      return true;
+    } on StripeException catch (error) {
+      print('Payment related error caught! | $error');
+      return false;
     } catch (error) {
-      print('3 | The following error was caught:\n$error');
+      print('Unexpected error was caught on payment! | $error');
+      return false;
     }
   }
 

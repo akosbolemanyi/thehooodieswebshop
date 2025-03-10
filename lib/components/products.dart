@@ -291,7 +291,7 @@ class _ProductsPageState extends State<ProductsPage> {
                           index), // Navigálás a részletes oldalra
                       onPressed: () {},
                       imageHeight: _crossAxisCount == 2 ? 120 : 310,
-                      textSize: _crossAxisCount == 2 ? 25 : 35,
+                      textSize: _crossAxisCount == 2 ? 20 : 35,
                       buttonFontSize: _crossAxisCount == 2 ? 20 : 30,
                       crossAxisCount: _crossAxisCount,
                     );

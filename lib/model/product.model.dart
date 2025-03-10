@@ -89,8 +89,10 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
           ),
           // Kedvenc ikon, amely dinamikusan változik
           Positioned(
-            top: 10, // Fix pozíció a jobb felső sarokban
-            right: widget.crossAxisCount == 2 ? 10 : 30,
+            top: widget.crossAxisCount == 2
+                ? 45
+                : 10, // Fix pozíció a jobb felső sarokban
+            right: widget.crossAxisCount == 2 ? 30 : 30,
             child: GestureDetector(
               onTap: () {
                 favouritesProvider.toggleFavourite(

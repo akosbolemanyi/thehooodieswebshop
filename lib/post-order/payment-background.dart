@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../service/payment.service.dart';
 import 'order-confirmation.dart';
 
@@ -69,12 +67,12 @@ class PaymentBackground extends StatelessWidget {
               ),
               onPressed: () async {
                 bool isSuccessful = await StripeService.instance.makePayment();
-                // if (isSuccessful) {
-                //   Navigator.of(context).push(PageTransition(
-                //     type: PageTransitionType.fade,
-                //     child: OrderConfirmationPage(),
-                //   ));
-                // }
+                if (isSuccessful) {
+                  Navigator.of(context).push(PageTransition(
+                    type: PageTransitionType.fade,
+                    child: OrderConfirmationPage(),
+                  ));
+                }
               },
             ),
           ],

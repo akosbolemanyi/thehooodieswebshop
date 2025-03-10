@@ -66,7 +66,7 @@ dependencies:
   maps_launcher: ^2.2.1
   location: ^6.0.2
   flutter_polyline_points: ^2.0.0
-  flutter_stripe: ^9.5.0+1
+  flutter_stripe: ^10.1.1
   dio: ^5.8.0+1
   mailer: ^6.4.1
   http: ^1.2.0
