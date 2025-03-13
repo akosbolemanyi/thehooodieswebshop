@@ -62,6 +62,7 @@ class CartModel extends ChangeNotifier {
 
   List<Map<String, dynamic>> _cartItems = [];
   List<Map<String, dynamic>> get cartItems => _cartItems;
+  List<Map<String, dynamic>> orderItems = [];
 
   // Frissített addItem metódus (most már mennyiséggel együtt)
   void addItem(int index, String selectedSize, int quantity) {
@@ -82,6 +83,23 @@ class CartModel extends ChangeNotifier {
         'priceDollar': selectedItem['prices']['USD']['raw'].toString(),
         'inStock': selectedItem['sizes'][selectedSize]['inStock'],
         'quantity': quantity, // Kezdeti mennyiség
+      });
+    }
+
+    // TODO - The below one is more useful, change the cart to use this as well!
+    int orderIndex = orderItems.indexWhere(
+      (item) =>
+          item['productId'] == selectedItem['id'] &&
+          item['size'] == selectedSize,
+    );
+    if (orderIndex != -1) {
+      orderItems[orderIndex]['quantity'] += quantity; // Increase quantity
+    } else {
+      orderItems.add({
+        'productId': selectedItem['id'],
+        'size': selectedSize,
+        'price': selectedItem['prices']['HUF']['raw'],
+        'quantity': quantity,
       });
     }
 

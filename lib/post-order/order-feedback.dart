@@ -5,7 +5,8 @@ import '../menu/custom-drawer.dart' as sidebar;
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 
 class OrderFeedback extends StatelessWidget {
-  const OrderFeedback({super.key});
+  final String orderId;
+  const OrderFeedback({super.key, required this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class OrderFeedback extends StatelessWidget {
                     TextSpan(text: 'Thank you for your order!\n'),
                     TextSpan(text: 'Your order number is: '),
                     TextSpan(
-                      text: 'BMAXBK123\n',
+                      text: '$orderId\n',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(

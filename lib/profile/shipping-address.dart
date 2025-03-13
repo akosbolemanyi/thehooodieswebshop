@@ -11,8 +11,9 @@ import '../utils/utils.dart';
 
 class ShippingAddressPage extends StatefulWidget {
   final bool isPaymentMode;
+  final dynamic orderDetails;
 
-  ShippingAddressPage({this.isPaymentMode = false});
+  ShippingAddressPage({this.isPaymentMode = false, this.orderDetails});
 
   @override
   _ShippingAddressPageState createState() => _ShippingAddressPageState();
@@ -48,7 +49,6 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
           .collection('address')
           .doc('shipping')
           .get();
-      // TODO - There is collection inside this, named 'address'. This 'address' collection has the fields below in database! - Part 1/2
       if (userAddressData.exists) {
         setState(() {
           zipController.text = userAddressData['zip'].toString();
@@ -64,7 +64,6 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
   Future<void> updateUserAddress() async {
     if (user == null) return;
     try {
-      // TODO - There is collection inside this, named 'address'. This 'address' collection has the fields below in database! - Part 2/2
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
@@ -95,7 +94,8 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
   @override
   Widget build(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
-    final themeMode = Provider.of<ThemeChanger>(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    final themeMode = themeChanger.themeMode;
     return FutureBuilder<DocumentSnapshot>(
         future: user != null
             ? FirebaseFirestore.instance
@@ -223,6 +223,10 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                             ),
                             onPressed: () {
                               updateUserAddress();
+                              // Navigator.of(context).push(PageTransition(
+                              //   type: PageTransitionType.fade,
+                              //   child: PaymentBackground(),
+                              // ));
                             },
                           ),
                     const SizedBox(height: 40)
@@ -235,7 +239,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
   }
 
   // Common Fields
-  Widget _buildCountryField(String languageCode, ThemeChanger themeMode) {
+  Widget _buildCountryField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: 'country',
       controller: TextEditingController(text: "Magyarország"),
@@ -245,7 +249,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     );
   }
 
-  Widget _buildZipField(String languageCode, ThemeChanger themeMode) {
+  Widget _buildZipField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: 'postal_code',
       controller: zipController,
@@ -255,7 +259,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     );
   }
 
-  Widget _buildCityField(String languageCode, ThemeChanger themeMode) {
+  Widget _buildCityField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: 'city',
       controller: cityController,
@@ -265,7 +269,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     );
   }
 
-  Widget _buildAddressField(String languageCode, ThemeChanger themeMode) {
+  Widget _buildAddressField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: 'street_address',
       controller: addressController,
@@ -275,7 +279,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     );
   }
 
-  Widget _buildNotesFields(String languageCode, ThemeChanger themeMode) {
+  Widget _buildNotesFields(String languageCode, ThemeMode themeMode) {
     return Column(
       children: [
         _buildTextField(
@@ -289,7 +293,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
   }
 
   Widget _buildPhoneNotificationField(
-      String languageCode, ThemeChanger themeMode) {
+      String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: 'Phone number for notification (optional)',
       controller: phoneController,
@@ -303,11 +307,12 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
     required String label,
     required TextEditingController controller,
     required String languageCode,
-    required ThemeChanger themeMode,
+    required ThemeMode themeMode,
     bool isReadOnly = false,
     bool isRequired = false,
     TextInputType keyboardType = TextInputType.text,
   }) {
+    print(themeMode);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

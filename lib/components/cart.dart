@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:android_studio_projects/provider/cart.provider.dart';
 import 'package:android_studio_projects/profile/shipping-address.dart';
-import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +70,6 @@ class CartPage extends StatelessWidget {
 
   Widget buildBody(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
-    final themeChanger = Provider.of<ThemeChanger>(context);
     return Consumer<CartModel>(
       builder: (context, cartModel, child) {
         return Column(
@@ -145,81 +141,6 @@ class CartPage extends StatelessWidget {
                       ],
                     ),
                   );
-                  // return Padding(
-                  //   padding: const EdgeInsets.all(12.0),
-                  //   child: Container(
-                  //     height: 120, // Nagyobb hely a méretnek és gomboknak
-                  //     decoration: BoxDecoration(
-                  //       color: themeChanger.themeMode == ThemeMode.dark
-                  //           ? Colors.grey.shade500
-                  //           : Colors.grey.shade300,
-                  //       borderRadius: BorderRadius.circular(20),
-                  //     ),
-                  //     // TODO - Redesign!
-                  //     child: ListTile(
-                  //       leading: Image.network(
-                  //         item['imageUrl'],
-                  //         height: 50,
-                  //         width: 50,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //       title: Text(
-                  //         item['name'],
-                  //         style: const TextStyle(color: Colors.black),
-                  //       ),
-                  //       subtitle: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           Text(
-                  //             nation == 'hu'
-                  //                 ? "${item['priceHuf']} Ft"
-                  //                 : nation == 'en'
-                  //                     ? "\$${item['priceDollar']}"
-                  //                     : "€${item['priceEuro']}",
-                  //             style: const TextStyle(color: Colors.black),
-                  //           ),
-                  //           const SizedBox(height: 5),
-                  //           Text(
-                  //             "Méret: ${item['size']}", // Méret kiírása
-                  //             style: const TextStyle(
-                  //               color: Colors.black54,
-                  //               fontSize: 14,
-                  //               fontWeight: FontWeight.bold,
-                  //             ),
-                  //           ),
-                  //           const SizedBox(height: 5),
-                  //           // Mennyiség növelő és csökkentő gombok
-                  //           Row(
-                  //             children: [
-                  //               IconButton(
-                  //                 icon: const Icon(Icons.remove,
-                  //                     color: Colors.red),
-                  //                 onPressed: () =>
-                  //                     cartModel.decreaseQuantity(index),
-                  //               ),
-                  //               Text(
-                  //                 item['quantity'].toString(),
-                  //                 style: const TextStyle(
-                  //                     fontSize: 18,
-                  //                     fontWeight: FontWeight.bold),
-                  //               ),
-                  //               IconButton(
-                  //                 icon: const Icon(Icons.add,
-                  //                     color: Colors.green),
-                  //                 onPressed: () =>
-                  //                     cartModel.increaseQuantity(index),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       trailing: IconButton(
-                  //         icon: const Icon(Icons.cancel, color: Colors.red),
-                  //         onPressed: () => cartModel.removeItem(index),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // );
                 },
               ),
             ),
@@ -270,13 +191,11 @@ class CartPage extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // Navigálás a Shipping oldalra
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ShippingAddressPage(
-                                        isPaymentMode:
-                                            true)), // Cseréld a ShippingPage-t az aktuális shipping oldaladra
+                                        isPaymentMode: true)),
                               );
                             },
                             child: LocaleText(

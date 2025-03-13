@@ -25,7 +25,7 @@ Future sendCustomerEmail() async {
   print('This is the response: ${response.body}');
 }
 
-// TODO - Create a new template and modify the identifiers accordingly below!
+// TODO - Connect the new template and modify the identifiers accordingly below!
 Future sendManufacturerEmail() async {
   final serviceId = 'service_ln0x71t';
   final templateId = 'template_vr4t6cg';

@@ -4,7 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
 class OrderConfirmationPage extends StatefulWidget {
-  const OrderConfirmationPage({super.key});
+  final String orderId;
+  const OrderConfirmationPage({super.key, required this.orderId});
 
   @override
   State<OrderConfirmationPage> createState() => _OrderConfirmationPageState();
@@ -22,7 +23,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage>
       if (status == AnimationStatus.completed) {
         Navigator.of(context).pushReplacement(PageTransition(
           type: PageTransitionType.fade,
-          child: OrderFeedback(),
+          child: OrderFeedback(orderId: widget.orderId),
         ));
       }
     });

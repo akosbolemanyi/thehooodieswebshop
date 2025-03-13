@@ -72,7 +72,8 @@ class _ProfileFormState extends State<ProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = Provider.of<ThemeChanger>(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    final themeMode = themeChanger.themeMode;
     return FutureBuilder<DocumentSnapshot>(
       future: user != null
           ? FirebaseFirestore.instance.collection('users').doc(user!.uid).get()
@@ -209,7 +210,7 @@ class _ProfileFormState extends State<ProfileForm> {
   }
 
   Widget _buildTextField(BuildContext context, String labelKey,
-      TextEditingController controller, ThemeChanger themeMode,
+      TextEditingController controller, ThemeMode themeMode,
       {bool isDate = false, bool isNotModifiable = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

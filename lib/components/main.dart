@@ -118,18 +118,12 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () async {
-                Navigator.of(context).push(PageTransition(
-                  type: PageTransitionType.fade,
-                  child: PaymentBackground(),
-                ));
-              },
-              // onTap: () => Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => OwnBar.CustomBottomNavigationBar(
-              //         page: OwnBar.Page.PRODUCTS),
-              //   ),
-              // ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OwnBar.CustomBottomNavigationBar(
+                      page: OwnBar.Page.PRODUCTS),
+                ),
+              ),
               child: Align(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,
