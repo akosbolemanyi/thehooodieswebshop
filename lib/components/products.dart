@@ -127,20 +127,32 @@ class _ProductsPageState extends State<ProductsPage> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade300),
+                        backgroundColor:
+                            themeChanger.themeMode == ThemeMode.dark
+                                ? Colors.grey.shade700
+                                : Colors.grey.shade300),
                     onPressed: () => Navigator.pop(context),
                     child: Text("Mégse",
-                        style: GoogleFonts.cabin(color: Colors.black)),
+                        style: GoogleFonts.cabin(
+                            color: themeChanger.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade300),
+                        backgroundColor:
+                            themeChanger.themeMode == ThemeMode.dark
+                                ? Colors.grey.shade700
+                                : Colors.grey.shade300),
                     onPressed: () {
                       Navigator.pop(context);
                       // Szűrés és rendezés logika ide jön
                     },
                     child: Text("Alkalmaz",
-                        style: GoogleFonts.cabin(color: Colors.black)),
+                        style: GoogleFonts.cabin(
+                            color: themeChanger.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
                   ),
                 ],
               )

@@ -188,7 +188,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                             icon: const Icon(Icons.payment_rounded,
                                 size: 32, color: Colors.black),
                             label: Text(
-                              'Pay via Credit Card',
+                              'Pay',
                               style: GoogleFonts.cabin(
                                   fontSize: 24, color: Colors.black),
                             ),

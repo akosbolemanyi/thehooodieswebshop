@@ -16,13 +16,13 @@ class StripeService {
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
               style: ThemeMode.dark,
-              // customFlow: false,
-              // appearance: PaymentSheetAppearance(
-              //     primaryButton: PaymentSheetPrimaryButtonAppearance(
-              //         shapes: PaymentSheetPrimaryButtonShape(blurRadius: 20.0)),
-              //     shapes: PaymentSheetShape(
-              //       borderRadius: 20.0, // Corner radius of components.
-              //     )),
+              customFlow: false,
+              appearance: PaymentSheetAppearance(
+                  primaryButton: PaymentSheetPrimaryButtonAppearance(
+                      shapes: PaymentSheetPrimaryButtonShape(blurRadius: 20.0)),
+                  shapes: PaymentSheetShape(
+                    borderRadius: 20.0, // Corner radius of components.
+                  )),
               paymentIntentClientSecret: paymentIntentClientSecret,
               merchantDisplayName: 'Bolemányi Ákos'));
       return await _processPayment();

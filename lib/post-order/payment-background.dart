@@ -50,7 +50,7 @@ class PaymentBackground extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 50, right: 50),
               child: Text(
-                'Online payment is only available with credit cards. Paying in cash is available in our stores in person.',
+                'Pay simply with card!\nPaying in cash is available in our stores in person.',
                 style: GoogleFonts.cabin(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
