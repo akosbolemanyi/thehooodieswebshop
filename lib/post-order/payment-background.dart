@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../provider/cart.provider.dart';
+import '../service/order-email.service.dart';
 import '../service/payment.service.dart';
 import 'order-confirmation.dart';
 
@@ -77,7 +78,7 @@ class PaymentBackground extends StatelessWidget {
                     await OrderCreationService.instance.create(cartItems);
                 if (isPaymentSuccessful) {
                   if (orderId != '') {
-                    // TODO - Here the email sending should be executed!
+                    await sendEmails(orderId, cartItems);
                     Navigator.of(context).push(PageTransition(
                       type: PageTransitionType.fade,
                       child: OrderConfirmationPage(orderId: orderId),

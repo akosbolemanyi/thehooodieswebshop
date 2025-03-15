@@ -96,6 +96,7 @@ class CartModel extends ChangeNotifier {
       orderItems[orderIndex]['quantity'] += quantity; // Increase quantity
     } else {
       orderItems.add({
+        ...selectedItem,
         'productId': selectedItem['id'],
         'size': selectedSize,
         'price': selectedItem['prices']['HUF']['raw'],

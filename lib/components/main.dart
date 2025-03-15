@@ -10,6 +10,8 @@ import '../abstract-classes/page-contact.dart';
 import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
 import '../menu/custom-drawer.dart' as MyDrawer;
 import '../post-order/order-confirmation.dart';
+import '../provider/cart.provider.dart';
+import '../service/order-email.service.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -82,6 +84,8 @@ class _HomePageState extends State<HomePage> {
   Widget buildBody(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
     final themeChanger = Provider.of<ThemeChanger>(context);
+    final cartItems = Provider.of<CartModel>(context).orderItems;
+    print(cartItems);
     return AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         child: ListView(children: [
@@ -118,12 +122,13 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OwnBar.CustomBottomNavigationBar(
-                      page: OwnBar.Page.PRODUCTS),
-                ),
-              ),
+              onTap: () => sendEmails('HDS-PROTOTYPE', cartItems),
+              // onTap: () => Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => OwnBar.CustomBottomNavigationBar(
+              //         page: OwnBar.Page.PRODUCTS),
+              //   ),
+              // ),
               child: Align(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,
