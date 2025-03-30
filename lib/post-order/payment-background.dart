@@ -1,5 +1,6 @@
 import 'package:android_studio_projects/service/order-creation.service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,9 @@ class PaymentBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartModel = Provider.of<CartModel>(context);
     final cartItems = Provider.of<CartModel>(context).orderItems;
+    final languageCode = Locales.currentLocale(context)?.languageCode;
     print('These are the cartItems: $cartItems');
     return Scaffold(
       appBar: PreferredSize(
@@ -78,7 +81,9 @@ class PaymentBackground extends StatelessWidget {
                     await OrderCreationService.instance.create(cartItems);
                 if (isPaymentSuccessful) {
                   if (orderId != '') {
-                    await sendEmails(orderId, cartItems);
+                    String orderDate = DateTime.now().toString();
+                    await sendEmails(
+                        orderId, orderDate, cartModel, languageCode!);
                     Navigator.of(context).push(PageTransition(
                       type: PageTransitionType.fade,
                       child: OrderConfirmationPage(orderId: orderId),
