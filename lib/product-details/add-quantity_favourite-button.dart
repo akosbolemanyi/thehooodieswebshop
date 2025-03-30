@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../model/product.model.dart';
 import '../provider/favourites.provider.dart';
+import '../provider/theme-changer.provider.dart';
 import 'cart-quantity-counter.dart';
 
 class CounterWithFavBtn extends StatefulWidget {
@@ -28,14 +30,15 @@ class _CounterWithFavBtnState extends State<CounterWithFavBtn> {
   @override
   Widget build(BuildContext context) {
     final favouritesProvider = FavouriteProvider.of(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CartCounter(onQuantityChanged: updateQuantity),
         Text(
-          'Darrow',
-          style: GoogleFonts.lobster(
-            fontSize: 25,
+          'Delivery: 3 days',
+          style: GoogleFonts.aleo(
+            fontSize: 20,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -50,8 +53,10 @@ class _CounterWithFavBtnState extends State<CounterWithFavBtn> {
                 : Icons.favorite_border,
             color: favouritesProvider.isExist(widget.hoodie)
                 ? Colors.red
-                : Colors.black,
-            size: 28,
+                : (themeChanger.themeMode == ThemeMode.dark
+                    ? Colors.white54
+                    : Colors.black),
+            size: 35,
           ),
         ),
       ],

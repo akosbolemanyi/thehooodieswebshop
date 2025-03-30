@@ -1,7 +1,9 @@
 import 'package:android_studio_projects/provider/favourites.provider.dart';
+import 'package:android_studio_projects/provider/theme-changer.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HoodieItemTile extends StatefulWidget {
   final String id;
@@ -40,6 +42,7 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
   Widget build(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
     final favouritesProvider = FavouriteProvider.of(context);
+    final themeChanger = Provider.of<ThemeChanger>(context);
 
     return GestureDetector(
       onTap: widget.onTap,
@@ -71,7 +74,6 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
                           ? '\$${widget.itemPrice}'
                           : '\€ ${widget.itemPrice}',
                   style: GoogleFonts.cabin(
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: widget.buttonFontSize,
                   ),
@@ -104,7 +106,9 @@ class _HoodieItemTileState extends State<HoodieItemTile> {
                     : Icons.favorite_border,
                 color: favouritesProvider.isExist(widget)
                     ? Colors.red
-                    : Colors.black,
+                    : (themeChanger.themeMode == ThemeMode.dark
+                        ? Colors.white54
+                        : Colors.black),
                 size: widget.crossAxisCount == 2 ? 30 : 40,
               ),
             ),

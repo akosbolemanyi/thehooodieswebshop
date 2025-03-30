@@ -251,18 +251,23 @@ class _ProductsPageState extends State<ProductsPage> {
                   child: Consumer<CartModel>(
                     builder: (context, cartModel, child) {
                       return badges.Badge(
-                        position: badges.BadgePosition.topEnd(top: -5, end: -6),
+                        position: badges.BadgePosition.topEnd(top: -7, end: -7),
                         showBadge: cartModel.cartItems.isNotEmpty,
                         badgeStyle: badges.BadgeStyle(
+                          padding: EdgeInsets.all(7),
                           badgeColor: Colors.white,
                           shape: badges.BadgeShape.circle,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        badgeContent: Text(cartModel.totalQuantity.toString()),
+                        badgeContent: Text(
+                          cartModel.totalQuantity.toString(),
+                          style: GoogleFonts.cabin(
+                            color: Colors.black,
+                          ),
+                        ),
                         child: IconButton(
                           icon: Icon(Icons.shopping_cart),
                           iconSize: 25,
-                          color: Colors.black,
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
