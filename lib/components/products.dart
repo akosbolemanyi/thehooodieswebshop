@@ -30,6 +30,7 @@ class _ProductsPageState extends State<ProductsPage> {
   int _crossAxisCount = 1;
   TextEditingController _searchController = TextEditingController();
   List<dynamic> _filteredItems = [];
+  String? searchedFor;
   String? selectedColor;
   String? selectedSort;
 
@@ -48,24 +49,52 @@ class _ProductsPageState extends State<ProductsPage> {
     });
   }
 
-  // Frissíti a szűrt listát a keresési kulcs alapján
   void updateList(String value) {
     var cartModel = Provider.of<CartModel>(context, listen: false);
+    List<dynamic> filtered = List.from(cartModel.shopItems);
 
-    setState(() {
-      if (value.isEmpty) {
-        _filteredItems = List.from(cartModel
-            .shopItems); // Ha üres a keresési mező, visszatér minden elem
-      } else {
-        _filteredItems = cartModel.shopItems.where((item) {
-          String itemName = item['name'].toLowerCase();
-          return itemName.contains(value.toLowerCase());
-        }).toList(); // Ha nem üres, akkor szűrjük a keresési kifejezés alapján
+    // **Keresési feltétel** (ha van beírva valami)
+    if (value.isNotEmpty) {
+      filtered = filtered.where((item) {
+        String itemName = item['name'].toLowerCase();
+        return itemName.contains(value.toLowerCase());
+      }).toList();
+    }
+
+    if (selectedColor != null) {
+      print('Selected: $selectedColor');
+      filtered = filtered.where((item) {
+        print('Color: ${item['colour']}');
+        return item['colour'].toString().toLowerCase() ==
+            selectedColor!.toLowerCase();
+      }).toList();
+    }
+
+    // **Rendezés** (Ha van kiválasztott rendezési mód)
+    if (selectedSort != null) {
+      if (selectedSort == "price_asc") {
+        // Ár szerint növekvő
+        filtered.sort((a, b) => (a['prices']['HUF']['raw'] as num)
+            .compareTo(b['prices']['HUF']['raw'] as num));
+      } else if (selectedSort == "price_desc") {
+        // Ár szerint csökkenő
+        filtered.sort((a, b) => (b['prices']['HUF']['raw'] as num)
+            .compareTo(a['prices']['HUF']['raw'] as num));
+      } else if (selectedSort == "abc_asc") {
+        // ABC sorrend növekvő
+        filtered.sort((a, b) => a['name'].compareTo(b['name']));
+      } else if (selectedSort == "abc_desc") {
+        // ABC sorrend csökkenő
+        filtered.sort((a, b) => b['name'].compareTo(a['name']));
       }
+    }
+
+    // Frissítjük az állapotot a szűrt és rendezett listával
+    setState(() {
+      _filteredItems = filtered;
     });
   }
 
-  // TODO - Redesign it to work with dark mode as well.
   void openFilterSheet() {
     showModalBottomSheet(
       context: context,
@@ -78,8 +107,6 @@ class _ProductsPageState extends State<ProductsPage> {
       ),
       builder: (context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
-        // TODO - Request the highest and lowest price from database!
-        // TODO - Make the coloring!
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -95,7 +122,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 onChanged: (value) {
                   setState(() => selectedColor = value);
                 },
-                items: ["Piros", "Kék", "Fekete"].map((color) {
+                items: ["red", "blue", "brown", "green", "yellow"].map((color) {
                   return DropdownMenuItem(value: color, child: Text(color));
                 }).toList(),
               ),
@@ -114,11 +141,13 @@ class _ProductsPageState extends State<ProductsPage> {
                   // TODO - Implement logic!
                   DropdownMenuItem(child: Text('Legnépszerűbb')),
                   DropdownMenuItem(
-                      value: "asc", child: Text("Ár szerint növekvő")),
+                      value: "price_asc", child: Text("Ár szerint növekvő")),
                   DropdownMenuItem(
-                      value: "desc", child: Text("Ár szerint csökkenő")),
-                  DropdownMenuItem(value: "asc", child: Text("ABC növekvő")),
-                  DropdownMenuItem(value: "desc", child: Text("ABC csökkenő")),
+                      value: "price_desc", child: Text("Ár szerint csökkenő")),
+                  DropdownMenuItem(
+                      value: "abc_asc", child: Text("ABC növekvő")),
+                  DropdownMenuItem(
+                      value: "abc_desc", child: Text("ABC csökkenő")),
                 ],
               ),
               SizedBox(height: 16),
@@ -146,7 +175,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                 : Colors.grey.shade300),
                     onPressed: () {
                       Navigator.pop(context);
-                      // Szűrés és rendezés logika ide jön
+                      updateList(_searchController.text);
                     },
                     child: Text("Alkalmaz",
                         style: GoogleFonts.cabin(

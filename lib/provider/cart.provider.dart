@@ -19,6 +19,7 @@ class CartModel extends ChangeNotifier {
 
         String productName = productData['name'] ?? 'N/A';
         String imageUrl = productData['imageUrl'] ?? '';
+        String colour = productData['colour'] ?? '';
         Map<String, dynamic> sizes = {};
         Map<String, dynamic> prices = {};
 
@@ -47,6 +48,7 @@ class CartModel extends ChangeNotifier {
           'id': productId,
           'name': productName,
           'imageUrl': imageUrl,
+          'colour': colour,
           'sizes': sizes,
           'prices': prices, // Méretek és áraik
         });
