@@ -51,7 +51,7 @@ class StripeService {
       }
       return null;
     } catch (error) {
-      print('2 | The following error was caught:\n$error');
+      print('The client_secret could not be requested:\n$error');
     }
     return null;
   }
