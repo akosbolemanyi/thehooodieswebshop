@@ -1,10 +1,10 @@
-import 'package:android_studio_projects/provider/cart.provider.dart';
-import 'package:android_studio_projects/profile/shipping-address.dart';
+import 'package:android_studio_projects/components/profile/shipping-address-form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../menu/custom-drawer.dart' as MyDrawer;
+import '../menus/custom-side-menu.dart' as Sidebar;
+import '../providers/cart.provider.dart';
 
 class CartPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -13,7 +13,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer.NavigationDrawer(),
+      drawer: Sidebar.CustomSideMenu(),
       appBar: buildAppBar(context),
       body: buildBody(context),
     );
@@ -70,7 +70,7 @@ class CartPage extends StatelessWidget {
 
   Widget buildBody(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
-    return Consumer<CartModel>(
+    return Consumer<CartProvider>(
       builder: (context, cartModel, child) {
         return Column(
           children: [
@@ -194,7 +194,7 @@ class CartPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ShippingAddressPage(
+                                    builder: (context) => ShippingAddressForm(
                                         isPaymentMode: true)),
                               );
                             },
@@ -225,5 +225,3 @@ class CartPage extends StatelessWidget {
     );
   }
 }
-
-class ShippingPage {}

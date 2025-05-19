@@ -4,8 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:provider/provider.dart';
-import '../menu/custom-drawer.dart' as sidebar;
-import '../provider/theme-changer.provider.dart';
+import '../providers/theme.provider.dart';
+import '../menus/custom-side-menu.dart' as Sidebar;
+
+/**
+ * This page shows the headquarter of the shop with a Google Maps integration.
+ */
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -58,10 +62,10 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
-        drawer: sidebar.NavigationDrawer(),
+        drawer: Sidebar.CustomSideMenu(),
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(kToolbarHeight + 15),
             child: Container(
@@ -70,7 +74,7 @@ class _MapPageState extends State<MapPage> {
                 child: AppBar(
                   backgroundColor: Colors.transparent,
                   iconTheme: IconThemeData(
-                      color: themeChanger.themeMode == ThemeMode.light
+                      color: themeProvider.themeMode == ThemeMode.light
                           ? Colors.black
                           : Colors.white),
                   toolbarHeight: 70,
@@ -78,7 +82,7 @@ class _MapPageState extends State<MapPage> {
                     'Üzletünk',
                     style: GoogleFonts.cabin(
                         fontWeight: FontWeight.bold,
-                        color: themeChanger.themeMode == ThemeMode.light
+                        color: themeProvider.themeMode == ThemeMode.light
                             ? Colors.black
                             : Colors.white),
                   ),
@@ -87,7 +91,7 @@ class _MapPageState extends State<MapPage> {
           children: [
             GoogleMap(
               onMapCreated: ((GoogleMapController controller) {
-                controller.setMapStyle(themeChanger.themeMode == ThemeMode.dark
+                controller.setMapStyle(themeProvider.themeMode == ThemeMode.dark
                     ? nightTheme
                     : dayTheme);
                 _mapController.complete(controller);

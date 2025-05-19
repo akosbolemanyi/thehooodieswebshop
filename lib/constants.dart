@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/**
+ * This file contains the keys of APIs, and the constant values that are used for the UI.
+ */
+
 const kTextColor = Colors.green;
 const kTextLightColor = Colors.green;
 

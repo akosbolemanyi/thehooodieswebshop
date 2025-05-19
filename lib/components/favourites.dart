@@ -1,14 +1,18 @@
-import 'package:android_studio_projects/abstract-classes/page-contact.dart';
+import 'package:android_studio_projects/abstract-classes/page-content.dart';
+import 'package:android_studio_projects/components/products/product-details/product-details.dart';
 import 'package:flutter/material.dart';
-import 'package:android_studio_projects/provider/cart.provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../models/product.model.dart';
 import 'package:badges/badges.dart' as badges;
-import '../menu/custom-drawer.dart' as MyDrawer;
-import '../model/product.model.dart';
-import '../product-details/product-details.dart';
-import '../provider/favourites.provider.dart';
-import '../menu/custom-bottom-navigation-bar.dart' as OwnBar;
+import '../menus/custom-side-menu.dart' as Sidebar;
+import '../menus/custom-bottom-menu.dart' as Footer;
+import '../providers/cart.provider.dart';
+import '../providers/favourites.provider.dart';
+
+/**
+ * This page lists the products marked favourite.
+ */
 
 class FavouritesPage extends StatefulWidget implements PageContent {
   @override
@@ -39,14 +43,14 @@ class _FavouritesPageState extends State<FavouritesPage> {
     });
   }
 
-  void navigateToDetailsPage(int index, CartModel cartModel) {
+  void navigateToDetailsPage(int index, CartProvider cartModel) {
     final item = cartModel.shopItems[index];
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HoodieDetailsPage(
-          hoodie: HoodieItemTile(
+        builder: (context) => ProductDetailsPage(
+          product: ProductModel(
             id: item['id'],
             itemName: item['name'],
             itemPrice: item['sizes']['m']
@@ -68,7 +72,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer.NavigationDrawer(),
+      drawer: Sidebar.CustomSideMenu(),
       appBar: buildAppBar(context),
       body: buildBody(context),
     );
@@ -92,18 +96,18 @@ class _FavouritesPageState extends State<FavouritesPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
-                  child: Consumer<CartModel>(
-                    builder: (context, cartModel, child) {
+                  child: Consumer<CartProvider>(
+                    builder: (context, cartProvider, child) {
                       return badges.Badge(
                         position: badges.BadgePosition.topEnd(top: -7, end: -7),
-                        showBadge: cartModel.cartItems.isNotEmpty,
+                        showBadge: cartProvider.cartItems.isNotEmpty,
                         badgeStyle: badges.BadgeStyle(
                           badgeColor: Colors.white,
                           shape: badges.BadgeShape.circle,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         badgeContent: Text(
-                          cartModel.totalQuantity.toString(),
+                          cartProvider.totalQuantity.toString(),
                           style: GoogleFonts.cabin(
                             color: Colors.black,
                           ),
@@ -115,9 +119,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    OwnBar.CustomBottomNavigationBar(
-                                        page: OwnBar.Page.HOME)),
+                                builder: (context) => Footer.CustomBottomMenu(
+                                    page: Footer.Page.HOME)),
                           ),
                         ),
                       );
@@ -129,11 +132,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
   }
 
   Widget buildBody(BuildContext context) {
-    final favouritesProvider = FavouriteProvider.of(context);
+    final favouritesProvider = FavouritesProvider.of(context);
 
-    return Consumer<CartModel>(
+    return Consumer<CartProvider>(
       builder: (context, cartModel, child) {
-        // Filtering the shopItems to show only the items that are in the favourites list
         final favouriteItems = cartModel.shopItems
             .where((item) => favouritesProvider.favourites
                 .any((favourite) => favourite == item['name']))
@@ -159,7 +161,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
               double textSize = _crossAxisCount == 2 ? 20 : 25;
               double buttonFontSize = _crossAxisCount == 2 ? 20 : 30;
 
-              return HoodieItemTile(
+              return ProductModel(
                 id: item['id'],
                 itemName: item['name'],
                 itemPrice: item['prices']['HUF']['raw']

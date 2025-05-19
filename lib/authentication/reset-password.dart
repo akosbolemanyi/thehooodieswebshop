@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/**
+ * From authentication, when the user wants to change the account's password, the application will navigate here.
+ */
 class ForgotPasswordPage extends StatefulWidget {
   @override
   _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
@@ -17,8 +20,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   void dispose() {
-    emailController.dispose();
     super.dispose();
+    emailController.dispose();
   }
 
   @override

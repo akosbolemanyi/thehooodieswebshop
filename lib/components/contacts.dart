@@ -4,9 +4,12 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../menu/custom-bottom-navigation-bar.dart';
 import '../utils/utils.dart';
-import '../menu/custom-drawer.dart' as sidebar;
+import '../menus/custom-side-menu.dart' as Sidebar;
+
+/**
+ * Here, the user can be navigated to the native phone or email application, or copy the contacts of the shop.
+ */
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -29,7 +32,7 @@ class _ContactPageState extends State<ContactPage> {
     final String _phoneNumber = "+36 70/123-4567";
     final String _landPhoneNumber = "+36 27/123-456";
     return Scaffold(
-      drawer: sidebar.NavigationDrawer(),
+      drawer: Sidebar.CustomSideMenu(),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight + 15),
           child: Container(

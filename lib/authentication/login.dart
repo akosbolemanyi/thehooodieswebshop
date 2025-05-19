@@ -1,116 +1,227 @@
-import 'dart:io';
-import 'package:android_studio_projects/constants.dart';
-import 'package:android_studio_projects/provider/favourites.provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_preview/device_preview.dart';
+import 'package:android_studio_projects/authentication/email-verification.dart';
+import 'package:android_studio_projects/authentication/reset-password.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../components/settings/language-settings.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:provider/provider.dart';
-import '../provider/cart.provider.dart';
-import '../provider/theme-changer.provider.dart';
-import '../provider/theme.provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../components/settings/theme-settings.dart';
 import '../utils/utils.dart';
-import 'package:flutter/services.dart';
+import '../menus/custom-bottom-menu.dart' as Footer;
 
-import 'auth.dart';
-import 'email-verification.dart';
+/**
+ * This is the login page, where with an email and password combination, the user can sign in.
+ */
+class LoginWidget extends StatefulWidget {
+  final VoidCallback onClickedSignUp;
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Locales.init(['hu', 'en', 'de']);
-  Stripe.publishableKey = stripePublishableKey;
-
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-          options: const FirebaseOptions(
-              apiKey: 'AIzaSyDcXj8EWWB_rngaDOzZIhC7QLnguyvAHzE',
-              appId: '1:331949612021:android:8b0ee595f4d7d1915e1ebc',
-              messagingSenderId: '331949612021',
-              projectId: 'myfirstmobileapp-c8750',
-              storageBucket: "myfirstmobileapp-c8750.appspot.com"))
-      : await Firebase.initializeApp();
-  runApp(
-    DevicePreview(enabled: false, builder: (context) => MyApp()),
-  );
-}
-
-final navigatorKey = GlobalKey<NavigatorState>();
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  static const String title = 'Firebase Auth';
+  const LoginWidget({
+    Key? key,
+    required this.onClickedSignUp,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeProvider()),
-          ChangeNotifierProvider(create: (_) => ThemeChanger()),
-          ChangeNotifierProvider(create: (_) => FavouriteProvider()),
-          ChangeNotifierProvider(create: (_) => CartModel()),
-        ],
-        child: Builder(builder: (BuildContext context) {
-          final themeChanger = Provider.of<ThemeChanger>(context);
-          return LocaleBuilder(
-            builder: (locale) {
-              return ChangeNotifierProvider(
-                create: (context) => CartModel()..fetchShopItems(),
-                child: MaterialApp(
-                  title: 'Hooodies!',
-                  localizationsDelegates: Locales.delegates,
-                  supportedLocales: Locales.supportedLocales,
-                  locale: locale,
-                  scaffoldMessengerKey: Utils.messengerKey,
-                  navigatorKey: navigatorKey,
-                  debugShowCheckedModeBanner: false,
-                  themeMode: themeChanger.themeMode,
-                  theme: ThemeData(
-                    brightness: Brightness.light,
-                    primarySwatch: Colors.red,
-                    primaryColorLight: Colors.red,
-                    appBarTheme: AppBarTheme(backgroundColor: Colors.red),
-                  ),
-                  darkTheme: ThemeData(
-                    brightness: Brightness.dark,
-                    appBarTheme: AppBarTheme(
-                      backgroundColor: Colors.red,
-                    ),
-                  ),
-                  home: const LoginApp(),
-                ),
-              );
-            },
-          );
-        }));
+  _LoginWidgetState createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool isPasswordVisible = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
-}
-
-class LoginApp extends StatelessWidget {
-  const LoginApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final nation = Locales.currentLocale(context)?.languageCode;
     return Scaffold(
-      body: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(child: Text("Mayday!"));
-            } else if (snapshot.hasData) {
-              return VerifyEmailPage();
-            } else {
-              return AuthPage();
-            }
-          }),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 130),
+            Text(
+              "Hooodies!",
+              style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
+            ),
+            const SizedBox(height: 10),
+            LocaleText(
+              'sign_in_motto',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.cabin(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 40),
+            LocaleText(
+              'email',
+              style:
+                  GoogleFonts.cabin(color: Colors.grey.shade500, fontSize: 15),
+            ),
+            TextFormField(
+              controller: emailController,
+              cursorColor: Colors.black,
+              textInputAction: TextInputAction.next,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.emailAddress,
+              validator: (email) => (email != null &&
+                      !EmailValidator.validate(email) &&
+                      nation == 'hu')
+                  ? "Érvényes e-mail címet adjon meg."
+                  : (email != null &&
+                          !EmailValidator.validate(email) &&
+                          nation == 'en')
+                      ? "Enter a valid email."
+                      : (email != null &&
+                              !EmailValidator.validate(email) &&
+                              nation == 'de')
+                          ? "Geben Sie eine gültige E-Mail-Adresse ein."
+                          : null,
+            ),
+            const SizedBox(height: 30),
+            LocaleText(
+              'password',
+              style:
+                  GoogleFonts.cabin(color: Colors.grey.shade500, fontSize: 15),
+            ),
+            TextField(
+              controller: passwordController,
+              textInputAction: TextInputAction.done,
+              obscureText: !isPasswordVisible,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Colors.grey.shade300,
+              ),
+              icon: const Icon(Icons.lock_open, size: 32, color: Colors.black),
+              label: LocaleText(
+                'sign_in',
+                style: GoogleFonts.cabin(fontSize: 24, color: Colors.black),
+              ),
+              onPressed: signIn,
+            ),
+            const SizedBox(height: 24),
+            GestureDetector(
+              child: Text('Forgot password?',
+                  style: GoogleFonts.cabin(
+                      decoration: TextDecoration.underline,
+                      color: Colors.purple)),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ForgotPasswordPage(),
+              )),
+            ),
+            const SizedBox(height: 12),
+            RichText(
+              text: TextSpan(
+                  style: GoogleFonts.cabin(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15),
+                  text: nation == 'hu'
+                      ? "Nincs még fiókod?  "
+                      : nation == 'en'
+                          ? "Don't have an account?  "
+                          : "Hast du noch kein Konto?  ",
+                  children: [
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.onClickedSignUp,
+                        text: nation == 'hu'
+                            ? "Regisztrálj!"
+                            : nation == 'en'
+                                ? "Sign up!"
+                                : "Register!",
+                        style: GoogleFonts.cabin(
+                            decoration: TextDecoration.underline,
+                            color: Colors.purple))
+                  ]),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              heroTag: "btn1",
+              backgroundColor: Colors.red.shade400,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const SettingScreen()));
+              },
+              child: const Icon(
+                Icons.language_rounded,
+              ),
+            ),
+            Expanded(child: Container()),
+            FloatingActionButton(
+              heroTag: "btn2",
+              backgroundColor: Colors.red.shade400,
+              onPressed: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const ThemePage()))
+              },
+              child: const Icon(
+                Icons.lightbulb_outline,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  Future signIn() async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      final user = userCredential.user;
+
+      if (user != null) {
+        if (user.emailVerified) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) =>
+                    Footer.CustomBottomMenu(page: Footer.Page.HOME)),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => VerifyEmailPage()),
+          );
+        }
+      }
+    } catch (error) {
+      Utils.showSnackBar(error.toString());
+    }
   }
 }

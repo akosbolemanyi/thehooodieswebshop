@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Utils {
+/**
+ * This class implements the general utils that the application uses. Now: the messaging through snack bars.
+ */
 
+class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
   static showSnackBar(String? text) {
