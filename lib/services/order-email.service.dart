@@ -4,11 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import '../providers/cart.provider.dart';
 import '../language-based-email-texts.dart';
+import 'currency.service.dart';
 
 Future sendEmails(String orderId, String orderDate, CartProvider cart,
     String languageCode) async {
+  final currencyService = CurrencyService.instance;
   List<Map<String, dynamic>> orderedProducts = cart.cartItems;
   final Map<String, dynamic> languageBasedTexts;
+
+  print('Ordered products: ${orderedProducts}');
 
   switch (languageCode) {
     case 'hu':
@@ -26,6 +30,13 @@ Future sendEmails(String orderId, String orderDate, CartProvider cart,
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .get();
 
+  DocumentSnapshot userAddressData = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('address')
+      .doc('shipping')
+      .get();
+
   String currency;
   String firstName;
   String lastName;
@@ -36,21 +47,21 @@ Future sendEmails(String orderId, String orderDate, CartProvider cart,
     case 'hu':
       currency = 'HUF';
       language = 'magyar';
-      totalPrice = cart.totalPriceHuf();
+      totalPrice = currencyService.format(cart.totalPriceHuf(), currency);
       firstName = userData['lastName'] ?? '{{firstName}}';
       lastName = userData['firstName'] ?? '{{lastName}}';
       break;
     case 'de':
       currency = 'EUR';
       language = 'német';
-      totalPrice = cart.totalPriceEuro();
+      totalPrice = currencyService.format(cart.totalPriceEuro(), currency);
       firstName = userData['firstName'] ?? '';
       lastName = userData['lastName'] ?? '';
       break;
     default:
       currency = 'USD';
       language = 'angol';
-      totalPrice = cart.totalPriceDollar();
+      totalPrice = currencyService.format(cart.totalPriceDollar(), currency);
       firstName = userData['firstName'] ?? '';
       lastName = userData['lastName'] ?? '';
   }
@@ -59,19 +70,25 @@ Future sendEmails(String orderId, String orderDate, CartProvider cart,
     'firstName': firstName,
     'lastName': lastName,
     'orderId': orderId,
-    'orderDate': orderDate,
+    'orderDate': DateTime.parse(orderDate)
+        .toIso8601String()
+        .split('.')[0]
+        .replaceAll('T', ' '),
     'language': language,
     'orders': orderedProducts
         .map((item) => {
-              'productName': item['productId'],
+              'productName': item['name'],
               'size': item['size'],
               'quantity': item['quantity'],
               'groupPrice':
                   '${item['quantity']}x ${item['prices'][currency]['formatted']}'
             })
         .toList(),
+    'shippingAddress':
+        '${userAddressData['zip']} ${userAddressData['city']}, ${userAddressData['address']}',
     'shippingCost': '-',
     'totalPrice': totalPrice,
+    'customerEmail': userData['email'] ?? '',
     ...languageBasedTexts,
   };
   await sendCustomerEmail(common, languageCode);
@@ -94,7 +111,7 @@ Future sendCustomerEmail(
   }
 
   final serviceId = 'service_ln0x71t';
-  final templateId = 'template_vr4t6cg';
+  final templateId = 'template_53lv54i';
   final publicKey = 'dQlVebTOSSi4WVz6l';
   final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
   await http.post(url,
@@ -107,6 +124,7 @@ Future sendCustomerEmail(
         'template_id': templateId,
         'user_id': publicKey,
         'template_params': {
+          'toEmail': common['customerEmail'],
           ...common,
           ...languageBasedTexts,
         }
@@ -137,7 +155,7 @@ Future sendManufacturerEmail(Map<String, dynamic> common) async {
   };
 
   final serviceId = 'service_ln0x71t';
-  final templateId = 'template_53lv54i';
+  final templateId = 'template_vr4t6cg';
   final publicKey = 'dQlVebTOSSi4WVz6l';
   final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
   await http.post(url,

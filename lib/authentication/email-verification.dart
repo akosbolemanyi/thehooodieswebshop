@@ -16,6 +16,7 @@ class VerifyEmailPage extends StatefulWidget {
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
 
   @override
@@ -29,6 +30,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
     if (!isEmailVerified) {
       sendVerificationEmail();
+
+      timer = Timer.periodic(
+        Duration(seconds: 3),
+        (_) => checkEmailVerified(),
+      );
     }
   }
 
@@ -40,7 +46,6 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
     if (isEmailVerified) {
       timer?.cancel();
-      Utils.showSnackBar('Email successfully verified!');
     }
   }
 
@@ -51,7 +56,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       Utils.showSnackBar(
           'Verification email sent to this address: ${user.email}');
 
+      setState(() => canResendEmail = false);
       await Future.delayed(Duration(seconds: 5));
+      setState(() => canResendEmail = false);
     } catch (error) {
       print('Email cannot be send again yet. Try again a bit later!');
     }
@@ -104,12 +111,21 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     backgroundColor: Colors.grey.shade300,
                     minimumSize: const Size.fromHeight(50),
                   ),
-                  icon: Icon(Icons.email, size: 32),
+                  icon: Icon(
+                    Icons.email,
+                    size: 32,
+                    color: Colors.red,
+                  ),
                   label: Text(
                     'Resend email',
                     style: GoogleFonts.cabin(color: Colors.black, fontSize: 24),
                   ),
-                  onPressed: sendVerificationEmail,
+                  onPressed: () => {
+                    canResendEmail
+                        ? sendVerificationEmail
+                        : Utils.showSnackBar(
+                            'Cannot resend email yet. Please, try again a few seconds later!')
+                  },
                 ),
                 const SizedBox(height: 8),
                 TextButton(

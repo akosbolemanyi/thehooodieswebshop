@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'authentication.dart';
+
 /**
  * From authentication, when the user wants to change the account's password, the application will navigate here.
  */
@@ -66,6 +68,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     cursorColor: Colors.black,
                     textInputAction: TextInputAction.next,
                     textAlign: TextAlign.center,
+                    keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (email) => (email != null &&
                             !EmailValidator.validate(email) &&
@@ -87,7 +90,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       backgroundColor: Colors.grey.shade300,
                       minimumSize: const Size.fromHeight(50),
                     ),
-                    icon: Icon(Icons.email, size: 32),
+                    icon: Icon(Icons.email, size: 32, color: Colors.red),
                     label: Text(
                       'Resend email',
                       style:
@@ -104,13 +107,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(child: CircularProgressIndicator()),
+      builder: (context) =>
+          Center(child: CircularProgressIndicator(color: Colors.red)),
     );
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
       Utils.showSnackBar('Reset-password email has been sent!');
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => AuthPage(),
+        ),
+      );
     } catch (error) {
       Utils.showSnackBar(error.toString());
     }

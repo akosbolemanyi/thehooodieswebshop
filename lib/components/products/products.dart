@@ -41,12 +41,13 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       var cartProvider = Provider.of<CartProvider>(context, listen: false);
-      cartProvider.fetchShopItems();
+      await cartProvider.fetchShopItems();
       _filteredItems =
           List.from(cartProvider.shopItems); // Kezdeti lista betöltése
     });
+    print('\n\n\n\nELEMEK: ${_filteredItems}\n\n\n\n');
 
     _searchController.addListener(() {
       updateList(_searchController.text); // Keresési szűrés
@@ -290,7 +291,7 @@ class _ProductsPageState extends State<ProductsPage> {
     return Consumer<CartProvider>(
       builder: (context, cartProvider, child) {
         if (cartProvider.shopItems.isEmpty) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: Colors.red));
         }
         return Padding(
           padding: const EdgeInsets.all(8.0),

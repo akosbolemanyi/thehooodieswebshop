@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../abstract-classes/page-content.dart';
 import '../menus/custom-bottom-menu.dart' as Footer;
 import '../menus/custom-side-menu.dart' as Sidebar;
-import '../providers/cart.provider.dart';
 import '../providers/theme-colour.provider.dart';
 import '../providers/theme.provider.dart';
 
@@ -58,7 +57,6 @@ class _HomePageState extends State<HomePage> {
   Widget buildBody(BuildContext context) {
     final themeColourProvider = Provider.of<ThemeColourProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final cartProvider = Provider.of<CartProvider>(context).orderItems;
     return AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         child: ListView(children: [

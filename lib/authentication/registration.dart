@@ -10,6 +10,8 @@ import '../components/settings/theme-settings.dart';
 import '../utils/utils.dart';
 import 'package:intl/intl.dart';
 
+import 'email-verification.dart';
+
 class SignUpWidget extends StatefulWidget {
   final VoidCallback onClickedSignIn;
 
@@ -276,7 +278,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   'sign_up',
                   style: GoogleFonts.cabin(fontSize: 24, color: Colors.black),
                 ),
-                onPressed: signUp,
+                onPressed: () async => {signUp(context)},
               ),
               const SizedBox(height: 24),
               RichText(
@@ -342,24 +344,18 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     );
   }
 
-  Future signUp() async {
+  Future signUp(BuildContext context) async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
     try {
-      // Felhasználó létrehozása a Firebase Authentication rendszerében
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
-      // Verifikációs email elküldése
       final user = FirebaseAuth.instance.currentUser;
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-      }
 
-      // Az új felhasználó adatainak mentése a Firestore-ba
       await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
         'firstName': firstNameController.text.trim(),
         'lastName': lastNameController.text.trim(),
@@ -369,9 +365,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         'imageUrl': imageUrl,
       });
 
-      Utils.showSnackBar('Verification email sent. Please verify your email.');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => VerifyEmailPage()),
+      );
     } on FirebaseAuthException catch (error) {
-      // Hiba esetén megjelenítjük az üzenetet
       Utils.showSnackBar(error.message ?? 'An error occurred');
     } catch (error) {
       Utils.showSnackBar('An unexpected error occurred: $error');

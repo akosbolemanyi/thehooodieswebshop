@@ -102,7 +102,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(child: CircularProgressIndicator(color: Colors.red)),
           );
         }
         return Scaffold(

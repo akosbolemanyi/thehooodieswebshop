@@ -13,17 +13,17 @@ class CartProvider extends ChangeNotifier {
       final querySnapshot = await _firestore.collection('products').get();
 
       _shopItems = [];
+      var i = 0;
       for (var result in querySnapshot.docs) {
         var productData = result.data();
-        String productId = result.id;
 
+        String productId = result.id;
         String productName = productData['name'] ?? 'N/A';
         String imageUrl = productData['imageUrl'] ?? '';
         String colour = productData['colour'] ?? '';
         Map<String, dynamic> sizes = {};
         Map<String, dynamic> prices = {};
 
-        // Méretek betöltése a "sizes" alkollekcióból
         var sizeCollection = await _firestore
             .collection('products')
             .doc(productId)
@@ -50,10 +50,9 @@ class CartProvider extends ChangeNotifier {
           'imageUrl': imageUrl,
           'colour': colour,
           'sizes': sizes,
-          'prices': prices, // Méretek és áraik
+          'prices': prices,
         });
       }
-
       notifyListeners();
     } catch (e) {
       print('Error fetching products: $e');
@@ -147,27 +146,33 @@ class CartProvider extends ChangeNotifier {
 
   String totalPriceDollar() {
     double sumPrice = 0;
+    print('\n\n\nDOLLAR: ${_cartItems}\n\n\n');
     for (var item in _cartItems) {
-      sumPrice +=
-          double.tryParse(item['priceDollar'].toString())! * item['quantity'];
+      print(item['prices']['USD']['raw']);
+      sumPrice += double.tryParse(item['prices']['USD']['raw'].toString())! *
+          item['quantity'];
     }
     return sumPrice.toStringAsFixed(2);
   }
 
   String totalPriceEuro() {
     double sumPrice = 0;
+    // print('\n\n\nEURO: ${_cartItems}\n\n\n');
     for (var item in _cartItems) {
-      sumPrice +=
-          double.tryParse(item['priceEuro'].toString())! * item['quantity'];
+      print(item['prices']['EUR']['raw']);
+      sumPrice += double.tryParse(item['prices']['EUR']['raw'].toString())! *
+          item['quantity'];
     }
     return sumPrice.toStringAsFixed(2);
   }
 
   String totalPriceHuf() {
     double sumPrice = 0;
+    print('\n\n\nHUF: ${_cartItems}\n\n\n');
     for (var item in _cartItems) {
-      sumPrice +=
-          double.tryParse(item['priceHuf'].toString())! * item['quantity'];
+      print(item['prices']['HUF']['raw']);
+      sumPrice += double.tryParse(item['prices']['HUF']['raw'].toString())! *
+          item['quantity'];
     }
     return sumPrice.floor().toString();
   }

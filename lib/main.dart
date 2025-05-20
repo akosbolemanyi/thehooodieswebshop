@@ -57,31 +57,28 @@ class App extends StatelessWidget {
           final themeProvider = Provider.of<ThemeProvider>(context);
           return LocaleBuilder(
             builder: (locale) {
-              return ChangeNotifierProvider(
-                create: (context) => CartProvider()..fetchShopItems(),
-                child: MaterialApp(
-                  title: 'Hooodies!',
-                  localizationsDelegates: Locales.delegates,
-                  supportedLocales: Locales.supportedLocales,
-                  locale: locale,
-                  scaffoldMessengerKey: Utils.messengerKey,
-                  navigatorKey: navigatorKey,
-                  debugShowCheckedModeBanner: false,
-                  themeMode: themeProvider.themeMode,
-                  theme: ThemeData(
-                    brightness: Brightness.light,
-                    primarySwatch: Colors.red,
-                    primaryColorLight: Colors.red,
-                    appBarTheme: AppBarTheme(backgroundColor: Colors.red),
-                  ),
-                  darkTheme: ThemeData(
-                    brightness: Brightness.dark,
-                    appBarTheme: AppBarTheme(
-                      backgroundColor: Colors.red,
-                    ),
-                  ),
-                  home: const LoginApp(),
+              return MaterialApp(
+                title: 'Hooodies!',
+                localizationsDelegates: Locales.delegates,
+                supportedLocales: Locales.supportedLocales,
+                locale: locale,
+                scaffoldMessengerKey: Utils.messengerKey,
+                navigatorKey: navigatorKey,
+                debugShowCheckedModeBanner: false,
+                themeMode: themeProvider.themeMode,
+                theme: ThemeData(
+                  brightness: Brightness.light,
+                  primarySwatch: Colors.red,
+                  primaryColorLight: Colors.red,
+                  appBarTheme: AppBarTheme(backgroundColor: Colors.red),
                 ),
+                darkTheme: ThemeData(
+                  brightness: Brightness.dark,
+                  appBarTheme: AppBarTheme(
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                home: const LoginApp(),
               );
             },
           );
@@ -99,7 +96,8 @@ class LoginApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(color: Colors.red));
             } else if (snapshot.hasError) {
               return const Center(
                   child:
