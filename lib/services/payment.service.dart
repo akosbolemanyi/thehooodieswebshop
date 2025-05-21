@@ -72,7 +72,6 @@ class StripeService {
   }
 
   String _calculateAmount(String price, String currency) {
-    print('\n\n$price\n\n');
     switch (currency) {
       case 'HUF':
         return (int.parse(price) * 100).toString();

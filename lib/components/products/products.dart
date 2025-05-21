@@ -14,7 +14,7 @@ import '../../providers/theme.provider.dart';
 import '../../services/currency.service.dart';
 
 /**
- * THis page lists all the products, with the options to search and filter them.
+ * This page lists all the products, with the options to search and filter them.
  */
 
 class ProductsPage extends StatefulWidget implements PageContent {
@@ -74,26 +74,21 @@ class _ProductsPageState extends State<ProductsPage> {
       }).toList();
     }
 
-    // **Rendezés** (Ha van kiválasztott rendezési mód)
+    // TODO - Implement this with switch-case!
     if (selectedSort != null) {
       if (selectedSort == "price_asc") {
-        // Ár szerint növekvő
         filtered.sort((a, b) => (a['prices']['HUF']['raw'] as num)
             .compareTo(b['prices']['HUF']['raw'] as num));
       } else if (selectedSort == "price_desc") {
-        // Ár szerint csökkenő
         filtered.sort((a, b) => (b['prices']['HUF']['raw'] as num)
             .compareTo(a['prices']['HUF']['raw'] as num));
       } else if (selectedSort == "abc_asc") {
-        // ABC sorrend növekvő
         filtered.sort((a, b) => a['name'].compareTo(b['name']));
       } else if (selectedSort == "abc_desc") {
-        // ABC sorrend csökkenő
         filtered.sort((a, b) => b['name'].compareTo(a['name']));
       }
     }
 
-    // Frissítjük az állapotot a szűrt és rendezett listával
     setState(() {
       _filteredItems = filtered;
     });

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
-class CartQuantityCounter extends StatefulWidget {
+class ProductQuantitySelector extends StatefulWidget {
   final Function(int) onQuantityChanged;
 
-  const CartQuantityCounter({super.key, required this.onQuantityChanged});
+  const ProductQuantitySelector({super.key, required this.onQuantityChanged});
 
   @override
-  State<CartQuantityCounter> createState() => _CartQuantityCounterState();
+  State<ProductQuantitySelector> createState() =>
+      _ProductQuantitySelectorState();
 }
 
-class _CartQuantityCounterState extends State<CartQuantityCounter> {
+class _ProductQuantitySelectorState extends State<ProductQuantitySelector> {
   int numOfItems = 1;
 
   void updateQuantity(int value) {
@@ -46,7 +47,7 @@ class _CartQuantityCounterState extends State<CartQuantityCounter> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin / 2),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0 / 2),
           child: Text(
             numOfItems.toString().padLeft(2, "0"),
             style: Theme.of(context).textTheme.titleMedium,

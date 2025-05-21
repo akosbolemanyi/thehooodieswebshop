@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../../constants.dart';
-import '../../../models/product.model.dart';
+import '../../../../constants.dart';
+import '../../../../models/product.model.dart';
 
 class ProductSizeSelector extends StatefulWidget {
   const ProductSizeSelector({
@@ -29,7 +29,6 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
     fetchStockQuantity(selectedSize);
   }
 
-  // Aszinkron funkció, amely visszatér a stockQuantity-val
   Future<int> fetchStockQuantity(String size) async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -67,8 +66,6 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
 
   @override
   Widget build(BuildContext context) {
-    print('-------------------------------------------------- ' +
-        stockQuantity.toString());
     return Row(
       children: <Widget>[
         Expanded(
@@ -146,22 +143,22 @@ class SizeOption extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(size),
       child: Container(
-        margin: const EdgeInsets.only(
-            top: kDefaultPaddin / 4, right: kDefaultPaddin / 2),
+        margin: const EdgeInsets.only(top: 20.0 / 4, right: 20.0 / 2),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? kTextColor : Colors.grey,
+            color: isSelected ? Colors.green : Colors.grey,
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(6),
-          color: isSelected ? kTextColor.withOpacity(0.1) : Colors.transparent,
+          color:
+              isSelected ? Colors.green.withOpacity(0.1) : Colors.transparent,
         ),
         child: Text(
           size,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isSelected ? kTextColor : Colors.grey,
+            color: isSelected ? Colors.green : Colors.grey,
           ),
         ),
       ),

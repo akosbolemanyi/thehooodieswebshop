@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
-import '../../../models/product.model.dart';
-import '../../../providers/cart.provider.dart';
-import '../../../utils/utils.dart';
-import '../../../menus/custom-bottom-menu.dart' as Footer;
+import '../../../../constants.dart';
+import '../../../../models/product.model.dart';
+import '../../../../providers/cart.provider.dart';
+import '../../../../utils/utils.dart';
+import '../../../../menus/custom-bottom-menu.dart' as Footer;
 
-class AddToCart extends StatelessWidget {
-  const AddToCart({
+class ProductCartAdder extends StatelessWidget {
+  const ProductCartAdder({
     super.key,
     required this.product,
     required this.selectedSize,
@@ -48,11 +48,11 @@ class AddToCart extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(right: kDefaultPaddin),
+            margin: const EdgeInsets.only(right: 20.0),
             height: 50,
             width: 58,
             decoration: BoxDecoration(

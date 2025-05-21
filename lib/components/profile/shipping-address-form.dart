@@ -184,7 +184,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                     widget.isPaymentMode
                         ? ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
+                              backgroundColor: Colors.red.shade400,
                               minimumSize: const Size(8.0, 50.0),
                             ),
                             icon: const Icon(Icons.payment_rounded,
@@ -213,7 +213,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                           )
                         : ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
+                              backgroundColor: Colors.red.shade400,
                               minimumSize: const Size(8.0, 50.0),
                             ),
                             icon: const Icon(Icons.save_alt_outlined,

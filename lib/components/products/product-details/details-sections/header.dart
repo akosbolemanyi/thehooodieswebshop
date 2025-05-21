@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
-import '../../../models/product.model.dart';
-import '../../../providers/theme.provider.dart';
-import '../../../services/currency.service.dart';
+import '../../../../constants.dart';
+import '../../../../models/product.model.dart';
+import '../../../../providers/theme.provider.dart';
+import '../../../../services/currency.service.dart';
 
 /**
  * In this header widget, the price and image of the product is displayed.
@@ -22,7 +22,7 @@ class ProductHeader extends StatelessWidget {
     final currencyService = CurrencyService.instance;
     final currency = currencyService.getCurrency(nation);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -57,7 +57,7 @@ class ProductHeader extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: kDefaultPaddin),
+              const SizedBox(width: 20.0),
               Expanded(
                 child: Hero(
                   tag: 1,

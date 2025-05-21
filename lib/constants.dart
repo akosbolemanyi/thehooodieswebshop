@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
 /**
- * This file contains the keys of APIs, and the constant values that are used for the UI.
+ * This file contains the keys of APIs that are used for the UI.
  */
-
-const kTextColor = Colors.green;
-const kTextLightColor = Colors.green;
-
-const kDefaultPaddin = 20.0;
 
 const String GOOGLE_MAPS_API_KEY = 'AIzaSyAe0mTAJLtMPJVikve94VbA2TZRSERnVvc';
 

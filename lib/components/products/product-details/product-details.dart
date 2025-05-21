@@ -1,5 +1,3 @@
-import 'package:android_studio_projects/components/products/product-details/quantity-and-favourite.dart';
-import 'package:android_studio_projects/components/products/product-details/size-selector.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../menus/custom-bottom-menu.dart' as Footer;
@@ -7,10 +5,12 @@ import 'package:badges/badges.dart' as badges;
 import '../../../models/product.model.dart';
 import '../../../providers/cart.provider.dart';
 import '../../../providers/theme.provider.dart';
-import 'add-to-cart.dart';
-import 'description.dart';
 import 'package:provider/provider.dart';
-import 'header.dart';
+import 'details-sections/cart-adder.dart';
+import 'details-sections/delivery-and-favourite.dart';
+import 'details-sections/description.dart';
+import 'details-sections/header.dart';
+import 'details-sections/size-selector.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final ProductModel product;
@@ -24,7 +24,7 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   String selectedSize = "M";
   int selectedQuantity = 1;
-  int stockQuantity = 0;
+  int inStock = 0;
 
   void updateQuantity(int quantity) {
     setState(() {
@@ -34,7 +34,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   void updateStockQuantity(int quantity) {
     setState(() {
-      stockQuantity = quantity;
+      inStock = quantity;
     });
   }
 
@@ -83,7 +83,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               },
             ),
           ),
-          SizedBox(width: kDefaultPaddin / 2),
+          SizedBox(width: 20.0 / 2),
         ],
       ),
       body: SingleChildScrollView(
@@ -97,8 +97,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     margin: EdgeInsets.only(top: size.height * 0.3),
                     padding: EdgeInsets.only(
                       top: size.height * 0.12,
-                      left: kDefaultPaddin,
-                      right: kDefaultPaddin,
+                      left: 20.0,
+                      right: 20.0,
                     ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
@@ -118,18 +118,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           },
                           onStockChanged: updateStockQuantity,
                         ),
-                        const SizedBox(height: kDefaultPaddin / 2),
+                        const SizedBox(height: 20.0 / 2),
                         ProductDescription(product: widget.product),
-                        const SizedBox(height: kDefaultPaddin / 2),
+                        const SizedBox(height: 20.0 / 2),
                         ProductQuantityAndFavourite(
                             product: widget.product,
                             onQuantityChanged: updateQuantity),
-                        const SizedBox(height: kDefaultPaddin / 2),
-                        AddToCart(
+                        const SizedBox(height: 20.0 / 2),
+                        ProductCartAdder(
                           product: widget.product,
                           selectedSize: selectedSize,
                           quantity: selectedQuantity,
-                          stockQuantity: stockQuantity,
+                          stockQuantity: inStock,
                         ),
                       ],
                     ),

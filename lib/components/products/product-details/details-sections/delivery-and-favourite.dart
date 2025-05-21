@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../models/product.model.dart';
-import '../../../providers/favourites.provider.dart';
-import '../../../providers/theme.provider.dart';
-import 'cart-quantity-counter.dart';
+import '../../../../models/product.model.dart';
+import '../../../../providers/favourites.provider.dart';
+import '../../../../providers/theme.provider.dart';
+import 'quantity-selector.dart';
 
 /**
  * In this widget section, the quantity of the products can be selected, as well it can be marked as favourite.
@@ -38,7 +38,7 @@ class _CounterWithFavBtnState extends State<ProductQuantityAndFavourite> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        CartQuantityCounter(onQuantityChanged: updateQuantity),
+        ProductQuantitySelector(onQuantityChanged: updateQuantity),
         Text(
           'Delivery: 3 days',
           style: GoogleFonts.aleo(

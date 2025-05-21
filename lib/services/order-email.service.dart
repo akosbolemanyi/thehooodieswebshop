@@ -12,8 +12,6 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
   List<Map<String, dynamic>> orderedProducts = cartProvider.cartItems;
   final Map<String, dynamic> languageBasedTexts;
 
-  print('Ordered products: ${orderedProducts}');
-
   switch (languageCode) {
     case 'hu':
       languageBasedTexts = common_hu;
