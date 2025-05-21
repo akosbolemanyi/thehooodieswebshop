@@ -44,13 +44,11 @@ class _ProductsPageState extends State<ProductsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var cartProvider = Provider.of<CartProvider>(context, listen: false);
       await cartProvider.fetchShopItems();
-      _filteredItems =
-          List.from(cartProvider.shopItems); // Kezdeti lista betöltése
+      _filteredItems = List.from(cartProvider.shopItems);
     });
-    print('\n\n\n\nELEMEK: ${_filteredItems}\n\n\n\n');
 
     _searchController.addListener(() {
-      updateList(_searchController.text); // Keresési szűrés
+      updateList(_searchController.text);
     });
   }
 
@@ -58,7 +56,6 @@ class _ProductsPageState extends State<ProductsPage> {
     var cartProvider = Provider.of<CartProvider>(context, listen: false);
     List<dynamic> filtered = List.from(cartProvider.shopItems);
 
-    // **Keresési feltétel** (ha van beírva valami)
     if (value.isNotEmpty) {
       filtered = filtered.where((item) {
         String itemName = item['name'].toLowerCase();

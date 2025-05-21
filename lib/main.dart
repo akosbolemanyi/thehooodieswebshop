@@ -20,7 +20,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Locales.init(['hu', 'en', 'de']);
   Stripe.publishableKey = stripePublishableKey;
-
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(

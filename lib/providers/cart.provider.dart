@@ -8,12 +8,13 @@ class CartProvider extends ChangeNotifier {
 
   List<Map<String, dynamic>> _shopItems = [];
 
+  bool _isLoading = false;
   Future<void> fetchShopItems() async {
+    if (_isLoading) return;
+    _isLoading = true;
     try {
-      final querySnapshot = await _firestore.collection('products').get();
-
       _shopItems = [];
-      var i = 0;
+      final querySnapshot = await _firestore.collection('products').get();
       for (var result in querySnapshot.docs) {
         var productData = result.data();
 
@@ -56,6 +57,8 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print('Error fetching products: $e');
+    } finally {
+      _isLoading = false;
     }
   }
 
@@ -168,7 +171,7 @@ class CartProvider extends ChangeNotifier {
 
   String totalPriceHuf() {
     double sumPrice = 0;
-    print('\n\n\nHUF: ${_cartItems}\n\n\n');
+    // print('\n\n\nHUF: ${_cartItems}\n\n\n');
     for (var item in _cartItems) {
       print(item['prices']['HUF']['raw']);
       sumPrice += double.tryParse(item['prices']['HUF']['raw'].toString())! *

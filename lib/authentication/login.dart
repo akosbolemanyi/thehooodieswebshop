@@ -197,29 +197,15 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   Future signIn() async {
     try {
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
-      final user = userCredential.user;
-
-      if (user != null) {
-        if (user.emailVerified) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) =>
-                    Footer.CustomBottomMenu(page: Footer.Page.HOME)),
-          );
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => VerifyEmailPage()),
-          );
-        }
-      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => VerifyEmailPage()),
+      );
     } catch (error) {
       Utils.showSnackBar(error.toString());
     }
