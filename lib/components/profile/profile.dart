@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../authentication/authentication.dart';
 import '../../image-management/user-image.dart';
+import '../../providers/cart.provider.dart';
+import '../../providers/favourites.provider.dart';
 import '../../providers/theme.provider.dart';
 import 'profile-form.dart';
 import '../../menus/custom-side-menu.dart' as Sidebar;
@@ -26,7 +28,11 @@ class _ProfilePageState extends State<ProfilePage> {
   File? imageXFile;
 
   Future logOut(BuildContext context) async {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final favouritesProvider = FavouritesProvider.of(context);
     FirebaseAuth.instance.signOut();
+    cartProvider.cartItems = [];
+    favouritesProvider.favourites = [];
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

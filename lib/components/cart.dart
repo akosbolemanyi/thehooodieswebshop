@@ -1,4 +1,5 @@
 import 'package:android_studio_projects/components/profile/shipping-address-form.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +42,11 @@ class CartPage extends StatelessWidget {
   }
 
   Widget buildImage(String imageUrl) {
-    return Image.network(imageUrl, width: 100);
+    return CachedNetworkImage(
+      key: UniqueKey(),
+      imageUrl: imageUrl,
+      width: 100,
+    );
   }
 
   Widget buildNameLabel(String productName) {

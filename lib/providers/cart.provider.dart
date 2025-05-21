@@ -70,6 +70,10 @@ class CartProvider extends ChangeNotifier {
   List<Map<String, dynamic>> get cartItems => _cartItems;
   List<Map<String, dynamic>> get orderItems => _orderItems;
 
+  set cartItems(List<Map<String, dynamic>> value) {
+    _cartItems = value;
+  }
+
   void addItem(int index, String selectedSize, int quantity) {
     var selectedItem = _shopItems[index];
 

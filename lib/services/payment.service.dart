@@ -1,5 +1,4 @@
 import 'package:android_studio_projects/constants.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -9,9 +8,10 @@ class StripeService {
 
   static final StripeService instance = StripeService._();
 
-  Future<bool> makePayment() async {
+  Future<bool> makePayment(String price, String currency) async {
     try {
-      String? paymentIntentClientSecret = await _createPaymentIntent(10, 'usd');
+      String? paymentIntentClientSecret =
+          await _createPaymentIntent(price, currency);
       if (paymentIntentClientSecret == null) return false;
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
@@ -32,12 +32,13 @@ class StripeService {
     }
   }
 
-  Future<String?> _createPaymentIntent(int amount, String currency) async {
+  Future<String?> _createPaymentIntent(String price, String currency) async {
     try {
       final Dio dio = Dio();
+
       Map<String, dynamic> data = {
-        'amount': _calculateAmount(amount),
-        'currency': currency,
+        'amount': _calculateAmount(price, currency),
+        'currency': currency.toLowerCase(),
       };
       var response = await dio.post('https://api.stripe.com/v1/payment_intents',
           data: data,
@@ -70,8 +71,13 @@ class StripeService {
     }
   }
 
-  String _calculateAmount(int amount) {
-    final calculatedAmount = amount * 100;
-    return calculatedAmount.toString();
+  String _calculateAmount(String price, String currency) {
+    print('\n\n$price\n\n');
+    switch (currency) {
+      case 'HUF':
+        return (int.parse(price) * 100).toString();
+      default:
+        return (double.parse(price) * 100).round().toString();
+    }
   }
 }

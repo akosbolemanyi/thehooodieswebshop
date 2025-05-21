@@ -3,8 +3,12 @@ import 'package:provider/provider.dart';
 import '../models/product.model.dart';
 
 class FavouritesProvider extends ChangeNotifier {
-  final List<String> _favourites = [];
+  List<String> _favourites = [];
   List<String> get favourites => _favourites;
+  set favourites(List<String> value) {
+    _favourites = value;
+  }
+
   void toggleFavourite(ProductModel product) {
     if (_favourites.contains(product.name)) {
       _favourites.remove(product.name);
