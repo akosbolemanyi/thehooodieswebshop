@@ -6,10 +6,10 @@ import '../providers/cart.provider.dart';
 import '../language-based-email-texts.dart';
 import 'currency.service.dart';
 
-Future sendEmails(String orderId, String orderDate, CartProvider cart,
+Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
     String languageCode) async {
   final currencyService = CurrencyService.instance;
-  List<Map<String, dynamic>> orderedProducts = cart.cartItems;
+  List<Map<String, dynamic>> orderedProducts = cartProvider.cartItems;
   final Map<String, dynamic> languageBasedTexts;
 
   print('Ordered products: ${orderedProducts}');
@@ -47,21 +47,18 @@ Future sendEmails(String orderId, String orderDate, CartProvider cart,
     case 'hu':
       currency = 'HUF';
       language = 'magyar';
-      totalPrice = currencyService.format(cart.totalPriceHuf(), currency);
       firstName = userData['lastName'] ?? '{{firstName}}';
       lastName = userData['firstName'] ?? '{{lastName}}';
       break;
     case 'de':
       currency = 'EUR';
       language = 'német';
-      totalPrice = currencyService.format(cart.totalPriceEuro(), currency);
       firstName = userData['firstName'] ?? '';
       lastName = userData['lastName'] ?? '';
       break;
     default:
       currency = 'USD';
       language = 'angol';
-      totalPrice = currencyService.format(cart.totalPriceDollar(), currency);
       firstName = userData['firstName'] ?? '';
       lastName = userData['lastName'] ?? '';
   }
@@ -87,7 +84,8 @@ Future sendEmails(String orderId, String orderDate, CartProvider cart,
     'shippingAddress':
         '${userAddressData['zip']} ${userAddressData['city']}, ${userAddressData['address']}',
     'shippingCost': '-',
-    'totalPrice': totalPrice,
+    'totalPrice':
+        currencyService.format(cartProvider.sumPrice(languageCode), currency),
     'customerEmail': userData['email'] ?? '',
     ...languageBasedTexts,
   };

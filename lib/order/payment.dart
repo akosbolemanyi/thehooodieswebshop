@@ -14,7 +14,7 @@ class PaymentBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartModel = Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     final cartItems = Provider.of<CartProvider>(context).orderItems;
     final languageCode = Locales.currentLocale(context)?.languageCode;
     print('These are the cartItems: $cartItems');
@@ -82,14 +82,13 @@ class PaymentBackground extends StatelessWidget {
                   if (orderId != '') {
                     String orderDate = DateTime.now().toString();
                     await sendEmails(
-                        orderId, orderDate, cartModel, languageCode!);
+                        orderId, orderDate, cartProvider, languageCode!);
                     Navigator.of(context).push(PageTransition(
                       type: PageTransitionType.fade,
                       child: SuccessAnimationPage(orderId: orderId),
                     ));
                   }
                 }
-                // TODO - If payment is successful but order generation isn't, then...?
               },
             ),
           ],

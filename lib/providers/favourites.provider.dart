@@ -6,16 +6,16 @@ class FavouritesProvider extends ChangeNotifier {
   final List<String> _favourites = [];
   List<String> get favourites => _favourites;
   void toggleFavourite(ProductModel product) {
-    if (_favourites.contains(product.itemName)) {
-      _favourites.remove(product.itemName);
+    if (_favourites.contains(product.name)) {
+      _favourites.remove(product.name);
     } else {
-      _favourites.add(product.itemName);
+      _favourites.add(product.name);
     }
     notifyListeners();
   }
 
   bool isExist(ProductModel product) {
-    final isExist = _favourites.contains(product.itemName);
+    final isExist = _favourites.contains(product.name);
     return isExist;
   }
 

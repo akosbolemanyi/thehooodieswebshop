@@ -1,6 +1,7 @@
 import 'package:android_studio_projects/abstract-classes/page-content.dart';
 import 'package:android_studio_projects/components/products/product-details/product-details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../models/product.model.dart';
@@ -9,6 +10,7 @@ import '../menus/custom-side-menu.dart' as Sidebar;
 import '../menus/custom-bottom-menu.dart' as Footer;
 import '../providers/cart.provider.dart';
 import '../providers/favourites.provider.dart';
+import '../services/currency.service.dart';
 
 /**
  * This page lists the products marked favourite.
@@ -43,19 +45,26 @@ class _FavouritesPageState extends State<FavouritesPage> {
     });
   }
 
-  void navigateToDetailsPage(int index, CartProvider cartModel) {
-    final item = cartModel.shopItems[index];
-    print(item);
+  void navigateToDetailsPage(String id, CartProvider cartProvider) {
+    final item =
+        cartProvider.shopItems.firstWhere((element) => element['id'] == id);
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ProductDetailsPage(
           product: ProductModel(
             id: item['id'],
-            itemName: item['name'],
-            itemPrice: item['prices']['HUF']['raw'].toString(),
-            imagePath: item['imageUrl'],
-            color: Colors.red,
+            name: item['name'],
+            description: item['description'] ??
+                'The quality is the single most significant component of the perfect hoodie. '
+                    'We do not believe in giving this task of manufacturing to other companies. '
+                    'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+            price: item['prices'][currency]['raw'].toString(),
+            imageUrl: item['imageUrl'],
+            colour: item['colour'],
             onTap: () {},
             onPressed: () {},
             imageHeight: 1,
@@ -132,10 +141,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
   Widget buildBody(BuildContext context) {
     final favouritesProvider = FavouritesProvider.of(context);
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
 
     return Consumer<CartProvider>(
-      builder: (context, cartModel, child) {
-        final favouriteItems = cartModel.shopItems
+      builder: (context, cartProvider, child) {
+        final favouriteItems = cartProvider.shopItems
             .where((item) => favouritesProvider.favourites
                 .any((favourite) => favourite == item['name']))
             .toList();
@@ -162,12 +174,15 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
               return ProductModel(
                 id: item['id'],
-                itemName: item['name'],
-                itemPrice: item['prices']['HUF']['raw']
-                    .toString(), // Alapértelmezett M méretű ár
-                imagePath: item['imageUrl'],
-                color: Colors.white,
-                onTap: () => navigateToDetailsPage(index, cartModel),
+                name: item['name'],
+                description: item['description'] ??
+                    'The quality is the single most significant component of the perfect hoodie. '
+                        'We do not believe in giving this task of manufacturing to other companies. '
+                        'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                price: item['prices'][currency]['raw'].toString(),
+                imageUrl: item['imageUrl'],
+                colour: item['colour'],
+                onTap: () => navigateToDetailsPage(item['id'], cartProvider),
                 onPressed: () {},
                 imageHeight: imageHeight,
                 textSize: textSize,

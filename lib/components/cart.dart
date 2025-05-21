@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../providers/cart.provider.dart';
+import '../services/currency.service.dart';
+import '../utils/utils.dart';
 
 class CartPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -61,7 +63,7 @@ class CartPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('$price Ft',
+        Text(price,
             style:
                 GoogleFonts.cabin(fontWeight: FontWeight.bold, fontSize: 20)),
       ],
@@ -70,16 +72,18 @@ class CartPage extends StatelessWidget {
 
   Widget buildBody(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
     return Consumer<CartProvider>(
-      builder: (context, cartModel, child) {
+      builder: (context, cartProvider, child) {
         return Column(
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: cartModel.cartItems.length,
+                itemCount: cartProvider.cartItems.length,
                 padding: const EdgeInsets.all(12),
                 itemBuilder: (context, index) {
-                  final item = cartModel.cartItems[index];
+                  final item = cartProvider.cartItems[index];
                   return Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
@@ -95,7 +99,9 @@ class CartPage extends StatelessWidget {
                               const SizedBox(height: 2.5),
                               buildSize(item['size']),
                               const SizedBox(height: 2.5),
-                              buildPrice(item['priceHuf']),
+                              buildPrice(currencyService.format(
+                                  item['prices'][currency]['raw'].toString(),
+                                  currency)),
                             ],
                           ),
                         ),
@@ -105,7 +111,7 @@ class CartPage extends StatelessWidget {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.cancel, color: Colors.red),
-                              onPressed: () => cartModel.removeItem(index),
+                              onPressed: () => cartProvider.removeItem(index),
                             ),
                             const SizedBox(height: 10),
                             Row(
@@ -117,7 +123,7 @@ class CartPage extends StatelessWidget {
                                     size: 35,
                                   ),
                                   onPressed: () =>
-                                      cartModel.decreaseQuantity(index),
+                                      cartProvider.decreaseQuantity(index),
                                 ),
                                 Text(
                                   item['quantity'].toString(),
@@ -132,7 +138,7 @@ class CartPage extends StatelessWidget {
                                     size: 35,
                                   ),
                                   onPressed: () =>
-                                      cartModel.increaseQuantity(index),
+                                      cartProvider.increaseQuantity(index),
                                 ),
                               ],
                             ),
@@ -168,11 +174,8 @@ class CartPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          nation == 'hu'
-                              ? "${cartModel.totalPriceHuf()} Ft"
-                              : nation == 'en'
-                                  ? "\$${cartModel.totalPriceDollar()}"
-                                  : "€${cartModel.totalPriceEuro()}",
+                          currencyService.format(
+                              cartProvider.sumPrice(nation!), currency),
                           style: GoogleFonts.cabin(
                             color: Colors.white,
                             fontSize: 18,
@@ -191,12 +194,21 @@ class CartPage extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ShippingAddressForm(
-                                        isPaymentMode: true)),
-                              );
+                              final cartIsEmpty = cartProvider
+                                  .sumPrice(nation)
+                                  .replaceAll(RegExp(r'[^0-9]'), '')
+                                  .replaceAll('0', '')
+                                  .isEmpty;
+                              if (!cartIsEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ShippingAddressForm(
+                                          isPaymentMode: true)),
+                                );
+                              } else {
+                                Utils.showSnackBar('Cart is empty!');
+                              }
                             },
                             child: LocaleText(
                               'pay_now',

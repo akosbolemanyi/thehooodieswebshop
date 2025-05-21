@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../models/product.model.dart';
 import '../../../providers/theme.provider.dart';
+import '../../../services/currency.service.dart';
 
 /**
  * In this header widget, the price and image of the product is displayed.
@@ -11,18 +14,20 @@ import '../../../providers/theme.provider.dart';
 
 class ProductHeader extends StatelessWidget {
   const ProductHeader({super.key, required this.product});
-
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            product.itemName, // hoodie.itemName,
+            product.name, // hoodie.itemName,
             style: GoogleFonts.lobster(
               fontSize: 40,
               fontWeight: FontWeight.bold,
@@ -42,7 +47,7 @@ class ProductHeader extends StatelessWidget {
                               : Colors.black,
                         )),
                     TextSpan(
-                        text: "\$${product.itemPrice}",
+                        text: currencyService.format(product.price, currency),
                         style: GoogleFonts.cabin(
                             fontSize: 25,
                             color: themeProvider.themeMode == ThemeMode.dark
@@ -56,8 +61,9 @@ class ProductHeader extends StatelessWidget {
               Expanded(
                 child: Hero(
                   tag: 1,
-                  child: Image.network(
-                    product.imagePath,
+                  child: CachedNetworkImage(
+                    key: UniqueKey(),
+                    imageUrl: product.imageUrl,
                     height: 300,
                   ),
                 ),

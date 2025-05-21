@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
+import '../services/currency.service.dart';
 import '../utils/utils.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -62,35 +64,30 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  List<Map<String, dynamic>> get shopItems => _shopItems;
-
   List<Map<String, dynamic>> _cartItems = [];
+  List<Map<String, dynamic>> _orderItems = [];
+  List<Map<String, dynamic>> get shopItems => _shopItems;
   List<Map<String, dynamic>> get cartItems => _cartItems;
-  List<Map<String, dynamic>> orderItems = [];
+  List<Map<String, dynamic>> get orderItems => _orderItems;
 
-  // Frissített addItem metódus (most már mennyiséggel együtt)
   void addItem(int index, String selectedSize, int quantity) {
     var selectedItem = _shopItems[index];
 
-    int existingIndex = _cartItems.indexWhere(
+    int cartIndex = _cartItems.indexWhere(
       (item) =>
           item['id'] == selectedItem['id'] && item['size'] == selectedSize,
     );
-    if (existingIndex != -1) {
-      _cartItems[existingIndex]['quantity'] += quantity; // Mennyiség növelése
+    if (cartIndex != -1) {
+      _cartItems[cartIndex]['quantity'] += quantity;
     } else {
       _cartItems.add({
         ...selectedItem,
         'size': selectedSize,
-        'priceHuf': selectedItem['prices']['HUF']['raw'].toString(),
-        'priceEuro': selectedItem['prices']['EUR']['raw'].toString(),
-        'priceDollar': selectedItem['prices']['USD']['raw'].toString(),
         'inStock': selectedItem['sizes'][selectedSize]['inStock'],
-        'quantity': quantity, // Kezdeti mennyiség
+        'quantity': quantity,
       });
     }
 
-    // TODO - The below one is more useful, change the cart to use this as well!
     int orderIndex = orderItems.indexWhere(
       (item) =>
           item['productId'] == selectedItem['id'] &&
@@ -103,7 +100,7 @@ class CartProvider extends ChangeNotifier {
         ...selectedItem,
         'productId': selectedItem['id'],
         'size': selectedSize,
-        'price': selectedItem['prices']['HUF']['raw'],
+        'price': selectedItem['prices']['HUF']['raw'].toString(),
         'quantity': quantity,
       });
     }
@@ -147,36 +144,15 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
-  String totalPriceDollar() {
-    double sumPrice = 0;
-    print('\n\n\nDOLLAR: ${_cartItems}\n\n\n');
+  String sumPrice(String nation) {
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
+    double sum = 0;
     for (var item in _cartItems) {
-      print(item['prices']['USD']['raw']);
-      sumPrice += double.tryParse(item['prices']['USD']['raw'].toString())! *
+      sum += double.tryParse(item['prices'][currency]['raw'].toString())! *
           item['quantity'];
     }
-    return sumPrice.toStringAsFixed(2);
-  }
-
-  String totalPriceEuro() {
-    double sumPrice = 0;
-    // print('\n\n\nEURO: ${_cartItems}\n\n\n');
-    for (var item in _cartItems) {
-      print(item['prices']['EUR']['raw']);
-      sumPrice += double.tryParse(item['prices']['EUR']['raw'].toString())! *
-          item['quantity'];
-    }
-    return sumPrice.toStringAsFixed(2);
-  }
-
-  String totalPriceHuf() {
-    double sumPrice = 0;
-    // print('\n\n\nHUF: ${_cartItems}\n\n\n');
-    for (var item in _cartItems) {
-      print(item['prices']['HUF']['raw']);
-      sumPrice += double.tryParse(item['prices']['HUF']['raw'].toString())! *
-          item['quantity'];
-    }
-    return sumPrice.floor().toString();
+    final decimal = nation == 'hu' ? 0 : 2;
+    return sum.toStringAsFixed(decimal);
   }
 }

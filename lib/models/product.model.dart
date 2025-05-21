@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/favourites.provider.dart';
 import '../providers/theme.provider.dart';
+import '../services/currency.service.dart';
 
 /**
  * This is the extended model of the products - to manipulate the displaying of them as well.
@@ -13,30 +14,32 @@ import '../providers/theme.provider.dart';
 
 class ProductModel extends StatefulWidget {
   final String id;
-  final String itemName;
-  final String itemPrice;
-  final String imagePath;
-  final Color color;
-  final void Function()? onPressed;
-  final void Function()? onTap;
+  final String name;
+  final String description;
+  final String price;
+  final String colour;
+  final String imageUrl;
   final double imageHeight;
   final double textSize;
   final double buttonFontSize;
   final int crossAxisCount;
+  final void Function()? onPressed;
+  final void Function()? onTap;
 
   const ProductModel({
     super.key,
     required this.id,
-    required this.itemName,
-    required this.itemPrice,
-    required this.imagePath,
-    required this.color,
-    required this.onPressed,
-    required this.onTap,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.colour,
+    required this.imageUrl,
     required this.imageHeight,
     required this.textSize,
     required this.buttonFontSize,
     required this.crossAxisCount,
+    required this.onPressed,
+    required this.onTap,
   });
 
   @override
@@ -46,9 +49,11 @@ class ProductModel extends StatefulWidget {
 class _ProductModelState extends State<ProductModel> {
   @override
   Widget build(BuildContext context) {
-    final nation = Locales.currentLocale(context)?.languageCode;
     final favouritesProvider = FavouritesProvider.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
 
     return GestureDetector(
       onTap: widget.onTap,
@@ -61,7 +66,7 @@ class _ProductModelState extends State<ProductModel> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  widget.itemName,
+                  widget.name,
                   style: GoogleFonts.lobster(
                     fontSize: widget.textSize,
                     fontWeight: FontWeight.bold,
@@ -70,16 +75,12 @@ class _ProductModelState extends State<ProductModel> {
                 // TODO - Research cached network images!
                 CachedNetworkImage(
                   key: UniqueKey(),
-                  imageUrl: widget.imagePath,
+                  imageUrl: widget.imageUrl,
                   height: widget.imageHeight,
                 ),
                 // TODO - Redesign the price display. Think about what else to display, if needed.
                 Text(
-                  nation == 'hu'
-                      ? '${widget.itemPrice} Ft'
-                      : nation == 'en'
-                          ? '\$${widget.itemPrice}'
-                          : '\€ ${widget.itemPrice}',
+                  currencyService.format(widget.price, currency),
                   style: GoogleFonts.cabin(
                     fontWeight: FontWeight.bold,
                     fontSize: widget.buttonFontSize,

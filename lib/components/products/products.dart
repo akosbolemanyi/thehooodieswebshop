@@ -2,6 +2,7 @@ import 'package:android_studio_projects/components/products/product-details/prod
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../abstract-classes/page-content.dart';
@@ -10,6 +11,7 @@ import '../../menus/custom-bottom-menu.dart' as Footer;
 import '../../models/product.model.dart';
 import '../../providers/cart.provider.dart';
 import '../../providers/theme.provider.dart';
+import '../../services/currency.service.dart';
 
 /**
  * THis page lists all the products, with the options to search and filter them.
@@ -196,16 +198,23 @@ class _ProductsPageState extends State<ProductsPage> {
 
   void navigateToDetailsPage(int index) {
     final item = _filteredItems[index];
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ProductDetailsPage(
           product: ProductModel(
             id: item['id'],
-            itemName: item['name'],
-            itemPrice: item['prices']['HUF']['raw'].toString(),
-            imagePath: item['imageUrl'],
-            color: Colors.red,
+            name: item['name'],
+            description: item['description'] ??
+                'The quality is the single most significant component of the perfect hoodie. '
+                    'We do not believe in giving this task of manufacturing to other companies. '
+                    'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+            price: item['prices'][currency]['raw'].toString(),
+            imageUrl: item['imageUrl'],
+            colour: item['colour'],
             onTap: () {},
             onPressed: () {},
             imageHeight: 1,
@@ -285,6 +294,10 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget buildBody(BuildContext context) {
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
+
     return Consumer<CartProvider>(
       builder: (context, cartProvider, child) {
         if (cartProvider.shopItems.isEmpty) {
@@ -330,12 +343,15 @@ class _ProductsPageState extends State<ProductsPage> {
                     final item = _filteredItems[index];
                     return ProductModel(
                       id: item['id'],
-                      itemName: item['name'],
-                      itemPrice: item['prices']['HUF']['raw'].toString(),
-                      imagePath: item['imageUrl'],
-                      color: Colors.white,
-                      onTap: () => navigateToDetailsPage(
-                          index), // Navigálás a részletes oldalra
+                      name: item['name'],
+                      description: item['description'] ??
+                          'The quality is the single most significant component of the perfect hoodie. '
+                              'We do not believe in giving this task of manufacturing to other companies. '
+                              'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                      price: item['prices'][currency]['raw'].toString(),
+                      imageUrl: item['imageUrl'],
+                      colour: item['colour'],
+                      onTap: () => navigateToDetailsPage(index),
                       onPressed: () {},
                       imageHeight: _crossAxisCount == 2 ? 120 : 310,
                       textSize: _crossAxisCount == 2 ? 20 : 35,

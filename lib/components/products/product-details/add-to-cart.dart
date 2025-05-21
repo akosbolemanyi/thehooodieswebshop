@@ -28,7 +28,7 @@ class AddToCart extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     int cartQuantity = 0;
     var existingItem = cartProvider.cartItems.firstWhere(
-      (item) => item['id'] == product.itemName && item['size'] == selectedSize,
+      (item) => item['id'] == product.name && item['size'] == selectedSize,
       orElse: () => {},
     );
 
@@ -110,7 +110,7 @@ class AddToCart extends StatelessWidget {
                           titleColor: Colors.black,
                           messageColor: Colors.black,
                           title: 'Added to cart!',
-                          message: "${product.itemName} x$quantity",
+                          message: "${product.name} x$quantity",
                           duration: Duration(seconds: 3),
                         ).show(context);
                       }
