@@ -45,7 +45,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
   void navigateToDetailsPage(int index, CartProvider cartModel) {
     final item = cartModel.shopItems[index];
-
+    print(item);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -53,8 +53,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
           product: ProductModel(
             id: item['id'],
             itemName: item['name'],
-            itemPrice: item['sizes']['m']
-                ['priceHuf'], // Alapértelmezett M méretű ár
+            itemPrice: item['prices']['HUF']['raw'].toString(),
             imagePath: item['imageUrl'],
             color: Colors.red,
             onTap: () {},
