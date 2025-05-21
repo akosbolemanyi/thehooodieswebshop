@@ -236,7 +236,7 @@ class _ContactPageState extends State<ContactPage> {
               children: [
                 FloatingActionButton(
                   heroTag: "btn1",
-                  backgroundColor: Colors.red.shade400,
+                  backgroundColor: Colors.blue.shade400,
                   onPressed: () async {
                     await launchUrl(Uri.parse("mailto:$_email"));
                   },
@@ -245,7 +245,7 @@ class _ContactPageState extends State<ContactPage> {
                 Expanded(child: Container()),
                 FloatingActionButton(
                   heroTag: "btn2",
-                  backgroundColor: Colors.red.shade400,
+                  backgroundColor: Colors.green.shade400,
                   onPressed: () {
                     setState(() {
                       _showMiniButtons = !_showMiniButtons;

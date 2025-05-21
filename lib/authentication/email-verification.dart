@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../providers/theme.provider.dart';
 import '../utils/utils.dart';
 import 'authentication.dart';
 import '../menus/custom-bottom-menu.dart' as Footer;
@@ -75,73 +77,90 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   }
 
   @override
-  Widget build(BuildContext context) => isEmailVerified
-      ? Footer.CustomBottomMenu(page: Footer.Page.HOME) //HiddenDrawer
-      : Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Verify Email',
-              style: GoogleFonts.cabin(
-                  fontWeight: FontWeight.bold, color: Colors.black),
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0,
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Hooodies!",
-                  style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'A verification mail has been sent to your email account.',
-                  style: GoogleFonts.cabin(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey.shade300,
-                    minimumSize: const Size.fromHeight(50),
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return isEmailVerified
+        ? Footer.CustomBottomMenu(page: Footer.Page.HOME) //HiddenDrawer
+        : Scaffold(
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                child: Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(top: 15),
+                    child: AppBar(
+                      leading: IconButton(
+                        icon: Icon(Icons.arrow_back_ios_new_rounded,
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      backgroundColor: Colors.transparent,
+                      iconTheme: IconThemeData(color: Colors.black),
+                      title: Text(
+                        'Back',
+                        style: GoogleFonts.cabin(fontWeight: FontWeight.bold),
+                      ),
+                    ))),
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Hooodies!",
+                    style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
                   ),
-                  icon: Icon(
-                    Icons.email,
-                    size: 32,
-                    color: Colors.red,
-                  ),
-                  label: Text(
-                    'Resend email',
-                    style: GoogleFonts.cabin(color: Colors.black, fontSize: 24),
-                  ),
-                  onPressed: () => {
-                    canResendEmail
-                        ? sendVerificationEmail
-                        : Utils.showSnackBar(
-                            'Cannot resend email yet. Please, try again a few seconds later!')
-                  },
-                ),
-                const SizedBox(height: 8),
-                TextButton(
-                  child: Text(
-                    'Cancel',
+                  const SizedBox(height: 24),
+                  Text(
+                    'A verification mail has been sent to your email account.',
                     style: GoogleFonts.cabin(
-                      color: Colors.black,
-                      fontSize: 20,
-                    ),
+                        fontWeight: FontWeight.bold, fontSize: 20),
+                    textAlign: TextAlign.center,
                   ),
-                  onPressed: () {
-                    cancelVerification(context);
-                  },
-                )
-              ],
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade300,
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    icon: Icon(
+                      Icons.email,
+                      size: 32,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      'Resend email',
+                      style:
+                          GoogleFonts.cabin(color: Colors.black, fontSize: 24),
+                    ),
+                    onPressed: () => {
+                      canResendEmail
+                          ? sendVerificationEmail
+                          : Utils.showSnackBar(
+                              'Cannot resend email yet. Please, try again a few seconds later!')
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    child: Text(
+                      'Cancel',
+                      style: GoogleFonts.cabin(
+                        color: themeProvider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onPressed: () {
+                      cancelVerification(context);
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-        );
+          );
+  }
 }

@@ -126,9 +126,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             const SizedBox(height: 24),
             GestureDetector(
               child: Text('Forgot password?',
-                  style: GoogleFonts.cabin(
-                      decoration: TextDecoration.underline,
-                      color: Colors.purple)),
+                  style: GoogleFonts.cabin(color: Colors.purple.shade400)),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ForgotPasswordPage(),
               )),
@@ -153,9 +151,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             : nation == 'en'
                                 ? "Sign up!"
                                 : "Register!",
-                        style: GoogleFonts.cabin(
-                            decoration: TextDecoration.underline,
-                            color: Colors.purple))
+                        style: GoogleFonts.cabin(color: Colors.purple.shade400))
                   ]),
             )
           ],
@@ -175,6 +171,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
               child: const Icon(
                 Icons.language_rounded,
+                color: Colors.black,
               ),
             ),
             Expanded(child: Container()),
@@ -187,6 +184,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
               child: const Icon(
                 Icons.lightbulb_outline,
+                color: Colors.black,
               ),
             ),
           ],

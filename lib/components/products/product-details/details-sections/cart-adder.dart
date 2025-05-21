@@ -62,10 +62,7 @@ class ProductCartAdder extends StatelessWidget {
               ),
             ),
             child: IconButton(
-              icon: SvgPicture.asset(
-                "assets/icons/add_to_cart.svg",
-                color: Colors.green,
-              ),
+              icon: Icon(Icons.add_shopping_cart_outlined, color: Colors.green),
               onPressed: isOutOfStock
                   ? showOutOfStockMessage
                   : () async {

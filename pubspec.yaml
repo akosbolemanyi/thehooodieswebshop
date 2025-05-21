@@ -109,23 +109,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/locales/de.json
-    - assets/locales/en.json
-    - assets/locales/hu.json
-    - assets/img/hoodies.png
-    - assets/img/yellow.png
-    - assets/img/green.png
-    - assets/img/blue.png
-    - assets/img/brown.png
-    - assets/img/main.png
-    - assets/img/default_profile.png
-    - assets/img/map-marker-light.png
-    - assets/img/map-marker-dark.png
-    - assets/images/
-    - assets/img/google-maps.png
-    - assets/icons/
-    - assets/google-maps-json/
-    - assets/animation/success.json
+    - assets/languages/de.json
+    - assets/languages/en.json
+    - assets/languages/hu.json
+    - assets/images/main.png
+    - assets/images/default_profile.png
+    - assets/images/google-maps.png
+    - assets/images/custom-map-marker.png
+    - assets/google-maps-json/day-mode.json
+    - assets/google-maps-json/night-mode.json
+    - assets/animations/success.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

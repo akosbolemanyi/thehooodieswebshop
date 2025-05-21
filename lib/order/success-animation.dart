@@ -40,7 +40,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
     return Scaffold(
         backgroundColor: Colors.green,
         body: Center(
-            child: Lottie.asset('assets/animation/success.json',
+            child: Lottie.asset('assets/animations/success.json',
                 controller: _controller, onLoaded: (composition) {
           _controller
             ..duration = composition.duration

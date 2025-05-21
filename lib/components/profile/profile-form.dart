@@ -158,7 +158,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   if (!widget.isReadOnly) ...[
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red.shade400,
+                        backgroundColor: Colors.green,
                         minimumSize: const Size(8.0, 50.0),
                       ),
                       icon: const Icon(Icons.save_alt_outlined,

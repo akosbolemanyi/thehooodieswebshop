@@ -300,9 +300,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               : nation == 'en'
                                   ? "Sign in"
                                   : "Anmeldung",
-                          style: GoogleFonts.cabin(
-                              decoration: TextDecoration.underline,
-                              color: Colors.purple))
+                          style:
+                              GoogleFonts.cabin(color: Colors.purple.shade400))
                     ]),
               ),
               const SizedBox(height: 100),
@@ -324,6 +323,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               },
               child: const Icon(
                 Icons.language_rounded,
+                color: Colors.black,
               ),
             ),
             Expanded(child: Container()),
@@ -336,6 +336,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               },
               child: const Icon(
                 Icons.lightbulb_outline,
+                color: Colors.black,
               ),
             ),
           ],

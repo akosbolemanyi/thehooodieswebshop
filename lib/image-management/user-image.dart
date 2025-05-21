@@ -57,7 +57,7 @@ class _UserImageState extends State<UserImage> {
         if (imageUrl == '' || imageUrl == null)
           CircleAvatar(
             radius: 70.0,
-            backgroundImage: AssetImage('assets/img/default_profile.png'),
+            backgroundImage: AssetImage('assets/images/default_profile.png'),
           ),
         if (imageUrl != null && imageUrl != '')
           InkWell(

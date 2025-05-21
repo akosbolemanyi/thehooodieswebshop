@@ -110,6 +110,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                         position: badges.BadgePosition.topEnd(top: -7, end: -7),
                         showBadge: cartProvider.cartItems.isNotEmpty,
                         badgeStyle: badges.BadgeStyle(
+                          padding: EdgeInsets.all(7),
                           badgeColor: Colors.white,
                           shape: badges.BadgeShape.circle,
                           borderRadius: BorderRadius.circular(10),
@@ -123,12 +124,11 @@ class _FavouritesPageState extends State<FavouritesPage> {
                         child: IconButton(
                           icon: Icon(Icons.shopping_cart),
                           iconSize: 25,
-                          color: Colors.black,
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Footer.CustomBottomMenu(
-                                    page: Footer.Page.HOME)),
+                                    page: Footer.Page.CART)),
                           ),
                         ),
                       );

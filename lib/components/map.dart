@@ -26,7 +26,7 @@ class _MapPageState extends State<MapPage> {
 
   void setCustomMarker() async {
     await BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(), 'assets/img/map-marker-light.png')
+            ImageConfiguration(), 'assets/images/custom-map-marker.png')
         .then((icon) {
       setState(() {
         markerIcon = icon;
@@ -119,7 +119,7 @@ class _MapPageState extends State<MapPage> {
               child: ElevatedButton.icon(
                 onPressed: _launchMaps,
                 icon: Image.asset(
-                  'assets/img/google-maps.png',
+                  'assets/images/google-maps.png',
                   width: 30,
                   height: 30,
                 ),

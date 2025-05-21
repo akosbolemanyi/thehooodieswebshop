@@ -1,4 +1,19 @@
 {
+  "firstname": "Vezetéknév",
+  "lastname": "Keresztnév",
+  "nickname_optional": "Becenév (opcionális)",
+  "birthday": "Születésnap",
+  "email": "E-mail",
+  "password": "Jelszó",
+  "password_again": "Jelszó újra",
+  "sign_in_motto": "Üdv újra itt!",
+  "sign_up_motto": "Megtisztelő lenne,\nha csatlakozna hozzánk.",
+  "sign_in": "Bejelentkezés",
+  "sign_up": "Regisztráció",
+  "sign_out": "Kijelentkezés",
+  "no_account": "Nincs még fiókod?  ",
+  "have_account": "Van már fiókod?  ",
+
   "menu_motto": "Hooodies!",
   "menu_home": "Főoldal",
   "menu_products": "Termékeink",
@@ -22,24 +37,12 @@
   "made_in_szeged": "Készült itt: Szeged",
   "shop_now": "Vásároljon!",
 
-  "hello_there": "Üdvözletem!",
-  "products_motto": "Akkor nézzük is a kínálatot!",
   "click_me": "Kosárhoz",
 
   "total_price": "Végösszeg:",
   "pay_now": "Fizetés",
 
-  "signed_in_as": "Bejelentkezve, mint",
-  "sign_out": "Kijelentkezés",
-
   "main_map": "Székhely: Szeged,\nTisza Lajos krt. 103, 6725",
-
-  "email": "E-mail",
-  "password": "Jelszó",
-
-  "sign_in_motto": "Üdv újra itt!",
-  "sign_in": "Bejelentkezés",
-  "no_acc": "Nincs még fiókod?  ",
 
   "contact": "Kapcsolat",
   "contact_motto": "Kérdés esetén keresse ügyfélszolgálatunkat az alábbi elérhetőségeken:",
@@ -52,9 +55,6 @@
 
   "select_profile_picture": "Válassz profil képet!",
   "change_profile_picture": "Profilkép lecserélése",
-  "sign_up_motto": "Megtisztelő lenne,\nha csatlakozna hozzánk.",
-  "sign_up": "Regisztrálás",
-  "have_acc": "Van már fiókod?  ",
 
   "camera": "Kamera",
   "pick_a_file": "Galéria"

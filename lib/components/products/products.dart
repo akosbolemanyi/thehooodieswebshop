@@ -37,7 +37,7 @@ class _ProductsPageState extends State<ProductsPage> {
   TextEditingController _searchController = TextEditingController();
   List<dynamic> _filteredItems = [];
   String? searchedFor;
-  String? selectedColor;
+  String? selectedColour;
   String? selectedSort;
 
   @override
@@ -57,6 +57,9 @@ class _ProductsPageState extends State<ProductsPage> {
   void updateList(String value) {
     var cartProvider = Provider.of<CartProvider>(context, listen: false);
     List<dynamic> filtered = List.from(cartProvider.shopItems);
+    final nation = Locales.currentLocale(context)?.languageCode;
+    final currencyService = CurrencyService.instance;
+    final currency = currencyService.getCurrency(nation);
 
     if (value.isNotEmpty) {
       filtered = filtered.where((item) {
@@ -65,27 +68,28 @@ class _ProductsPageState extends State<ProductsPage> {
       }).toList();
     }
 
-    if (selectedColor != null) {
-      print('Selected: $selectedColor');
+    if (selectedColour != null) {
       filtered = filtered.where((item) {
-        print('Color: ${item['colour']}');
         return item['colour'].toString().toLowerCase() ==
-            selectedColor!.toLowerCase();
+            selectedColour!.toLowerCase();
       }).toList();
     }
 
-    // TODO - Implement this with switch-case!
     if (selectedSort != null) {
-      if (selectedSort == "price_asc") {
-        filtered.sort((a, b) => (a['prices']['HUF']['raw'] as num)
-            .compareTo(b['prices']['HUF']['raw'] as num));
-      } else if (selectedSort == "price_desc") {
-        filtered.sort((a, b) => (b['prices']['HUF']['raw'] as num)
-            .compareTo(a['prices']['HUF']['raw'] as num));
-      } else if (selectedSort == "abc_asc") {
-        filtered.sort((a, b) => a['name'].compareTo(b['name']));
-      } else if (selectedSort == "abc_desc") {
-        filtered.sort((a, b) => b['name'].compareTo(a['name']));
+      switch (selectedSort) {
+        case 'price_asc':
+          filtered.sort((a, b) => (a['prices'][currency]['raw'] as num)
+              .compareTo(b['prices']['HUF']['raw'] as num));
+          break;
+        case 'price_desc':
+          filtered.sort((a, b) => (b['prices'][currency]['raw'] as num)
+              .compareTo(a['prices']['HUF']['raw'] as num));
+          break;
+        case 'abc_asc':
+          filtered.sort((a, b) => a['name'].compareTo(b['name']));
+          break;
+        case 'abc_desc':
+          filtered.sort((a, b) => b['name'].compareTo(a['name']));
       }
     }
 
@@ -117,13 +121,17 @@ class _ProductsPageState extends State<ProductsPage> {
                       fontSize: 20, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Színválasztás"),
-                value: selectedColor,
+                value: selectedColour,
                 onChanged: (value) {
-                  setState(() => selectedColor = value);
+                  setState(() => selectedColour = value);
                 },
-                items: ["red", "blue", "brown", "green", "yellow"].map((color) {
-                  return DropdownMenuItem(value: color, child: Text(color));
-                }).toList(),
+                items: [
+                  DropdownMenuItem(
+                      value: null, child: Text("Összes szín")), // null érték
+                  ...["red", "blue", "brown", "green", "yellow"].map((color) {
+                    return DropdownMenuItem(value: color, child: Text(color));
+                  }).toList(),
+                ],
               ),
               SizedBox(height: 16),
               // TODO - Is buggy. Does not work, cannot modify slide.
@@ -138,7 +146,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 },
                 items: [
                   // TODO - Implement logic!
-                  DropdownMenuItem(child: Text('Legnépszerűbb')),
+                  DropdownMenuItem(child: Text('Alapértelmezett')),
                   DropdownMenuItem(
                       value: "price_asc", child: Text("Ár szerint növekvő")),
                   DropdownMenuItem(

@@ -29,7 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future logOut(BuildContext context) async {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
-    final favouritesProvider = FavouritesProvider.of(context);
+    final favouritesProvider =
+        Provider.of<FavouritesProvider>(context, listen: false);
     FirebaseAuth.instance.signOut();
     cartProvider.cartItems = [];
     favouritesProvider.favourites = [];
@@ -44,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
         drawer: Sidebar.CustomSideMenu(),
@@ -68,10 +70,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        //_showImageDialog
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 3.0,
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black,
+                          )),
                       child: UserImage(onFileChanged: (imageUrl) {
                         setState(() {
                           FirebaseAuth.instance.currentUser!
@@ -109,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // MENU
                     ProfileMenuItem(
                       title: 'Profile details',
-                      icon: Icons.details,
+                      icon: Icons.account_circle_rounded,
                       onPress: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {

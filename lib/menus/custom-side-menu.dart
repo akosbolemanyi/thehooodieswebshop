@@ -84,7 +84,7 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                   : CircleAvatar(
                       radius: 50.0,
                       backgroundImage:
-                          AssetImage('assets/img/default_profile.png')),
+                          AssetImage('assets/images/default_profile.png')),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 7.5),

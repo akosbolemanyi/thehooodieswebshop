@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(children: [
           Padding(
             padding: const EdgeInsets.all(0.0),
-            child: Image.asset('assets/img/main.png'),
+            child: Image.asset('assets/images/main.png'),
           ),
           Padding(
             padding: const EdgeInsets.all(0.0),

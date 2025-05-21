@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import '../providers/theme.provider.dart';
 import 'authentication.dart';
 
 /**
@@ -29,14 +30,31 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: LocaleText(
-            'verify_email',
-            style: GoogleFonts.cabin(
-                fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
+        extendBodyBehindAppBar: true,
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight + 15),
+            child: Container(
+                color: Colors.transparent,
+                padding: EdgeInsets.only(top: 15),
+                child: AppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios_new_rounded,
+                        color: themeProvider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.black),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  backgroundColor: Colors.transparent,
+                  iconTheme: IconThemeData(color: Colors.black),
+                  title: Text(
+                    'Back',
+                    style: GoogleFonts.cabin(fontWeight: FontWeight.bold),
+                  ),
+                ))),
         body: Padding(
           padding: EdgeInsets.all(16),
           child: Form(
@@ -52,9 +70,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Text(
                     'Receive an email to reset your password!',
                     style: GoogleFonts.cabin(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 24),
+                        fontWeight: FontWeight.bold, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
@@ -65,7 +81,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   TextFormField(
                     controller: emailController,
-                    cursorColor: Colors.black,
                     textInputAction: TextInputAction.next,
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.emailAddress,
@@ -92,9 +107,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     icon: Icon(Icons.email, size: 32, color: Colors.red),
                     label: Text(
-                      'Resend email',
+                      'Request email',
                       style:
-                          GoogleFonts.cabin(color: Colors.black, fontSize: 24),
+                          GoogleFonts.cabin(fontSize: 24, color: Colors.black),
                     ),
                     onPressed: resetPassword,
                   ),
