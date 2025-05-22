@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import '../menus/custom-side-menu.dart' as Sidebar;
@@ -20,8 +21,8 @@ class OrderFeedbackPage extends StatelessWidget {
               child: AppBar(
                 backgroundColor: Colors.green,
                 iconTheme: IconThemeData(color: Colors.black),
-                title: Text(
-                  'Successful order',
+                title: LocaleText(
+                  'successful_order',
                   style: GoogleFonts.cabin(
                       fontWeight: FontWeight.bold, color: Colors.black),
                 ),
@@ -47,15 +48,16 @@ class OrderFeedbackPage extends StatelessWidget {
                     color: Colors.black, // Add color if necessary
                   ),
                   children: [
-                    TextSpan(text: 'Thank you for your order!\n'),
-                    TextSpan(text: 'Your order number is: '),
+                    TextSpan(
+                        text:
+                            '${Locales.string(context, 'thank_you_order')}\n'),
+                    TextSpan(
+                        text: '${Locales.string(context, 'thank_you_order')} '),
                     TextSpan(
                       text: '$orderId\n',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    TextSpan(
-                        text:
-                            'A confirmation email has been sent to your account.'),
+                    TextSpan(text: Locales.string(context, 'order_email_sent')),
                   ],
                 ),
               ),
@@ -66,8 +68,8 @@ class OrderFeedbackPage extends StatelessWidget {
                   backgroundColor: Colors.green,
                   minimumSize: const Size(8.0, 50.0),
                 ),
-                child: Text(
-                  'OK',
+                child: LocaleText(
+                  'ok',
                   style: GoogleFonts.cabin(fontSize: 27.5, color: Colors.black),
                 ),
                 onPressed: () {

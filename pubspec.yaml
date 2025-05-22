@@ -109,9 +109,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/languages/de.json
-    - assets/languages/en.json
-    - assets/languages/hu.json
+    - assets/locales/de.json
+    - assets/locales/en.json
+    - assets/locales/hu.json
     - assets/images/main.png
     - assets/images/default_profile.png
     - assets/images/google-maps.png

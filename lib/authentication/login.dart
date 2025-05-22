@@ -9,7 +9,6 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/settings/theme-settings.dart';
 import '../utils/utils.dart';
-import '../menus/custom-bottom-menu.dart' as Footer;
 
 /**
  * This is the login page, where with an email and password combination, the user can sign in.
@@ -73,19 +72,10 @@ class _LoginWidgetState extends State<LoginWidget> {
               textInputAction: TextInputAction.next,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.emailAddress,
-              validator: (email) => (email != null &&
-                      !EmailValidator.validate(email) &&
-                      nation == 'hu')
-                  ? "Érvényes e-mail címet adjon meg."
-                  : (email != null &&
-                          !EmailValidator.validate(email) &&
-                          nation == 'en')
-                      ? "Enter a valid email."
-                      : (email != null &&
-                              !EmailValidator.validate(email) &&
-                              nation == 'de')
-                          ? "Geben Sie eine gültige E-Mail-Adresse ein."
-                          : null,
+              validator: (email) =>
+                  (email != null && !EmailValidator.validate(email))
+                      ? Locales.string(context, 'not_valid_email')
+                      : null,
             ),
             const SizedBox(height: 30),
             LocaleText(
@@ -125,7 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             const SizedBox(height: 24),
             GestureDetector(
-              child: Text('Forgot password?',
+              child: LocaleText('forgot_password',
                   style: GoogleFonts.cabin(color: Colors.purple.shade400)),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ForgotPasswordPage(),
@@ -137,20 +127,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                   style: GoogleFonts.cabin(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 15),
-                  text: nation == 'hu'
-                      ? "Nincs még fiókod?  "
-                      : nation == 'en'
-                          ? "Don't have an account?  "
-                          : "Hast du noch kein Konto?  ",
+                  text: Locales.string(context, 'no_account'),
                   children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignUp,
-                        text: nation == 'hu'
-                            ? "Regisztrálj!"
-                            : nation == 'en'
-                                ? "Sign up!"
-                                : "Register!",
+                        text: Locales.string(context, 'sign_up'),
                         style: GoogleFonts.cabin(color: Colors.purple.shade400))
                   ]),
             )
@@ -205,7 +187,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         MaterialPageRoute(builder: (_) => VerifyEmailPage()),
       );
     } catch (error) {
-      Utils.showSnackBar(error.toString());
+      Utils.showSnackBar(Locales.string(context, 'invalid_credentials'));
     }
   }
 }

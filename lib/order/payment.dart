@@ -1,5 +1,4 @@
 import 'package:android_studio_projects/order/success-animation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +22,6 @@ class PaymentBackground extends StatelessWidget {
     final currencyService = CurrencyService.instance;
     final currency = currencyService.getCurrency(nation);
     final sumPrice = cartProvider.sumPrice(nation!);
-    print('These are the cartItems: $cartItems');
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight + 15),

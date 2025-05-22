@@ -79,15 +79,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 controller: firstNameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => (value != null &&
-                        nation == 'hu' &&
-                        value.length == 0)
-                    ? "A mező nem lehet üres."
-                    : (value != null && nation == 'en' && value.length == 0)
-                        ? "Field cannot be empty."
-                        : (value != null && nation == 'de' && value.length == 0)
-                            ? "Das Feld darf nicht leer sein."
-                            : null,
+                validator: (value) => (value != null && value.length == 0)
+                    ? Locales.string(context, 'field_cannot_be_empty')
+                    : null,
               ),
               const SizedBox(height: 30),
               LocaleText(
@@ -99,15 +93,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 controller: lastNameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => (value != null &&
-                        nation == 'hu' &&
-                        value.length == 0)
-                    ? "A mező nem lehet üres."
-                    : (value != null && nation == 'en' && value.length == 0)
-                        ? "Field cannot be empty."
-                        : (value != null && nation == 'de' && value.length == 0)
-                            ? "Das Feld darf nicht leer sein."
-                            : null,
+                validator: (value) => (value != null && value.length == 0)
+                    ? Locales.string(context, 'field_cannot_be_empty')
+                    : null,
               ),
               const SizedBox(height: 30),
               LocaleText(
@@ -149,14 +137,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     });
                   }
                 },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    if (nation == 'hu') return "A születési dátum kötelező.";
-                    if (nation == 'en') return "Birth date is required.";
-                    if (nation == 'de') return "Geburtsdatum ist erforderlich.";
-                  }
-                  return null;
-                },
+                validator: (value) => (value == null || value.isEmpty)
+                    ? Locales.string(context, 'field_cannot_be_empty')
+                    : null,
               ),
               const SizedBox(height: 30),
               LocaleText(
@@ -170,19 +153,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.next,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
-                validator: (email) => (email != null &&
-                        !EmailValidator.validate(email) &&
-                        nation == 'hu')
-                    ? "Érvényes e-mail címet adjon meg."
-                    : (email != null &&
-                            !EmailValidator.validate(email) &&
-                            nation == 'en')
-                        ? "Enter a valid email."
-                        : (email != null &&
-                                !EmailValidator.validate(email) &&
-                                nation == 'de')
-                            ? "Geben Sie eine gültige E-Mail-Adresse ein."
-                            : null,
+                validator: (email) =>
+                    (email != null && !EmailValidator.validate(email))
+                        ? Locales.string(context, 'not_valid_email')
+                        : null,
               ),
               const SizedBox(height: 30),
               LocaleText(
@@ -195,22 +169,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.done,
                 obscureText: !isPasswordVisible,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => (value != null &&
-                        !EmailValidator.validate(value) &&
-                        nation == 'hu' &&
-                        value.length < 6)
-                    ? "Adjon meg minimum 6 karaktert."
-                    : (value != null &&
-                            !EmailValidator.validate(value) &&
-                            nation == 'en' &&
-                            value.length < 6)
-                        ? "Enter minimum 6 characters."
-                        : (value != null &&
-                                !EmailValidator.validate(value) &&
-                                nation == 'de' &&
-                                value.length < 6)
-                            ? "Geben Sie mindestens 6 Zeichen ein."
-                            : null,
+                validator: (value) => (value != null && value.length < 6)
+                    ? Locales.string(context, 'minimum_6')
+                    : null,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -237,20 +198,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.done,
                 obscureText: !isPasswordVisible,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    if (nation == 'hu') return "A mező nem lehet üres.";
-                    if (nation == 'en') return "Field cannot be empty.";
-                    if (nation == 'de') return "Das Feld darf nicht leer sein.";
-                  }
-                  if (value != passwordController.text) {
-                    if (nation == 'hu') return "A jelszavak nem egyeznek.";
-                    if (nation == 'en') return "Passwords do not match.";
-                    if (nation == 'de')
-                      return "Die Passwörter stimmen nicht überein.";
-                  }
-                  return null;
-                },
+                validator: (value) => (value == null || value.isEmpty)
+                    ? Locales.string(context, 'field_cannot_be_empty')
+                    : null,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -286,20 +236,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     style: GoogleFonts.cabin(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 15),
-                    text: nation == 'hu'
-                        ? "Van már fiókod?  "
-                        : nation == 'en'
-                            ? "Already have an account?  "
-                            : "Hast du schon ein Konto?  ",
+                    text: Locales.string(context, 'have_account'),
                     children: [
                       TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = widget.onClickedSignIn,
-                          text: nation == 'hu'
-                              ? "Bejelentkezés"
-                              : nation == 'en'
-                                  ? "Sign in"
-                                  : "Anmeldung",
+                          text: Locales.string(context, 'sign_in'),
                           style:
                               GoogleFonts.cabin(color: Colors.purple.shade400))
                     ]),
@@ -371,9 +313,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         MaterialPageRoute(builder: (_) => VerifyEmailPage()),
       );
     } on FirebaseAuthException catch (error) {
-      Utils.showSnackBar(error.message ?? 'An error occurred');
+      Utils.showSnackBar(
+          '${Locales.string(context, 'sign_up_error')}\n${error.message.toString()}');
     } catch (error) {
-      Utils.showSnackBar('An unexpected error occurred: $error');
+      Utils.showSnackBar(Locales.string(context, 'error_is_on_our_side'));
       print(error.toString());
     }
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.provider.dart';
@@ -56,13 +57,12 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
       Utils.showSnackBar(
-          'Verification email sent to this address: ${user.email}');
-
+          '${Locales.string(context, 'verification_email_sent_to')} ${user.email}');
       setState(() => canResendEmail = false);
       await Future.delayed(Duration(seconds: 5));
       setState(() => canResendEmail = false);
     } catch (error) {
-      print('Email cannot be send again yet. Try again a bit later!');
+      print(error.toString());
     }
   }
 
@@ -114,8 +114,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    'A verification mail has been sent to your email account.',
+                  LocaleText(
+                    'verification_email_sent',
                     style: GoogleFonts.cabin(
                         fontWeight: FontWeight.bold, fontSize: 20),
                     textAlign: TextAlign.center,
@@ -131,22 +131,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                       size: 32,
                       color: Colors.red,
                     ),
-                    label: Text(
-                      'Resend email',
+                    label: LocaleText(
+                      'resend_email',
                       style:
                           GoogleFonts.cabin(color: Colors.black, fontSize: 24),
                     ),
                     onPressed: () => {
                       canResendEmail
                           ? sendVerificationEmail
-                          : Utils.showSnackBar(
-                              'Cannot resend email yet. Please, try again a few seconds later!')
+                          : Utils.showSnackBar(Locales.string(
+                              context, 'email_cannot_be_sent_again_yet'))
                     },
                   ),
                   const SizedBox(height: 8),
                   TextButton(
-                    child: Text(
-                      'Cancel',
+                    child: LocaleText(
+                      'cancel',
                       style: GoogleFonts.cabin(
                         color: themeProvider.themeMode == ThemeMode.dark
                             ? Colors.white

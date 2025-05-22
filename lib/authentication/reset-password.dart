@@ -50,8 +50,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   backgroundColor: Colors.transparent,
                   iconTheme: IconThemeData(color: Colors.black),
-                  title: Text(
-                    'Back',
+                  title: LocaleText(
+                    'back',
                     style: GoogleFonts.cabin(fontWeight: FontWeight.bold),
                   ),
                 ))),
@@ -67,8 +67,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    'Receive an email to reset your password!',
+                  LocaleText(
+                    'password_email_received',
                     style: GoogleFonts.cabin(
                         fontWeight: FontWeight.bold, fontSize: 24),
                     textAlign: TextAlign.center,
@@ -85,19 +85,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (email) => (email != null &&
-                            !EmailValidator.validate(email) &&
-                            nation == 'hu')
-                        ? "Érvényes e-mail címet adjon meg."
-                        : (email != null &&
-                                !EmailValidator.validate(email) &&
-                                nation == 'en')
-                            ? "Enter a valid email."
-                            : (email != null &&
-                                    !EmailValidator.validate(email) &&
-                                    nation == 'de')
-                                ? "Geben Sie eine gültige E-Mail-Adresse ein."
-                                : null,
+                    validator: (email) =>
+                        (email != null && !EmailValidator.validate(email))
+                            ? Locales.string(context, 'not_valid_email')
+                            : null,
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(
@@ -106,8 +97,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       minimumSize: const Size.fromHeight(50),
                     ),
                     icon: Icon(Icons.email, size: 32, color: Colors.red),
-                    label: Text(
-                      'Request email',
+                    label: LocaleText(
+                      'request_email',
                       style:
                           GoogleFonts.cabin(fontSize: 24, color: Colors.black),
                     ),
@@ -136,7 +127,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
       );
     } catch (error) {
-      Utils.showSnackBar(error.toString());
+      Utils.showSnackBar(
+          '${Locales.string(context, 'reset_password_request_error')}\n${error.toString()}');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:android_studio_projects/components/settings/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -50,61 +51,70 @@ class CustomSideMenuState extends State<CustomSideMenu> {
   Widget buildHeader(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Stack(alignment: Alignment.center, children: [
-      Positioned(
-        top: 44,
-        left: 3,
-        child: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
-      ),
-      Container(
-        padding: EdgeInsets.only(
-          top: 60,
-          bottom: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 3.0,
-                    color: themeProvider.themeMode == ThemeMode.dark
-                        ? Colors.white
-                        : Colors.black,
-                  )),
-              child: (user.photoURL != null)
-                  ? CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: NetworkImage(user.photoURL!))
-                  : CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage:
-                          AssetImage('assets/images/default_profile.png')),
+
+    return FutureBuilder<DocumentSnapshot>(
+      future:
+          FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
+      builder: (context, snapshot) {
+        final profile = snapshot.data!.data() as Map<String, dynamic>;
+        final nation = Locales.currentLocale(context)?.languageCode;
+        final name = nation == 'hu'
+            ? '${profile['lastName']} ${profile['firstName']}'
+            : '${profile['firstName']} ${profile['lastName']}';
+        final email = profile['email'] ?? user.email;
+
+        return Stack(alignment: Alignment.center, children: [
+          Positioned(
+            top: 44,
+            left: 3,
+            child: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 60, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 3.0,
+                        color: themeProvider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.black,
+                      )),
+                  child: (user.photoURL != null)
+                      ? CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage: NetworkImage(user.photoURL!))
+                      : CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage:
+                              AssetImage('assets/images/default_profile.png')),
+                ),
+                SizedBox(height: 7.5),
+                Text(
+                  name,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lobster(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  email,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.cabin(
+                      fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 7.5),
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              "Bolemányi Ákos",
-              style: GoogleFonts.lobster(
-                  fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              "bolemanyi.akos@gmail.com",
-              style:
-                  GoogleFonts.cabin(fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    ]);
+          ),
+        ]);
+      },
+    );
   }
 
   Widget buildMenuItems(BuildContext context) {
@@ -133,7 +143,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
@@ -143,12 +152,11 @@ class CustomSideMenuState extends State<CustomSideMenu> {
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
-              title: Text(
-                'Favourites',
+              title: LocaleText(
+                'menu_favourites',
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
@@ -163,7 +171,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
@@ -187,7 +194,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const MapPage(), //const HiddenDrawer(),
@@ -201,7 +207,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ContactPage(),
@@ -224,7 +229,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(),
@@ -238,7 +242,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 style: GoogleFonts.cabin(fontSize: 15),
               ),
               onTap: () {
-                // Előző navigator drawer bezárása
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProfilePage(),

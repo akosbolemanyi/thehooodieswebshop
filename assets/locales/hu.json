@@ -9,14 +9,33 @@
   "sign_in_motto": "Üdv újra itt!",
   "sign_up_motto": "Megtisztelő lenne,\nha csatlakozna hozzánk.",
   "sign_in": "Bejelentkezés",
-  "sign_up": "Regisztráció",
+  "sign_up": "Regisztrálj!",
   "sign_out": "Kijelentkezés",
   "no_account": "Nincs még fiókod?  ",
   "have_account": "Van már fiókod?  ",
+  "forgot_password": "Elfelejtetted jelszavad?",
+  "password_email_received": "Kérj emailt, hogy visszaállíthasd jelszavad!",
+  "request_email": "Email kérése",
+
+  "field_cannot_be_empty": "Ez a mező nem lehet üres!",
+  "not_valid_email": "Nem érvényes e-mail cím!",
+  "minimum_6": "Legalább 6 karakter hosszúnak kell lennie!",
+  "invalid_credentials": "Helytelen email cím vagy jelszó!",
+  "sign_up_error": "Nem sikerült létrehozni a fiókot!",
+  "reset_password_request_error": "Hiba lépett fel az email kiküldésével kapcsolatban!",
+  "error_is_on_our_side": "A hiba nálunk van. Kérlek, próbáld meg később!",
+  "verification_email_sent": "Kiküldtünk egy megerősítő e-mailt!",
+  "verification_email_sent_to": "Egy megerősítő emailt küldtünk erre az email címre:",
+  "email_cannot_be_sent_again_yet": "Még nem kérhető újabb email. Próbáld meg kicsivel később!",
+  "resend_email": "Újraküldés",
+
+  "cancel": "Mégse",
+  "back": "Vissza",
 
   "menu_motto": "Hooodies!",
   "menu_home": "Főoldal",
-  "menu_products": "Termékeink",
+  "menu_products": "Termékek",
+  "menu_favourites": "Kedvencek",
   "menu_cart": "Bevásárlókosár",
   "menu_map": "Boltunk",
   "menu_contact_us": "Kapcsolat",
@@ -41,6 +60,13 @@
 
   "total_price": "Végösszeg:",
   "pay_now": "Fizetés",
+
+  "successful_order": "Sikeres rendelés!",
+  "thank_you_order": "Köszönjük a rendelést!",
+  "order_number_is": "A rendelési azonosítód:",
+  "order_email_sent": "Egy rendelési emailt kiküldtünk az e-mail címedre!",
+
+  "ok": "Bezár",
 
   "main_map": "Székhely: Szeged,\nTisza Lajos krt. 103, 6725",
 
