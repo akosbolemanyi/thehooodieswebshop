@@ -56,6 +56,11 @@ class CustomSideMenuState extends State<CustomSideMenu> {
       future:
           FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
         final profile = snapshot.data!.data() as Map<String, dynamic>;
         final nation = Locales.currentLocale(context)?.languageCode;
         final name = nation == 'hu'

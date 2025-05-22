@@ -18,7 +18,7 @@ import 'authentication/email-verification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Locales.init(['hu', 'en', 'de']);
+  Locales.init(['hu', 'en', 'de', 'es', 'fr']);
   Stripe.publishableKey = stripePublishableKey;
   Platform.isAndroid
       ? await Firebase.initializeApp(

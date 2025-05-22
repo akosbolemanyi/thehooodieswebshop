@@ -42,6 +42,16 @@
   "menu_settings": "Beállítások",
   "menu_profile": "Profilom",
 
+  "about_us": "Rólunk",
+  "our_purpose": "Célunk",
+  "our_purpose_description": "Álmunk nem csupán a stílus, hanem a kényelem átadása azoknak, akik érzik a hooodie erejét.\nKoncepciónk egyetlen szabályra épül: minőség a mennyiség felett.\nLáttad már az összes színt, érezted már az összes anyagot. Amit mi adunk, az egyszerű.\nA legegyszerűbb, mégis legkívánatosabb dizájn: a mi hooodie-nk.",
+  "how_it_started": "Hogyan kezdődött?",
+  "how_it_started_description": "Mindig is szerettünk volna minőségi termékeket adni az embereknek, trendet teremteni, stílust adni.\nEgy kis csapatként indultunk – néhány barát – akik változást akartak hozni.\nÖsszegyűjtöttük a legjobb ruházati anyagokat, amiket mindig is szerettünk volna, és elkezdtük valóra váltani az álmainkat.\nEz egy szerelemprojekt volt.\nEzzel a szenvedéllyel döntöttünk úgy, hogy ezt – és más ötleteinket – megosztjuk a világgal, VELED!",
+  "our_materials": "Saját ruhaanyagok",
+  "our_materials_description": "A minőség a tökéletes hoodie legfontosabb alkotóeleme.\nNem hiszünk abban, hogy más cégekre bízzuk a gyártást.\nMi akartuk elkészíteni – és végre meg is tudjuk. Reméljük, te is érzed ezt.",
+  "work_with_us": "Dolgozz nálunk!",
+  "work_with_us_description": "Folyamatosan bővülünk. Szeretnénk megosztani az örömünket és szenvedélyünket veled is! Első üzletünk Szegeden van, és szeretnénk tovább terjeszkedni. Legyen szó telefonról, e-mailről vagy személyes találkozóról – keress minket bátran! Megtiszteltetés lenne, ha csatlakoznál hozzánk!",
+
   "theme": "Téma",
   "dark_mode": "Sötét mód",
   "light_mode": "Világos mód",
@@ -51,6 +61,9 @@
   "hungarian": "Magyar",
   "english": "English",
   "german": "Deutsch",
+  "french": "Français",
+  "spanish": "Español",
+
 
   "home_title": "Mindenkinek kell egy ilyen otthonra!",
   "made_in_szeged": "Készült itt: Szeged",
@@ -123,5 +136,21 @@
   "change_profile_picture": "Profilkép lecserélése",
 
   "camera": "Kamera",
-  "pick_a_file": "Galéria"
+  "pick_a_file": "Galéria",
+
+  "profile_details": "Profil adatok",
+  "shipping_address": "Szállítási cím",
+  "country": "Ország",
+  "zip": "Irányítószám",
+  "city": "Város",
+  "address": "Cím",
+  "additional_notes_optional": "Megjegyzés (opcionális)",
+  "phone_optional": "Értesítendő telefonszám (opcionális)",
+  "edit_profile": "Profil módosítása",
+  "profile_update_success": "A profilod sikeresen módosítottad!",
+  "profile_update_error": "Nem sikerült a profilodat módosítani!",
+  "shipping_address_update_success": "A szállítási címet sikeresen módosítottad!",
+  "shipping_address_update_error": "A szállítási címet nem sierkült módosítani!",
+  "save": "Mentés",
+  "log_out": "Kijelentkezés"
 }

@@ -1,6 +1,6 @@
+import 'package:android_studio_projects/components/profile/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,9 +28,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
   final TextEditingController notesController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
-
-  String? addressType = "apartment";
-  String? notificationType = "email";
 
   @override
   void initState() {
@@ -68,27 +65,25 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
+          .collection('address')
+          .doc('shipping')
           .update({
         'zip': zipController.text.trim(),
         'city': cityController.text.trim(),
         'address': addressController.text.trim(),
         'notes': notesController.text.trim(),
       });
-      if (phoneController.text.trim() != '') {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user!.uid)
-            .collection('address')
-            .doc('shipping')
-            .update({
-          'phone': phoneController.text.trim(),
-        });
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Profile updated successfully!')));
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .update({
+        'phone': phoneController.text.trim(),
+      });
+      Utils.showSnackBar(
+          Locales.string(context, 'shipping_address_update_success'));
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update profile: $error')));
+      Utils.showSnackBar(
+          Locales.string(context, 'shipping_address_update_error'));
     }
   }
 
@@ -121,8 +116,8 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                           },
                         ),
                         iconTheme: IconThemeData(color: Colors.black),
-                        title: Text(
-                          'Shipping details',
+                        title: LocaleText(
+                          'shipping_address',
                           style: GoogleFonts.cabin(
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),
@@ -147,8 +142,8 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                       },
                     ),
                     iconTheme: IconThemeData(color: Colors.black),
-                    title: Text(
-                      'Shipping details',
+                    title: LocaleText(
+                      'shipping_address',
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
@@ -195,13 +190,9 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                                   fontSize: 24, color: Colors.black),
                             ),
                             onPressed: () {
-                              print('Ez a formKey: ' +
-                                  addressFormKey.currentState.toString());
                               final isValid =
                                   addressFormKey.currentState!.validate();
                               if (!isValid) {
-                                Utils.showSnackBar(
-                                    'Please, fill the required fields!');
                                 return;
                               }
                               ;
@@ -225,10 +216,13 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                             ),
                             onPressed: () {
                               updateUserAddress();
-                              // Navigator.of(context).push(PageTransition(
-                              //   type: PageTransitionType.fade,
-                              //   child: PaymentBackground(),
-                              // ));
+                              if (!widget.isPaymentMode) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfilePage()),
+                                );
+                              }
                             },
                           ),
                     const SizedBox(height: 40)
@@ -243,7 +237,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
   // Common Fields
   Widget _buildCountryField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
-      label: 'country',
+      label: Locales.string(context, 'country'),
       controller: TextEditingController(text: "Magyarország"),
       languageCode: languageCode,
       themeMode: themeMode,
@@ -253,7 +247,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
 
   Widget _buildZipField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
-      label: 'postal_code',
+      label: Locales.string(context, 'zip'),
       controller: zipController,
       languageCode: languageCode,
       themeMode: themeMode,
@@ -263,7 +257,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
 
   Widget _buildCityField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
-      label: 'city',
+      label: Locales.string(context, 'city'),
       controller: cityController,
       languageCode: languageCode,
       themeMode: themeMode,
@@ -273,7 +267,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
 
   Widget _buildAddressField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
-      label: 'street_address',
+      label: Locales.string(context, 'address'),
       controller: addressController,
       languageCode: languageCode,
       themeMode: themeMode,
@@ -285,7 +279,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
     return Column(
       children: [
         _buildTextField(
-          label: 'Additional notes (optional)',
+          label: Locales.string(context, 'additional_notes_optional'),
           controller: notesController,
           languageCode: languageCode,
           themeMode: themeMode,
@@ -297,7 +291,7 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
   Widget _buildPhoneNotificationField(
       String languageCode, ThemeMode themeMode) {
     return _buildTextField(
-      label: 'Phone number for notification (optional)',
+      label: Locales.string(context, 'phone_optional'),
       controller: phoneController,
       languageCode: languageCode,
       themeMode: themeMode,
@@ -326,7 +320,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
           ),
         ),
         TextFormField(
-          decoration: InputDecoration(hintText: controller.text.trim()),
           style: TextStyle(
               color: isReadOnly
                   ? (themeMode == ThemeMode.light
@@ -343,17 +336,9 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
           textInputAction: TextInputAction.done,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: isRequired
-              ? (value) => (value != null &&
-                      languageCode == 'hu' &&
-                      value.length == 0)
-                  ? "A mező nem lehet üres."
-                  : (value != null && languageCode == 'en' && value.length == 0)
-                      ? "Field cannot be empty."
-                      : (value != null &&
-                              languageCode == 'de' &&
-                              value.length == 0)
-                          ? "Das Feld darf nicht leer sein."
-                          : null
+              ? (value) => (value != null && value.length == 0)
+                  ? Locales.string(context, 'field_cannot_be_empty')
+                  : null
               : null,
         ),
       ],

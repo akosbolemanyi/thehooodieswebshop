@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme.provider.dart';
+import '../../utils/utils.dart';
 import 'profile.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -18,6 +19,7 @@ class ProfileForm extends StatefulWidget {
 }
 
 class _ProfileFormState extends State<ProfileForm> {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
@@ -50,6 +52,8 @@ class _ProfileFormState extends State<ProfileForm> {
   }
 
   Future<void> updateProfile() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
     if (user == null) return;
     try {
       await FirebaseFirestore.instance
@@ -61,11 +65,9 @@ class _ProfileFormState extends State<ProfileForm> {
         'nickname': nicknameController.text.trim(),
         'birthday': birthDateController.text.trim(),
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Profile updated successfully!')));
+      Utils.showSnackBar(Locales.string(context, 'profile_update_success'));
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update profile: $error')));
+      Utils.showSnackBar(Locales.string(context, 'profile_update_error'));
     }
   }
 
@@ -78,6 +80,11 @@ class _ProfileFormState extends State<ProfileForm> {
           ? FirebaseFirestore.instance.collection('users').doc(user!.uid).get()
           : null,
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
         if (!snapshot.hasData || !snapshot.data!.exists) {
           return Scaffold(
             appBar: PreferredSize(
@@ -94,8 +101,8 @@ class _ProfileFormState extends State<ProfileForm> {
                       },
                     ),
                     iconTheme: IconThemeData(color: Colors.black),
-                    title: Text(
-                      'Profile details',
+                    title: LocaleText(
+                      'profile_details',
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
@@ -120,97 +127,111 @@ class _ProfileFormState extends State<ProfileForm> {
                       },
                     ),
                     iconTheme: IconThemeData(color: Colors.black),
-                    title: Text(
-                      'Profile details',
+                    title: LocaleText(
+                      'profile_details',
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                     // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  Text(
-                    "Hooodies!",
-                    style: GoogleFonts.lobster(fontSize: 50, color: Colors.red),
-                  ),
-                  const SizedBox(height: 20),
-                  _buildTextField(
-                      context, 'firstname', firstNameController, themeMode),
-                  const SizedBox(height: 30),
-                  _buildTextField(
-                      context, 'lastname', lastNameController, themeMode),
-                  const SizedBox(height: 30),
-                  _buildTextField(context, 'nickname_optional',
-                      nicknameController, themeMode),
-                  const SizedBox(height: 30),
-                  _buildTextField(
-                      context, 'birthday', birthDateController, themeMode,
-                      isDate: true),
-                  const SizedBox(height: 30),
-                  _buildTextField(context, 'email', emailController, themeMode,
-                      isNotModifiable: true),
-                  const SizedBox(height: 40),
-                  if (!widget.isReadOnly) ...[
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        minimumSize: const Size(8.0, 50.0),
-                      ),
-                      icon: const Icon(Icons.save_alt_outlined,
-                          size: 32, color: Colors.black),
-                      label: Text(
-                        'Save',
-                        style: GoogleFonts.cabin(
-                            fontSize: 24, color: Colors.black),
-                      ),
-                      onPressed: () {
-                        updateProfile();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
-                        );
-                      },
+            body: Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      "Hooodies!",
+                      style:
+                          GoogleFonts.lobster(fontSize: 50, color: Colors.red),
                     ),
-                  ],
-                  if (widget.isReadOnly) ...[
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red.shade400,
-                        minimumSize: const Size(8.0, 50.0),
+                    const SizedBox(height: 20),
+                    _buildTextField(
+                        context, 'firstname', firstNameController, themeMode),
+                    const SizedBox(height: 30),
+                    _buildTextField(
+                        context, 'lastname', lastNameController, themeMode),
+                    const SizedBox(height: 30),
+                    _buildTextField(context, 'nickname_optional',
+                        nicknameController, themeMode,
+                        isRequired: false),
+                    const SizedBox(height: 30),
+                    _buildTextField(
+                        context, 'birthday', birthDateController, themeMode,
+                        isDate: true),
+                    const SizedBox(height: 30),
+                    _buildTextField(
+                        context, 'email', emailController, themeMode,
+                        isNotModifiable: true),
+                    const SizedBox(height: 40),
+                    if (!widget.isReadOnly) ...[
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          minimumSize: const Size(8.0, 50.0),
+                        ),
+                        icon: const Icon(Icons.save_alt_outlined,
+                            size: 32, color: Colors.black),
+                        label: LocaleText(
+                          'save',
+                          style: GoogleFonts.cabin(
+                              fontSize: 24, color: Colors.black),
+                        ),
+                        onPressed: () {
+                          final isValid = formKey.currentState!.validate();
+                          if (!isValid) return;
+                          updateProfile();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()),
+                          );
+                        },
                       ),
-                      icon: const Icon(Icons.draw_outlined,
-                          size: 32, color: Colors.black),
-                      label: Text(
-                        'Edit profile',
-                        style: GoogleFonts.cabin(
-                            fontSize: 24, color: Colors.black),
+                    ],
+                    if (widget.isReadOnly) ...[
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red.shade400,
+                          minimumSize: const Size(8.0, 50.0),
+                        ),
+                        icon: const Icon(Icons.draw_outlined,
+                            size: 32, color: Colors.black),
+                        label: LocaleText(
+                          'edit_profile',
+                          style: GoogleFonts.cabin(
+                              fontSize: 24, color: Colors.black),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return ProfileForm();
+                            }),
+                          );
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return ProfileForm();
-                          }),
-                        );
-                      },
-                    ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ));
       },
     );
   }
 
-  Widget _buildTextField(BuildContext context, String labelKey,
-      TextEditingController controller, ThemeMode themeMode,
-      {bool isDate = false, bool isNotModifiable = false}) {
+  Widget _buildTextField(
+    BuildContext context,
+    String labelKey,
+    TextEditingController controller,
+    ThemeMode themeMode, {
+    bool isDate = false,
+    bool isNotModifiable = false,
+    bool isRequired = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -236,6 +257,15 @@ class _ProfileFormState extends State<ProfileForm> {
           controller: controller,
           textInputAction: TextInputAction.next,
           readOnly: widget.isReadOnly || isDate || isNotModifiable,
+          validator: (value) {
+            if (!isRequired) {
+              return null;
+            }
+            ;
+            return (value == null || value.trim().isEmpty)
+                ? Locales.string(context, 'field_cannot_be_empty')
+                : null;
+          },
           decoration: InputDecoration(
             suffixIcon: isDate && !widget.isReadOnly
                 ? IconButton(

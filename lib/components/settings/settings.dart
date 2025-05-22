@@ -51,19 +51,62 @@ class SettingsPage extends StatelessWidget {
               builder: (context) => SettingScreen(),
             )),
             title: const LocaleText("language"),
-            subtitle: nation == 'hu'
-                ? LocaleText('hungarian')
-                : nation == 'en'
-                    ? LocaleText('english')
-                    : LocaleText('german'),
-            trailing: nation == 'hu'
-                ? Image.asset('icons/flags/png100px/hu.png',
-                    package: 'country_icons', width: 25)
-                : nation == 'en'
-                    ? Image.asset('icons/flags/png100px/us.png',
-                        package: 'country_icons', width: 25)
-                    : Image.asset('icons/flags/png100px/de.png',
-                        package: 'country_icons', width: 25),
+            subtitle: () {
+              switch (nation) {
+                case 'hu':
+                  return const LocaleText('hungarian');
+                case 'en':
+                  return const LocaleText('english');
+                case 'de':
+                  return const LocaleText('german');
+                case 'fr':
+                  return const LocaleText('french');
+                case 'es':
+                  return const LocaleText('spanish');
+                default:
+                  return const LocaleText('english'); // Alapértelmezett
+              }
+            }(),
+            trailing: () {
+              switch (nation) {
+                case 'hu':
+                  return Image.asset(
+                    'icons/flags/png100px/hu.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'en':
+                  return Image.asset(
+                    'icons/flags/png100px/us.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'de':
+                  return Image.asset(
+                    'icons/flags/png100px/de.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'fr':
+                  return Image.asset(
+                    'icons/flags/png100px/fr.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'es':
+                  return Image.asset(
+                    'icons/flags/png100px/es.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                default:
+                  return Image.asset(
+                    'icons/flags/png100px/us.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+              }
+            }(),
             splashColor: Colors.indigo.shade200,
           ),
         ],

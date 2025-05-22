@@ -47,109 +47,126 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = FirebaseAuth.instance.currentUser!;
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return Scaffold(
-        drawer: Sidebar.CustomSideMenu(),
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight + 15),
-            child: Container(
-              color: Colors.red,
-              padding: EdgeInsets.only(top: 15),
-              child: AppBar(
-                iconTheme: IconThemeData(color: Colors.black),
-                title: LocaleText(
-                  'menu_profile',
-                  style: GoogleFonts.cabin(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                // backgroundColor: Colors.indigo.shade300,
-              ),
-            )),
-        body: SingleChildScrollView(
-            child: Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 3.0,
-                            color: themeProvider.themeMode == ThemeMode.dark
-                                ? Colors.white
-                                : Colors.black,
-                          )),
-                      child: UserImage(onFileChanged: (imageUrl) {
-                        setState(() {
-                          FirebaseAuth.instance.currentUser!
-                              .updatePhotoURL(imageUrl);
-                          FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(_uid)
-                              .update({"imageUrl": imageUrl});
-                        });
-                      }),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: EdgeInsets.only(left: 45.0, right: 45.0),
-                      child: Divider(
-                        thickness: 1.0,
+    return FutureBuilder<DocumentSnapshot>(
+        future:
+            FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+          final profile = snapshot.data!.data() as Map<String, dynamic>;
+          final nation = Locales.currentLocale(context)?.languageCode;
+          final name = nation == 'hu'
+              ? '${profile['lastName']} ${profile['firstName']}'
+              : '${profile['firstName']} ${profile['lastName']}';
+          return Scaffold(
+              drawer: Sidebar.CustomSideMenu(),
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                  child: Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.only(top: 15),
+                    child: AppBar(
+                      iconTheme: IconThemeData(color: Colors.black),
+                      title: LocaleText(
+                        'menu_profile',
+                        style: GoogleFonts.cabin(
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
+                      // backgroundColor: Colors.indigo.shade300,
                     ),
-                    const SizedBox(height: 20),
-                    Text(
-                      textAlign: TextAlign.center,
-                      "Bolemányi Ákos",
-                      style: GoogleFonts.lobster(
-                          fontSize: 35, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      textAlign: TextAlign.center,
-                      user.email!,
-                      style: GoogleFonts.cabin(fontSize: 20),
-                    ),
-                    const SizedBox(height: 20),
-                    const Divider(),
-                    const SizedBox(height: 20),
-                    // MENU
-                    ProfileMenuItem(
-                      title: 'Profile details',
-                      icon: Icons.account_circle_rounded,
-                      onPress: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return ProfileForm(isReadOnly: true);
-                        }),
-                      ),
-                    ),
-                    const SizedBox(height: 5.0),
-                    ProfileMenuItem(
-                        title: 'Shipping address',
-                        icon: Icons.local_shipping,
-                        onPress: () {
-                          Navigator.push(context,
+                  )),
+              body: SingleChildScrollView(
+                  child: Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 3.0,
+                                  color:
+                                      themeProvider.themeMode == ThemeMode.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                )),
+                            child: UserImage(onFileChanged: (imageUrl) {
+                              setState(() async {
+                                await FirebaseAuth.instance.currentUser!
+                                    .updatePhotoURL(imageUrl);
+                                await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(_uid)
+                                    .update({"imageUrl": imageUrl});
+                              });
+                            }),
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            padding: EdgeInsets.only(left: 45.0, right: 45.0),
+                            child: Divider(
+                              thickness: 1.0,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            textAlign: TextAlign.center,
+                            name,
+                            style: GoogleFonts.lobster(
+                                fontSize: 35, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            textAlign: TextAlign.center,
+                            user.email!,
+                            style: GoogleFonts.cabin(fontSize: 20),
+                          ),
+                          const SizedBox(height: 20),
+                          const Divider(),
+                          const SizedBox(height: 20),
+                          // MENU
+                          ProfileMenuItem(
+                            title: Locales.string(context, 'profile_details'),
+                            icon: Icons.account_circle_rounded,
+                            onPress: () => Navigator.push(
+                              context,
                               MaterialPageRoute(builder: (context) {
-                            return ShippingAddressForm();
-                          }));
-                        }),
-                    const SizedBox(height: 10),
-                    const Divider(),
-                    const SizedBox(height: 10),
-                    ProfileMenuItem(
-                        title: 'Logout',
-                        icon: Icons.logout_rounded,
-                        textColor: Colors.red,
-                        endIcon: false,
-                        onPress: () {
-                          logOut(context);
-                        }),
-                    const SizedBox(height: 10),
-                    const Divider(),
-                    const SizedBox(height: 10),
-                  ],
-                ))));
+                                return ProfileForm(isReadOnly: true);
+                              }),
+                            ),
+                          ),
+                          const SizedBox(height: 5.0),
+                          ProfileMenuItem(
+                              title:
+                                  Locales.string(context, 'shipping_address'),
+                              icon: Icons.local_shipping,
+                              onPress: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ShippingAddressForm();
+                                }));
+                              }),
+                          const SizedBox(height: 10),
+                          const Divider(),
+                          const SizedBox(height: 10),
+                          ProfileMenuItem(
+                              title: Locales.string(context, 'log_out'),
+                              icon: Icons.logout_rounded,
+                              textColor: Colors.red,
+                              endIcon: false,
+                              onPress: () {
+                                logOut(context);
+                              }),
+                          const SizedBox(height: 10),
+                          const Divider(),
+                          const SizedBox(height: 10),
+                        ],
+                      ))));
+        });
   }
 }
 

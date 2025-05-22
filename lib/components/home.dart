@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Column(
             children: [
-              Text('About us',
+              LocaleText('about_us',
                   textAlign: TextAlign.left,
                   style: GoogleFonts.lobster(
                       fontWeight: FontWeight.bold, fontSize: 35)),
@@ -155,17 +155,14 @@ class _HomePageState extends State<HomePage> {
                       left: 10,
                     ),
                     child: Column(children: [
-                      Text('Our purpose',
+                      LocaleText('our_purpose',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lobster(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 35)),
-                      Text(
-                        'Our dream is not only to give style but comfort for those who seek the power of the '
-                        'hoodies. Our concept relies on one simple rule: quality over quantity. '
-                        'You have seen all the colors, felt all the kinds of materials. What we give you is simple. '
-                        'The simplest yet most desired design: our hooodies.',
+                      LocaleText(
+                        'our_purpose_description',
                         style: GoogleFonts.cabin(
                             color: Colors.black,
                             fontSize: 15,
@@ -191,18 +188,14 @@ class _HomePageState extends State<HomePage> {
                       left: 10,
                     ),
                     child: Column(children: [
-                      Text('How it started',
+                      LocaleText('how_it_started',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lobster(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 35)),
-                      Text(
-                        'We have always wanted to give quality products to people, to make a trend, to give style. '
-                        'We started out as a little group - a handful of friends - who wanted to make a difference. '
-                        'We collected the best clothing materials we have always wanted, and started to make our dreams come true. '
-                        'It was a love project. '
-                        'With this passion, we decided to give this, and other ideas to the world, to YOU!',
+                      LocaleText(
+                        'how_it_started_description',
                         style: GoogleFonts.cabin(
                             color: Colors.black,
                             fontSize: 15,
@@ -228,16 +221,14 @@ class _HomePageState extends State<HomePage> {
                       left: 10,
                     ),
                     child: Column(children: [
-                      Text('Our materials',
+                      LocaleText('our_materials',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lobster(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 35)),
-                      Text(
-                        'The quality is the single most significant component of the perfect hoodie. '
-                        'We do not believe in giving this task of manufacturing to other companies. '
-                        'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                      LocaleText(
+                        'our_materials_description',
                         style: GoogleFonts.cabin(
                             color: Colors.black,
                             fontSize: 15,
@@ -263,16 +254,14 @@ class _HomePageState extends State<HomePage> {
                       left: 10,
                     ),
                     child: Column(children: [
-                      Text('Work with us!',
+                      LocaleText('work_with_us',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lobster(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 35)),
-                      Text(
-                        'We are continuously expanding. We would like to share our joy and passion with you!'
-                        'We have our first shop in Szeged, and we would like to expand. Either on phone, email or in person, feel free'
-                        ' to contact us! We would be honoured, if you would join us!',
+                      LocaleText(
+                        'work_with_us_description',
                         style: GoogleFonts.cabin(
                             color: Colors.black,
                             fontSize: 15,

@@ -90,6 +90,40 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               activeColor: Colors.red,
             ),
+            RadioListTile(
+              value: 'es',
+              groupValue: selectedLanguage,
+              onChanged: (value) {
+                setState(() {
+                  selectedLanguage = value as String;
+                });
+                Locales.change(context, value!);
+              },
+              title: Text(
+                "Español",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
+              activeColor: Colors.red,
+            ),
+            RadioListTile(
+              value: 'fr',
+              groupValue: selectedLanguage,
+              onChanged: (value) {
+                setState(() {
+                  selectedLanguage = value as String;
+                });
+                Locales.change(context, value!);
+              },
+              title: Text(
+                "Français",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
+              activeColor: Colors.red,
+            ),
           ],
         ),
       ),

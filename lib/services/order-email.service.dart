@@ -19,6 +19,12 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
     case 'de':
       languageBasedTexts = common_de;
       break;
+    case 'es':
+      languageBasedTexts = common_es;
+      break;
+    case 'fr':
+      languageBasedTexts = common_fr;
+      break;
     default:
       languageBasedTexts = common_en;
   }
@@ -39,26 +45,37 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
   String firstName;
   String lastName;
   String language;
-  String totalPrice;
 
   switch (languageCode) {
     case 'hu':
       currency = 'HUF';
       language = 'magyar';
-      firstName = userData['lastName'] ?? '{{firstName}}';
-      lastName = userData['firstName'] ?? '{{lastName}}';
+      firstName = userData['lastName'] ?? '';
+      lastName = userData['firstName'] ?? '';
       break;
-    case 'de':
+    case 'en':
+      currency = 'USD';
+      language = 'angol';
+      firstName = userData['firstName'] ?? '';
+      lastName = userData['lastName'] ?? '';
+    case 'es':
+      currency = 'EUR';
+      language = 'spanyol';
+      firstName = userData['firstName'] ?? '';
+      lastName = userData['lastName'] ?? '';
+      break;
+    case 'fr':
+      currency = 'EUR';
+      language = 'francia';
+      firstName = userData['firstName'] ?? '';
+      lastName = userData['lastName'] ?? '';
+      break;
+    default:
       currency = 'EUR';
       language = 'német';
       firstName = userData['firstName'] ?? '';
       lastName = userData['lastName'] ?? '';
       break;
-    default:
-      currency = 'USD';
-      language = 'angol';
-      firstName = userData['firstName'] ?? '';
-      lastName = userData['lastName'] ?? '';
   }
 
   Map<String, dynamic> common = {
