@@ -58,10 +58,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
           product: ProductModel(
             id: item['id'],
             name: item['name'],
-            description: item['description'] ??
-                'The quality is the single most significant component of the perfect hoodie. '
-                    'We do not believe in giving this task of manufacturing to other companies. '
-                    'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+            description: item['description'],
             price: item['prices'][currency]['raw'].toString(),
             imageUrl: item['imageUrl'],
             colour: item['colour'],
@@ -94,7 +91,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
             padding: EdgeInsets.only(top: 15),
             child: AppBar(
               iconTheme: IconThemeData(color: Colors.black),
-              title: Text('Favourites',
+              title: LocaleText('menu_favourites',
                   style: GoogleFonts.cabin(
                       fontWeight: FontWeight.bold, color: Colors.black)),
               actions: [
@@ -153,7 +150,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
             .toList();
 
         if (favouriteItems.isEmpty) {
-          return Center(child: Text("No favourite items yet."));
+          return Center(child: LocaleText("no_favourites"));
         }
 
         return Padding(

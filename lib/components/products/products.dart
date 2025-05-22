@@ -1,6 +1,5 @@
 import 'package:android_studio_projects/components/products/product-details/product-details.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -116,45 +115,46 @@ class _ProductsPageState extends State<ProductsPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Szűrés",
+              LocaleText("filtering",
                   style: GoogleFonts.cabin(
                       fontSize: 20, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: "Színválasztás"),
+                decoration: InputDecoration(
+                    labelText: Locales.string(context, 'choose_colour')),
                 value: selectedColour,
                 onChanged: (value) {
                   setState(() => selectedColour = value);
                 },
                 items: [
                   DropdownMenuItem(
-                      value: null, child: Text("Összes szín")), // null érték
+                      value: null, child: LocaleText("all_colours")),
                   ...["red", "blue", "brown", "green", "yellow"].map((color) {
-                    return DropdownMenuItem(value: color, child: Text(color));
+                    return DropdownMenuItem(
+                        value: color, child: LocaleText(color));
                   }).toList(),
                 ],
               ),
               SizedBox(height: 16),
-              // TODO - Is buggy. Does not work, cannot modify slide.
-              Text("Rendezés",
+              LocaleText("sorting",
                   style: GoogleFonts.cabin(
                       fontSize: 20, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: "Rendezés"),
+                decoration: InputDecoration(
+                    labelText: Locales.string(context, 'sequence')),
                 value: selectedSort,
                 onChanged: (value) {
                   setState(() => selectedSort = value);
                 },
                 items: [
-                  // TODO - Implement logic!
-                  DropdownMenuItem(child: Text('Alapértelmezett')),
+                  DropdownMenuItem(child: LocaleText('default')),
                   DropdownMenuItem(
-                      value: "price_asc", child: Text("Ár szerint növekvő")),
+                      value: "price_asc", child: LocaleText("price_asc")),
                   DropdownMenuItem(
-                      value: "price_desc", child: Text("Ár szerint csökkenő")),
+                      value: "price_desc", child: LocaleText("price_desc")),
                   DropdownMenuItem(
-                      value: "abc_asc", child: Text("ABC növekvő")),
+                      value: "abc_asc", child: LocaleText("abc_asc")),
                   DropdownMenuItem(
-                      value: "abc_desc", child: Text("ABC csökkenő")),
+                      value: "abc_desc", child: LocaleText("abc_desc")),
                 ],
               ),
               SizedBox(height: 16),
@@ -168,7 +168,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                 ? Colors.grey.shade700
                                 : Colors.grey.shade300),
                     onPressed: () => Navigator.pop(context),
-                    child: Text("Mégse",
+                    child: LocaleText("cancel",
                         style: GoogleFonts.cabin(
                             color: themeProvider.themeMode == ThemeMode.dark
                                 ? Colors.white
@@ -184,7 +184,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       Navigator.pop(context);
                       updateList(_searchController.text);
                     },
-                    child: Text("Alkalmaz",
+                    child: LocaleText("apply",
                         style: GoogleFonts.cabin(
                             color: themeProvider.themeMode == ThemeMode.dark
                                 ? Colors.white
@@ -247,7 +247,7 @@ class _ProductsPageState extends State<ProductsPage> {
             padding: EdgeInsets.only(top: 15),
             child: AppBar(
               iconTheme: IconThemeData(color: Colors.black),
-              title: Text('Products',
+              title: LocaleText('menu_products',
                   style: GoogleFonts.cabin(
                       fontWeight: FontWeight.bold, color: Colors.black)),
               actions: [
@@ -321,14 +321,14 @@ class _ProductsPageState extends State<ProductsPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50.0),
                             borderSide: BorderSide.none),
-                        hintText: "Keresés...",
+                        hintText: Locales.string(context, 'searching'),
                         prefixIcon: Icon(Icons.search),
                       ),
                     ),
                   ),
                   IconButton(
                     icon: Icon(Icons.filter_list),
-                    onPressed: openFilterSheet, // Szűrés gomb
+                    onPressed: openFilterSheet,
                   )
                 ],
               ),

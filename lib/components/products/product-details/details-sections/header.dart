@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../../constants.dart';
 import '../../../../models/product.model.dart';
 import '../../../../providers/theme.provider.dart';
 import '../../../../services/currency.service.dart';
@@ -39,7 +38,7 @@ class ProductHeader extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                        text: "Price\n",
+                        text: '${Locales.string(context, 'price')}\n',
                         style: GoogleFonts.cabin(
                           fontSize: 17.5,
                           color: themeProvider.themeMode == ThemeMode.dark

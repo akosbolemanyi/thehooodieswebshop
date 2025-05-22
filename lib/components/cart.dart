@@ -56,7 +56,7 @@ class CartPage extends StatelessWidget {
 
   Widget buildSize(String size) {
     return Row(children: [
-      Text('Size:', style: GoogleFonts.cabin(fontSize: 15)),
+      LocaleText('size_is', style: GoogleFonts.cabin(fontSize: 15)),
       const SizedBox(width: 5),
       Text(size,
           style: GoogleFonts.cabin(
@@ -212,7 +212,8 @@ class CartPage extends StatelessWidget {
                                           isPaymentMode: true)),
                                 );
                               } else {
-                                Utils.showSnackBar('Cart is empty!');
+                                Utils.showSnackBar(
+                                    Locales.string(context, 'cart_empty'));
                               }
                             },
                             child: LocaleText(

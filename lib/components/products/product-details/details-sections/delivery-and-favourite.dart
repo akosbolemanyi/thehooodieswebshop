@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../../models/product.model.dart';
@@ -39,8 +40,8 @@ class _CounterWithFavBtnState extends State<ProductQuantityAndFavourite> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         ProductQuantitySelector(onQuantityChanged: updateQuantity),
-        Text(
-          'Delivery: 3 days',
+        LocaleText(
+          'delivery_days',
           style: GoogleFonts.aleo(
             fontSize: 20,
             fontWeight: FontWeight.w400,

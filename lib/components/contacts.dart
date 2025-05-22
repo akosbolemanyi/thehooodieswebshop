@@ -184,8 +184,8 @@ class _ContactPageState extends State<ContactPage> {
                     children: [
                       const Icon(Icons.phone, color: Colors.white),
                       const SizedBox(width: 10),
-                      Text(
-                        "Vonalas",
+                      LocaleText(
+                        "phone",
                         style: GoogleFonts.cabin(
                           color: Colors.white,
                           fontSize: 16,
@@ -218,8 +218,8 @@ class _ContactPageState extends State<ContactPage> {
                     children: [
                       const Icon(Icons.smartphone, color: Colors.white),
                       const SizedBox(width: 10),
-                      Text(
-                        "Mobil",
+                      LocaleText(
+                        "mobile",
                         style: GoogleFonts.cabin(
                           color: Colors.white,
                           fontSize: 16,

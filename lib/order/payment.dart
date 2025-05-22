@@ -37,8 +37,8 @@ class PaymentBackground extends StatelessWidget {
                 },
               ),
               iconTheme: IconThemeData(color: Colors.black),
-              title: Text(
-                'Payment',
+              title: LocaleText(
+                'payment',
                 style: GoogleFonts.cabin(
                     fontWeight: FontWeight.bold, color: Colors.black),
               ),
@@ -58,7 +58,7 @@ class PaymentBackground extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 50, right: 50),
               child: Text(
-                'Pay simply with card!\nPaying in cash is available in our stores in person.',
+                '${Locales.string(context, 'pay_online')}\n${Locales.string(context, 'pay_in_person')}',
                 style: GoogleFonts.cabin(
                   fontSize: 25,
                   fontWeight: FontWeight.normal,
@@ -85,8 +85,8 @@ class PaymentBackground extends StatelessWidget {
               ),
               icon: const Icon(Icons.credit_card_rounded,
                   size: 32, color: Colors.black),
-              label: Text(
-                'Pay via Credit Card',
+              label: LocaleText(
+                'pay_with_card',
                 style: GoogleFonts.cabin(fontSize: 24, color: Colors.black),
               ),
               onPressed: () async {

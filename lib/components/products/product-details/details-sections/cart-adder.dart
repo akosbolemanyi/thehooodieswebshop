@@ -1,9 +1,8 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../../constants.dart';
 import '../../../../models/product.model.dart';
 import '../../../../providers/cart.provider.dart';
 import '../../../../utils/utils.dart';
@@ -36,15 +35,12 @@ class ProductCartAdder extends StatelessWidget {
       cartQuantity = existingItem['quantity'] ?? 0;
     }
 
-    // Frissített logika a mennyiség ellenőrzésére
-    int availableQuantity = stockQuantity -
-        cartQuantity; // A raktáron lévő mennyiség - ami már a kosárban van
+    int availableQuantity = stockQuantity - cartQuantity;
 
     bool isOutOfStock = availableQuantity <= 0 || quantity > availableQuantity;
 
     void showOutOfStockMessage() {
-      Utils.showSnackBar(
-          "A termék nincs raktáron vagy túl sokat választottál!");
+      Utils.showSnackBar(Locales.string(context, 'too_many_or_out_of_stock'));
     }
 
     return Padding(
@@ -78,8 +74,8 @@ class ProductCartAdder extends StatelessWidget {
                                   builder: (context) => Footer.CustomBottomMenu(
                                       page: Footer.Page.CART)),
                             ),
-                            child: Text(
-                              'Click me',
+                            child: LocaleText(
+                              'click_me',
                               style: GoogleFonts.cabin(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -106,7 +102,7 @@ class ProductCartAdder extends StatelessWidget {
                           barBlur: 8.0,
                           titleColor: Colors.black,
                           messageColor: Colors.black,
-                          title: 'Added to cart!',
+                          title: Locales.string(context, 'added_to_cart'),
                           message: "${product.name} x$quantity",
                           duration: Duration(seconds: 3),
                         ).show(context);
@@ -137,8 +133,8 @@ class ProductCartAdder extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18)),
                 backgroundColor: Colors.green,
               ),
-              child: Text(
-                "Buy Now".toUpperCase(),
+              child: LocaleText(
+                'buy_now',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

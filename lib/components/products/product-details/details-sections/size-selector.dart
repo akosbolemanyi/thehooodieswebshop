@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import '../../../../models/product.model.dart';
 
 class ProductSizeSelector extends StatefulWidget {
@@ -72,8 +72,8 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
-                "Méret",
+              const LocaleText(
+                "size",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
@@ -105,10 +105,11 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
                 const SizedBox(width: 8),
                 Text(
                   stockQuantity > 5
-                      ? "Raktáron"
+                      ? Locales.string(context, 'in_stock')
                       : (stockQuantity > 0
-                          ? "Már csak $stockQuantity db!"
-                          : "Elfogyott!"),
+                          ? "$stockQuantity ${Locales.string(context, 'quantity')}"
+                          : Locales.string(
+                              context, 'out_of_stockout_of_stock')),
                   style: TextStyle(
                     color: stockQuantity > 5
                         ? Colors.green

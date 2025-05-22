@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -78,8 +79,8 @@ class _MapPageState extends State<MapPage> {
                           ? Colors.black
                           : Colors.white),
                   toolbarHeight: 70,
-                  title: Text(
-                    'Üzletünk',
+                  title: LocaleText(
+                    'our_shop',
                     style: GoogleFonts.cabin(
                         fontWeight: FontWeight.bold,
                         color: themeProvider.themeMode == ThemeMode.light
@@ -124,7 +125,7 @@ class _MapPageState extends State<MapPage> {
                   height: 30,
                 ),
                 label: Text(
-                  "Direction | Google Maps",
+                  "${Locales.string(context, 'direction')} | Google Maps",
                   style: GoogleFonts.cabin(
                       fontWeight: FontWeight.bold, fontSize: 17.5),
                 ),

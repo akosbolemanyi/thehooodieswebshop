@@ -14,7 +14,7 @@ class ProductDescription extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Text(
-        'This hoodie is the benchmark of the company. It was designed by our finest designers. It is the flagship, since this was the first hoodie we ever dreamed. Rapid red color, the one that will definitely take your attention!',
+        product.description,
         style: const TextStyle(height: 1.5),
       ),
     );

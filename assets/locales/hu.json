@@ -56,8 +56,40 @@
   "made_in_szeged": "Készült itt: Szeged",
   "shop_now": "Vásároljon!",
 
-  "click_me": "Kosárhoz",
+  "default": "Alapértelmezett",
+  "searching": "Keresés...",
+  "filtering": "Szűrés",
+  "sorting": "Rendezés",
+  "sequence": "Sorrend",
+  "apply": "Alkalmazás",
+  "price_asc": "Ár szerint növekvő",
+  "price_desc": "Ár szerint csökkenő",
+  "abc_asc": "ABC szerint növekvő",
+  "abc_desc": "ABC szerint csökkenő",
+  "choose_colour": "Színválasztás",
+  "all_colours": "Összes szín",
+  "red": "Piros",
+  "blue": "Kék",
+  "brown": "Barna",
+  "green": "Zöld",
+  "yellow": "Citromsárga",
 
+  "buy_now": "Megveszem",
+
+  "click_me": "Kosárhoz",
+  "added_to_cart": "Kosárhoz adva!",
+  "too_many_or_out_of_stock": "Ennyi termék sajnos nem elérhető jelenleg készletről!",
+  "delivery_days": "Kiszállítás: 3 munkanap",
+  "price": "Ár",
+  "size": "Méret",
+  "in_stock": "Raktáron",
+  "quantity": "darab",
+  "out_of_stock": "Elfogyott",
+
+  "no_favourites": "Nincsen még kedvenc terméked.",
+
+  "size_is": "Méret:",
+  "cart_empty": "A kosár üres!",
   "total_price": "Végösszeg:",
   "pay_now": "Fizetés",
 
@@ -65,9 +97,15 @@
   "thank_you_order": "Köszönjük a rendelést!",
   "order_number_is": "A rendelési azonosítód:",
   "order_email_sent": "Egy rendelési emailt kiküldtünk az e-mail címedre!",
+  "payment": "Fizetés",
+  "pay_online": "Fizess egyszerűen online!",
+  "pay_in_person": "Készpénzzel csak személyesen van lehetőség fizetni.",
+  "pay_with_card": "Fizetés bankkártyával",
 
   "ok": "Bezár",
 
+  "our_shop": "Üzletünk",
+  "direction": "Útvonal",
   "main_map": "Székhely: Szeged,\nTisza Lajos krt. 103, 6725",
 
   "contact": "Kapcsolat",
@@ -78,6 +116,8 @@
   "contact_phone_num": "+36 27/123-456",
   "contact_mobile": "Mobil telefonszám:",
   "contact_mobile_num": "+36 70/123-4567",
+  "phone": "Vezetékes",
+  "mobile": "Mobil",
 
   "select_profile_picture": "Válassz profil képet!",
   "change_profile_picture": "Profilkép lecserélése",
