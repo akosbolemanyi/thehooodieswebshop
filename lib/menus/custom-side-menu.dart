@@ -64,8 +64,8 @@ class CustomSideMenuState extends State<CustomSideMenu> {
         final profile = snapshot.data!.data() as Map<String, dynamic>;
         final nation = Locales.currentLocale(context)?.languageCode;
         final name = nation == 'hu'
-            ? '${profile['lastName']} ${profile['firstName']}'
-            : '${profile['firstName']} ${profile['lastName']}';
+            ? '${profile['lastname']} ${profile['firstname']}'
+            : '${profile['firstname']} ${profile['lastname']}';
         final email = profile['email'] ?? user.email;
 
         return Stack(alignment: Alignment.center, children: [

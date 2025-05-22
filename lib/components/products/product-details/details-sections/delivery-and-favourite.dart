@@ -42,8 +42,8 @@ class _CounterWithFavBtnState extends State<ProductQuantityAndFavourite> {
         ProductQuantitySelector(onQuantityChanged: updateQuantity),
         LocaleText(
           'delivery_days',
-          style: GoogleFonts.aleo(
-            fontSize: 20,
+          style: GoogleFonts.cabin(
+            fontSize: 17.5,
             fontWeight: FontWeight.w400,
           ),
         ),

@@ -24,6 +24,7 @@ class CartProvider extends ChangeNotifier {
         String productName = productData['name'] ?? 'N/A';
         String imageUrl = productData['imageUrl'] ?? '';
         String colour = productData['colour'] ?? '';
+        String material = productData['material'] ?? '';
         Map<String, dynamic> sizes = {};
         Map<String, dynamic> prices = {};
 
@@ -52,6 +53,7 @@ class CartProvider extends ChangeNotifier {
           'name': productName,
           'imageUrl': imageUrl,
           'colour': colour,
+          'material': material,
           'sizes': sizes,
           'prices': prices,
         });
@@ -98,7 +100,7 @@ class CartProvider extends ChangeNotifier {
           item['size'] == selectedSize,
     );
     if (orderIndex != -1) {
-      orderItems[orderIndex]['quantity'] += quantity; // Increase quantity
+      orderItems[orderIndex]['quantity'] += quantity;
     } else {
       orderItems.add({
         ...selectedItem,
@@ -112,17 +114,16 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void increaseQuantity(int index) {
+  void increaseQuantity(int index, BuildContext context) {
     var item = _cartItems[index];
     int currentQuantity = item['quantity'] ?? 0;
-    int stockQuantity = item['inStock']; // Készlet
+    int stockQuantity = item['inStock'];
 
     if (currentQuantity < stockQuantity) {
       _cartItems[index]['quantity'] += 1;
       notifyListeners();
     } else {
-      // Ha a kosárban lévő mennyiség már elérte a készletet
-      Utils.showSnackBar("Nincs elég készlet!");
+      Utils.showSnackBar(Locales.string(context, 'too_many_or_out_of_stock'));
     }
   }
 

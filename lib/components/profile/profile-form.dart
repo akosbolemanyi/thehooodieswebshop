@@ -20,8 +20,8 @@ class ProfileForm extends StatefulWidget {
 
 class _ProfileFormState extends State<ProfileForm> {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController firstnameController = TextEditingController();
+  final TextEditingController lastnameController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -41,8 +41,8 @@ class _ProfileFormState extends State<ProfileForm> {
           .get();
       if (userData.exists) {
         setState(() {
-          firstNameController.text = userData['firstName'] ?? '';
-          lastNameController.text = userData['lastName'] ?? '';
+          firstnameController.text = userData['firstname'] ?? '';
+          lastnameController.text = userData['lastname'] ?? '';
           nicknameController.text = userData['nickname'] ?? '';
           birthDateController.text = userData['birthday'] ?? '';
           emailController.text = userData['email'] ?? '';
@@ -60,12 +60,13 @@ class _ProfileFormState extends State<ProfileForm> {
           .collection('users')
           .doc(user!.uid)
           .update({
-        'firstName': firstNameController.text.trim(),
-        'lastName': lastNameController.text.trim(),
+        'firstname': firstnameController.text.trim(),
+        'lastname': lastnameController.text.trim(),
         'nickname': nicknameController.text.trim(),
         'birthday': birthDateController.text.trim(),
       });
-      Utils.showSnackBar(Locales.string(context, 'profile_update_success'));
+      Utils.showSnackBar(
+          Locales.string(context, 'profile_update_success'), 'success');
     } catch (error) {
       Utils.showSnackBar(Locales.string(context, 'profile_update_error'));
     }
@@ -150,10 +151,10 @@ class _ProfileFormState extends State<ProfileForm> {
                     ),
                     const SizedBox(height: 20),
                     _buildTextField(
-                        context, 'lastname', lastNameController, themeMode),
+                        context, 'lastname', lastnameController, themeMode),
                     const SizedBox(height: 30),
                     _buildTextField(
-                        context, 'firstname', firstNameController, themeMode),
+                        context, 'firstname', firstnameController, themeMode),
                     const SizedBox(height: 30),
                     _buildTextField(context, 'nickname_optional',
                         nicknameController, themeMode,

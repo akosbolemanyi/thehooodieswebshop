@@ -59,8 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
           final profile = snapshot.data!.data() as Map<String, dynamic>;
           final nation = Locales.currentLocale(context)?.languageCode;
           final name = nation == 'hu'
-              ? '${profile['lastName']} ${profile['firstName']}'
-              : '${profile['firstName']} ${profile['lastName']}';
+              ? '${profile['lastname']} ${profile['firstname']}'
+              : '${profile['firstname']} ${profile['lastname']}';
           return Scaffold(
               drawer: Sidebar.CustomSideMenu(),
               appBar: PreferredSize(

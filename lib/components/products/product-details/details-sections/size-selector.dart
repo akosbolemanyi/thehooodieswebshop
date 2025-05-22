@@ -38,30 +38,28 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
           .doc(size)
           .get();
 
-      print(snapshot);
       if (snapshot.exists && snapshot.data() != null) {
         return snapshot['inStock'] ?? 0;
       }
     } catch (e) {
       print("Error fetching stock quantity: $e");
     }
-    return 0; // Ha nem található adat, akkor 0-t adunk vissza
+    return 0;
   }
 
   void onSizeSelected(String size) async {
     setState(() {
-      selectedSize = size; // Frissíti a kiválasztott méretet
+      selectedSize = size;
     });
 
-    // Aszinkron hívás, hogy frissítse a stockQuantity-t
     print(size);
     int newStockQuantity = await fetchStockQuantity(size);
     setState(() {
-      stockQuantity = newStockQuantity; // Frissíti a készlet értékét
+      stockQuantity = newStockQuantity;
     });
 
-    widget.onSizeChanged(size); // Átadja a kiválasztott méretet
-    widget.onStockChanged(stockQuantity); // Átadja az új stockQuantity-t
+    widget.onSizeChanged(size);
+    widget.onStockChanged(stockQuantity);
   }
 
   @override

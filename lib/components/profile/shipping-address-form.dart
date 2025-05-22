@@ -80,7 +80,8 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
         'phone': phoneController.text.trim(),
       });
       Utils.showSnackBar(
-          Locales.string(context, 'shipping_address_update_success'));
+          Locales.string(context, 'shipping_address_update_success'),
+          'success');
     } catch (error) {
       Utils.showSnackBar(
           Locales.string(context, 'shipping_address_update_error'));
@@ -308,7 +309,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
     bool isRequired = false,
     TextInputType keyboardType = TextInputType.text,
   }) {
-    print(themeMode);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

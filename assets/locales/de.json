@@ -63,7 +63,8 @@
   "german": "Deutsch",
   "french": "Français",
   "spanish": "Español",
-
+  "portuguese": "Português",
+  "italian": "Italiano",
 
   "home_title": "Jeder braucht so einen für zu Hause!",
   "made_in_szeged": "Hergestellt in Szeged",
@@ -152,5 +153,16 @@
   "shipping_address_update_success": "Lieferadresse erfolgreich aktualisiert!",
   "shipping_address_update_error": "Lieferadresse konnte nicht aktualisiert werden!",
   "save": "Speichern",
-  "log_out": "Abmelden"
+  "log_out": "Abmelden",
+
+  "success": "Erfolg",
+  "information": "Information",
+  "error": "Hoppla",
+
+  "copied": "Kopiert:",
+
+  "cotton_100": "Dieser Hoodie besteht aus 100% reiner Baumwolle und bietet den ganzen Tag über ultimative Atmungsaktivität, Weichheit und natürlichen Komfort.",
+  "cotton_80_polyester_20": "Dieser Hoodie aus 80% Baumwolle und 20% Polyester verbindet natürliche Weichheit mit verbesserter Haltbarkeit und Knitterbeständigkeit.",
+  "cotton_70_polyester_30": "Mit 70% Baumwolle und 30% Polyester bietet dieser Hoodie hervorragenden Komfort, einfache Pflege und dauerhafte Formbeständigkeit für den Alltag."
+
 }

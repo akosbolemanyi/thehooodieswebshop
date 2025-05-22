@@ -7,6 +7,7 @@ import '../menus/custom-bottom-menu.dart' as Footer;
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../providers/theme-colour.provider.dart';
 import '../providers/theme.provider.dart';
+import '../utils/utils.dart';
 
 class HomePage extends StatefulWidget implements PageContent {
   const HomePage({super.key});

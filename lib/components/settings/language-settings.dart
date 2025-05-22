@@ -105,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   fontSize: 20,
                 ),
               ),
-              activeColor: Colors.red,
+              activeColor: Colors.amberAccent,
             ),
             RadioListTile(
               value: 'fr',
@@ -118,6 +118,40 @@ class _SettingScreenState extends State<SettingScreen> {
               },
               title: Text(
                 "Français",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
+              activeColor: Colors.red,
+            ),
+            RadioListTile(
+              value: 'pt',
+              groupValue: selectedLanguage,
+              onChanged: (value) {
+                setState(() {
+                  selectedLanguage = value as String;
+                });
+                Locales.change(context, value!);
+              },
+              title: Text(
+                "Português",
+                style: GoogleFonts.cabin(
+                  fontSize: 20,
+                ),
+              ),
+              activeColor: Colors.red,
+            ),
+            RadioListTile(
+              value: 'it',
+              groupValue: selectedLanguage,
+              onChanged: (value) {
+                setState(() {
+                  selectedLanguage = value as String;
+                });
+                Locales.change(context, value!);
+              },
+              title: Text(
+                "Italiano",
                 style: GoogleFonts.cabin(
                   fontSize: 20,
                 ),

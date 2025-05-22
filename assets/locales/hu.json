@@ -63,7 +63,8 @@
   "german": "Deutsch",
   "french": "Français",
   "spanish": "Español",
-
+  "portuguese": "Português",
+  "italian": "Italiano",
 
   "home_title": "Mindenkinek kell egy ilyen otthonra!",
   "made_in_szeged": "Készült itt: Szeged",
@@ -92,7 +93,7 @@
   "click_me": "Kosárhoz",
   "added_to_cart": "Kosárhoz adva!",
   "too_many_or_out_of_stock": "Ennyi termék sajnos nem elérhető jelenleg készletről!",
-  "delivery_days": "Kiszállítás: 3 munkanap",
+  "delivery_days": "Szállítás: 3 munkanap",
   "price": "Ár",
   "size": "Méret",
   "in_stock": "Raktáron",
@@ -152,5 +153,16 @@
   "shipping_address_update_success": "A szállítási címet sikeresen módosítottad!",
   "shipping_address_update_error": "A szállítási címet nem sierkült módosítani!",
   "save": "Mentés",
-  "log_out": "Kijelentkezés"
+  "log_out": "Kijelentkezés",
+
+  "success": "Siker",
+  "information": "Információ",
+  "error": "Hoppá",
+
+  "copied": "Másolva:",
+
+  "cotton_100": "Ez a pulóver 100% tiszta pamutból készült, hogy egész napra maximális légáteresztést, puhaságot és kényelmet nyújtson bárkinek, aki ezt viseli.",
+  "cotton_80_polyester_20": "Az 80% pamut és 20% poliészter keverékéből készült pulóver a természetes puhaságot tartóssággal és gyűrődésmentességgel ötvözi.",
+  "cotton_70_polyester_30": "A 70% pamut és 30% poliészter keveréke kiváló kényelmet, könnyű ápolást és tartós alakmegőrzést biztosít a mindennapi viselethez."
+
 }

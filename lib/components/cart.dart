@@ -142,8 +142,8 @@ class CartPage extends StatelessWidget {
                                     color: Colors.green,
                                     size: 35,
                                   ),
-                                  onPressed: () =>
-                                      cartProvider.increaseQuantity(index),
+                                  onPressed: () => cartProvider
+                                      .increaseQuantity(index, context),
                                 ),
                               ],
                             ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/favourites.provider.dart';
 import '../providers/theme.provider.dart';
 import '../services/currency.service.dart';
@@ -15,7 +14,7 @@ import '../services/currency.service.dart';
 class ProductModel extends StatefulWidget {
   final String id;
   final String name;
-  final String description;
+  final String material;
   final String price;
   final String colour;
   final String imageUrl;
@@ -30,7 +29,7 @@ class ProductModel extends StatefulWidget {
     super.key,
     required this.id,
     required this.name,
-    required this.description,
+    required this.material,
     required this.price,
     required this.colour,
     required this.imageUrl,
@@ -99,14 +98,11 @@ class _ProductModelState extends State<ProductModel> {
           ),
           // Kedvenc ikon, amely dinamikusan változik
           Positioned(
-            top: widget.crossAxisCount == 2
-                ? 45
-                : 10, // Fix pozíció a jobb felső sarokban
+            top: widget.crossAxisCount == 2 ? 45 : 10,
             right: widget.crossAxisCount == 2 ? 30 : 30,
             child: GestureDetector(
               onTap: () {
-                favouritesProvider.toggleFavourite(
-                    widget); // A kedvenc hozzáadása/eltávolítása
+                favouritesProvider.toggleFavourite(widget);
               },
               child: Icon(
                 favouritesProvider.isExist(widget)

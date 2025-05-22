@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../models/product.model.dart';
@@ -9,17 +11,43 @@ class FavouritesProvider extends ChangeNotifier {
     _favourites = value;
   }
 
-  void toggleFavourite(ProductModel product) {
-    if (_favourites.contains(product.name)) {
-      _favourites.remove(product.name);
-    } else {
-      _favourites.add(product.name);
+  FavouritesProvider() {
+    _loadFavouritesFromDatabase();
+  }
+
+  Future<void> _loadFavouritesFromDatabase() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    if (doc.exists) {
+      final data = doc.data();
+      if (data != null && data['favourites'] != null) {
+        _favourites = List<String>.from(data['favourites']);
+        notifyListeners();
+      }
     }
+  }
+
+  Future<void> toggleFavourite(ProductModel product) async {
+    final user = FirebaseAuth.instance.currentUser!;
+    if (_favourites.contains(product.id)) {
+      _favourites.remove(product.id);
+    } else {
+      _favourites.add(product.id);
+    }
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+      'favourites': _favourites,
+    });
     notifyListeners();
   }
 
   bool isExist(ProductModel product) {
-    final isExist = _favourites.contains(product.name);
+    final isExist = _favourites.contains(product.id);
     return isExist;
   }
 

@@ -57,7 +57,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
       Utils.showSnackBar(
-          '${Locales.string(context, 'verification_email_sent_to')} ${user.email}');
+          '${Locales.string(context, 'verification_email_sent_to')} ${user.email}',
+          'information');
       setState(() => canResendEmail = false);
       await Future.delayed(Duration(seconds: 5));
       setState(() => canResendEmail = false);

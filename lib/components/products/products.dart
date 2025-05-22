@@ -9,6 +9,7 @@ import '../../menus/custom-side-menu.dart' as Sidebar;
 import '../../menus/custom-bottom-menu.dart' as Footer;
 import '../../models/product.model.dart';
 import '../../providers/cart.provider.dart';
+import '../../providers/grid-layout.provider.dart';
 import '../../providers/theme.provider.dart';
 import '../../services/currency.service.dart';
 
@@ -32,7 +33,6 @@ class ProductsPage extends StatefulWidget implements PageContent {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  int _crossAxisCount = 1;
   TextEditingController _searchController = TextEditingController();
   List<dynamic> _filteredItems = [];
   String? searchedFor;
@@ -45,7 +45,6 @@ class _ProductsPageState extends State<ProductsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var cartProvider = Provider.of<CartProvider>(context, listen: false);
       await cartProvider.fetchShopItems();
-      _filteredItems = List.from(cartProvider.shopItems);
     });
 
     _searchController.addListener(() {
@@ -211,10 +210,7 @@ class _ProductsPageState extends State<ProductsPage> {
           product: ProductModel(
             id: item['id'],
             name: item['name'],
-            description: item['description'] ??
-                'The quality is the single most significant component of the perfect hoodie. '
-                    'We do not believe in giving this task of manufacturing to other companies. '
-                    'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+            material: item['material'],
             price: item['prices'][currency]['raw'].toString(),
             imageUrl: item['imageUrl'],
             colour: item['colour'],
@@ -255,7 +251,8 @@ class _ProductsPageState extends State<ProductsPage> {
                   icon: Icon(Icons.grid_view),
                   onPressed: () {
                     setState(() {
-                      _crossAxisCount = _crossAxisCount == 1 ? 2 : 1;
+                      Provider.of<GridLayoutProvider>(context, listen: false)
+                          .toggleCrossAxisCount();
                     });
                   },
                 ),
@@ -300,11 +297,16 @@ class _ProductsPageState extends State<ProductsPage> {
     final nation = Locales.currentLocale(context)?.languageCode;
     final currencyService = CurrencyService.instance;
     final currency = currencyService.getCurrency(nation);
-
+    final crossAxisCount =
+        Provider.of<GridLayoutProvider>(context).crossAxisCountProducts;
     return Consumer<CartProvider>(
       builder: (context, cartProvider, child) {
         if (cartProvider.shopItems.isEmpty) {
           return Center(child: CircularProgressIndicator(color: Colors.red));
+        }
+        if (_filteredItems.isEmpty || _filteredItems.length < 5) {
+          _filteredItems = List.from(cartProvider.shopItems);
+          print(_filteredItems.length);
         }
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -337,7 +339,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 child: GridView.builder(
                   itemCount: _filteredItems.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: _crossAxisCount,
+                    crossAxisCount: crossAxisCount,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                     childAspectRatio: 0.9,
@@ -347,19 +349,16 @@ class _ProductsPageState extends State<ProductsPage> {
                     return ProductModel(
                       id: item['id'],
                       name: item['name'],
-                      description: item['description'] ??
-                          'The quality is the single most significant component of the perfect hoodie. '
-                              'We do not believe in giving this task of manufacturing to other companies. '
-                              'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                      material: item['material'],
                       price: item['prices'][currency]['raw'].toString(),
                       imageUrl: item['imageUrl'],
                       colour: item['colour'],
                       onTap: () => navigateToDetailsPage(index),
                       onPressed: () {},
-                      imageHeight: _crossAxisCount == 2 ? 120 : 310,
-                      textSize: _crossAxisCount == 2 ? 20 : 35,
-                      buttonFontSize: _crossAxisCount == 2 ? 20 : 30,
-                      crossAxisCount: _crossAxisCount,
+                      imageHeight: crossAxisCount == 2 ? 120 : 310,
+                      textSize: crossAxisCount == 2 ? 20 : 35,
+                      buttonFontSize: crossAxisCount == 2 ? 20 : 30,
+                      crossAxisCount: crossAxisCount,
                     );
                   },
                 ),

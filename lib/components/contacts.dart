@@ -23,7 +23,8 @@ class _ContactPageState extends State<ContactPage> {
 
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
-    Utils.showSnackBar("Másolva: $text");
+    Utils.showSnackBar(
+        '${Locales.string(context, 'copied')} $text', 'information');
   }
 
   @override

@@ -63,7 +63,8 @@
   "german": "Deutsch",
   "french": "Français",
   "spanish": "Español",
-
+  "portuguese": "Português",
+  "italian": "Italiano",
 
   "home_title": "Everyone needs one of these at home!",
   "made_in_szeged": "Made in Szeged",
@@ -152,5 +153,15 @@
   "shipping_address_update_success": "Shipping address updated successfully!",
   "shipping_address_update_error": "Failed to update shipping address!",
   "save": "Save",
-  "log_out": "Log out"
+  "log_out": "Log out",
+
+  "success": "Success",
+  "information": "Information",
+  "error": "Oops",
+
+  "copied": "Copied:",
+
+  "cotton_100": "This hoodie is crafted from 100% pure cotton, providing you with ultimate breathability, softness, and natural comfort all day long.",
+  "cotton_80_polyester_20": "Made from a blend of 80% cotton and 20% polyester, this hoodie combines natural softness with enhanced durability and wrinkle resistance.",
+  "cotton_70_polyester_30": "Featuring a blend of 70% cotton and 30% polyester, this hoodie offers excellent comfort, easy care, and lasting shape retention for your everyday wear."
 }

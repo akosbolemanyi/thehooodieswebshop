@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../menus/custom-bottom-menu.dart' as Footer;
+import '../providers/theme.provider.dart';
 
 class OrderFeedbackPage extends StatelessWidget {
   final String orderId;
@@ -11,6 +13,7 @@ class OrderFeedbackPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       drawer: Sidebar.CustomSideMenu(),
       appBar: PreferredSize(
@@ -49,15 +52,29 @@ class OrderFeedbackPage extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                        text:
-                            '${Locales.string(context, 'thank_you_order')}\n'),
+                        text: '${Locales.string(context, 'thank_you_order')}\n',
+                        style: GoogleFonts.cabin(
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
                     TextSpan(
-                        text: '${Locales.string(context, 'order_number_is')} '),
+                        text: '${Locales.string(context, 'order_number_is')} ',
+                        style: GoogleFonts.cabin(
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
                     TextSpan(
-                      text: '$orderId\n',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(text: Locales.string(context, 'order_email_sent')),
+                        text: '$orderId\n',
+                        style: GoogleFonts.cabin(
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
+                    TextSpan(
+                        text: Locales.string(context, 'order_email_sent'),
+                        style: GoogleFonts.cabin(
+                            color: themeProvider.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black)),
                   ],
                 ),
               ),

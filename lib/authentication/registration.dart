@@ -26,8 +26,8 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   final formKey = GlobalKey<FormState>();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
   final nicknameController = TextEditingController();
   final birthDateController = TextEditingController();
   final emailController = TextEditingController();
@@ -76,7 +76,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     color: Colors.grey.shade500, fontSize: 15),
               ),
               TextFormField(
-                controller: lastNameController,
+                controller: lastnameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
@@ -90,7 +90,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     color: Colors.grey.shade500, fontSize: 15),
               ),
               TextFormField(
-                controller: firstNameController,
+                controller: firstnameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
@@ -300,8 +300,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       final user = FirebaseAuth.instance.currentUser;
 
       await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
-        'firstName': firstNameController.text.trim(),
-        'lastName': lastNameController.text.trim(),
+        'firstname': firstnameController.text.trim(),
+        'lastname': lastnameController.text.trim(),
         'nickname': nicknameController.text.trim(),
         'birthday': birthDateController.text.trim(),
         'email': emailController.text.trim(),

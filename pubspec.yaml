@@ -77,6 +77,7 @@ dependencies:
   custom_info_window: ^1.0.1
   cached_network_image: ^3.3.1
   shared_preferences: ^2.2.3
+  awesome_snackbar_content: ^0.1.4
 
 
 dev_dependencies:
@@ -115,7 +116,12 @@ flutter:
     - assets/locales/de.json
     - assets/locales/es.json
     - assets/locales/fr.json
+    - assets/locales/pt.json
+    - assets/locales/it.json
     - assets/images/main.png
+    - assets/images/bubbles.svg
+    - assets/images/close.svg
+    - assets/images/fail.svg
     - assets/images/default_profile.png
     - assets/images/google-maps.png
     - assets/images/custom-map-marker.png

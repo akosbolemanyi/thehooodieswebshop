@@ -63,7 +63,8 @@
   "german": "Deutsch",
   "french": "Français",
   "spanish": "Español",
-
+  "portuguese": "Português",
+  "italian": "Italiano",
 
   "home_title": "¡Todo el mundo necesita uno así en casa!",
   "made_in_szeged": "Hecho en Szeged",
@@ -152,5 +153,16 @@
   "shipping_address_update_success": "¡Dirección de envío actualizada con éxito!",
   "shipping_address_update_error": "No se pudo actualizar la dirección de envío.",
   "save": "Guardar",
-  "log_out": "Cerrar sesión"
+  "log_out": "Cerrar sesión",
+
+  "success": "Éxito",
+  "information": "Información",
+  "error": "Ups",
+
+  "copied": "Copiado:",
+
+  "cotton_100": "Esta sudadera está hecha de 100% algodón puro, proporcionando transpirabilidad, suavidad y comodidad natural durante todo el día.",
+  "cotton_80_polyester_20": "Hecha con una mezcla de 80% algodón y 20% poliéster, esta sudadera combina suavidad natural con mayor durabilidad y resistencia a las arrugas.",
+  "cotton_70_polyester_30": "Con 70% algodón y 30% poliéster, esta sudadera ofrece excelente comodidad, fácil cuidado y retención de forma para el uso diario."
+
 }

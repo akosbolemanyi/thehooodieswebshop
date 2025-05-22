@@ -10,6 +10,7 @@ import '../menus/custom-side-menu.dart' as Sidebar;
 import '../menus/custom-bottom-menu.dart' as Footer;
 import '../providers/cart.provider.dart';
 import '../providers/favourites.provider.dart';
+import '../providers/grid-layout.provider.dart';
 import '../services/currency.service.dart';
 
 /**
@@ -32,19 +33,6 @@ class FavouritesPage extends StatefulWidget implements PageContent {
 }
 
 class _FavouritesPageState extends State<FavouritesPage> {
-  int _crossAxisCount = 1;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _toggleGridCount() {
-    setState(() {
-      _crossAxisCount = _crossAxisCount == 1 ? 2 : 1;
-    });
-  }
-
   void navigateToDetailsPage(String id, CartProvider cartProvider) {
     final item =
         cartProvider.shopItems.firstWhere((element) => element['id'] == id);
@@ -58,7 +46,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
           product: ProductModel(
             id: item['id'],
             name: item['name'],
-            description: item['description'],
+            material: item['material'],
             price: item['prices'][currency]['raw'].toString(),
             imageUrl: item['imageUrl'],
             colour: item['colour'],
@@ -96,9 +84,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
                       fontWeight: FontWeight.bold, color: Colors.black)),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.grid_view),
-                  onPressed: _toggleGridCount,
-                ),
+                    icon: Icon(Icons.grid_view),
+                    onPressed: () {
+                      setState(() {
+                        Provider.of<GridLayoutProvider>(context, listen: false)
+                            .toggleCrossAxisCount('favourites');
+                      });
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Consumer<CartProvider>(
@@ -141,14 +133,15 @@ class _FavouritesPageState extends State<FavouritesPage> {
     final nation = Locales.currentLocale(context)?.languageCode;
     final currencyService = CurrencyService.instance;
     final currency = currencyService.getCurrency(nation);
+    final crossAxisCount =
+        Provider.of<GridLayoutProvider>(context).crossAxisCountFavourites;
 
     return Consumer<CartProvider>(
       builder: (context, cartProvider, child) {
         final favouriteItems = cartProvider.shopItems
             .where((item) => favouritesProvider.favourites
-                .any((favourite) => favourite == item['name']))
+                .any((favourite) => favourite == item['id']))
             .toList();
-
         if (favouriteItems.isEmpty) {
           return Center(child: LocaleText("no_favourites"));
         }
@@ -160,22 +153,19 @@ class _FavouritesPageState extends State<FavouritesPage> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              crossAxisCount: _crossAxisCount,
+              crossAxisCount: crossAxisCount,
               childAspectRatio: 0.9,
             ),
             itemBuilder: (context, index) {
               final item = favouriteItems[index];
-              double imageHeight = _crossAxisCount == 2 ? 120 : 310;
-              double textSize = _crossAxisCount == 2 ? 20 : 25;
-              double buttonFontSize = _crossAxisCount == 2 ? 20 : 30;
+              double imageHeight = crossAxisCount == 2 ? 120 : 310;
+              double textSize = crossAxisCount == 2 ? 20 : 25;
+              double buttonFontSize = crossAxisCount == 2 ? 20 : 30;
 
               return ProductModel(
                 id: item['id'],
                 name: item['name'],
-                description: item['description'] ??
-                    'The quality is the single most significant component of the perfect hoodie. '
-                        'We do not believe in giving this task of manufacturing to other companies. '
-                        'We wanted to create ourselves, and we finally can. We hope, you feel it too.',
+                material: item['material'],
                 price: item['prices'][currency]['raw'].toString(),
                 imageUrl: item['imageUrl'],
                 colour: item['colour'],
@@ -184,7 +174,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                 imageHeight: imageHeight,
                 textSize: textSize,
                 buttonFontSize: buttonFontSize,
-                crossAxisCount: _crossAxisCount,
+                crossAxisCount: crossAxisCount,
               );
             },
           ),

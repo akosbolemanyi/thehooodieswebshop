@@ -63,7 +63,8 @@
   "german": "Deutsch",
   "french": "Français",
   "spanish": "Español",
-
+  "portuguese": "Português",
+  "italian": "Italiano",
 
   "home_title": "Un chez-soi comme ça pour tous !",
   "made_in_szeged": "Fabriqué à Szeged",
@@ -152,5 +153,16 @@
   "shipping_address_update_success": "Adresse de livraison mise à jour avec succès !",
   "shipping_address_update_error": "Impossible de mettre à jour l’adresse de livraison !",
   "save": "Enregistrer",
-  "log_out": "Se déconnecter"
+  "log_out": "Se déconnecter",
+
+  "success": "Succès",
+  "information": "Information",
+  "error": "Oups",
+
+  "copied": "Copié :",
+
+  "cotton_100": "Ce sweat à capuche est fabriqué à partir de 100% coton pur, offrant une respirabilité, une douceur et un confort naturel toute la journée.",
+  "cotton_80_polyester_20": "Fabriqué à partir d'un mélange de 80% coton et 20% polyester, ce sweat combine douceur naturelle avec durabilité accrue et résistance aux plis.",
+  "cotton_70_polyester_30": "Avec 70% coton et 30% polyester, ce sweat offre un excellent confort, un entretien facile et une tenue durable pour un usage quotidien."
+
 }

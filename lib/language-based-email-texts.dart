@@ -38,6 +38,22 @@ var common_fr = {
   'total_price_label': 'Prix total :',
 };
 
+var common_pt = {
+  'order_id_label': 'ID do pedido:',
+  'size_label': 'Tamanho:',
+  'quantity_label': 'Quantidade',
+  'shipping_cost_label': 'Custo de envio:',
+  'total_price_label': 'Preço total:',
+};
+
+var common_it = {
+  'order_id_label': 'ID ordine:',
+  'size_label': 'Taglia:',
+  'quantity_label': 'Quantità',
+  'shipping_cost_label': 'Costo di spedizione:',
+  'total_price_label': 'Prezzo totale:',
+};
+
 var customer_hu = {
   'customer_email_title': 'Hooodies! | Sikeres rendelés',
   'greeting': 'Kedves',
@@ -116,6 +132,38 @@ var customer_fr = {
   'land_phone': 'Téléphone fixe : 06123456789',
   'mobile': 'Portable : 0123456789',
   'email': 'Email : thehoodieswebshop@gmail.com'
+};
+
+var customer_pt = {
+  'customer_email_title': 'Hooodies! | Pedido realizado com sucesso',
+  'greeting': 'Caro',
+  'message_01': 'O seu pedido abaixo',
+  'message_02': 'foi registrado com sucesso!',
+  'message_03': 'Será enviado em breve!',
+  'thanking': 'Obrigado por comprar conosco!',
+  'end_message':
+      'Se tiver alguma dúvida, entre em contato com nosso suporte ao cliente por este e-mail ou por qualquer um dos nossos telefones!',
+  'dispatch': 'Atenciosamente,',
+  'contact_us': 'Informações para contato do suporte ao cliente.',
+  'land_phone': 'Telefone fixo: 06123456789',
+  'mobile': 'Telefone móvel: 0123456789',
+  'email': 'Endereço de e-mail: thehoodieswebshop@gmail.com'
+};
+
+var customer_it = {
+  'customer_email_title': 'Hooodies! | Ordine effettuato con successo',
+  'greeting': 'Caro',
+  'message_01': 'Il tuo ordine sottostante',
+  'message_02': 'è stato registrato con successo!',
+  'message_03': 'Sarà spedito a breve!',
+  'thanking': 'Grazie per aver acquistato da noi!',
+  'end_message':
+      'Per qualsiasi domanda, non esitare a contattare il nostro servizio clienti tramite questa email o uno dei nostri numeri di telefono!',
+  'dispatch': 'Cordiali saluti,',
+  'contact_us': 'Contatti del servizio clienti.',
+  'land_phone': 'Telefono fisso: 06123456789',
+  'mobile': 'Telefono cellulare: 0123456789',
+  'email': 'Indirizzo email: thehoodieswebshop@gmail.com'
 };
 
 var manufacturer_hu = {
@@ -201,4 +249,38 @@ var manufacturer_fr = {
   'customer_app_language_label': "Langue utilisée dans l'application :",
   'shipping_address_title': 'Adresse de livraison :',
   'order_in_depth': 'Résumé de la commande :'
+};
+
+var manufacturer_pt = {
+  'manufacturer_email_title': 'Hooodies! | Novo pedido',
+  'message_01': 'Um novo pedido',
+  'message_02': 'foi registrado no sistema!',
+  'order_details_title': 'Detalhes do pedido:',
+  'order_id_label': 'ID do pedido:',
+  'order_date_label': 'Data do pedido:',
+  'customer_details_title': 'Detalhes do cliente:',
+  'customer_name_label': 'Nome completo:',
+  'customer_email_label': 'Endereço de e-mail:',
+  'customer_phone_label': 'Número de telefone:',
+  'customer_id_label': 'ID do usuário:',
+  'customer_app_language_label': 'Idioma usado no aplicativo:',
+  'shipping_address_title': 'Endereço de entrega:',
+  'order_in_depth': 'Detalhes do pedido:'
+};
+
+var manufacturer_it = {
+  'manufacturer_email_title': 'Hooodies! | Nuovo ordine',
+  'message_01': 'Un nuovo ordine',
+  'message_02': 'è stato registrato nel sistema!',
+  'order_details_title': "Dettagli dell'ordine:",
+  'order_id_label': "ID ordine:",
+  'order_date_label': "Data dell'ordine:",
+  'customer_details_title': "Dettagli del cliente:",
+  'customer_name_label': "Nome completo:",
+  'customer_email_label': "Indirizzo email:",
+  'customer_phone_label': "Numero di telefono:",
+  'customer_id_label': "ID utente:",
+  'customer_app_language_label': "Lingua usata nell'app:",
+  'shipping_address_title': "Indirizzo di spedizione:",
+  'order_in_depth': "Dettagli dell'ordine:"
 };

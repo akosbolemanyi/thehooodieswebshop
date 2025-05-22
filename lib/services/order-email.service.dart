@@ -25,45 +25,57 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
       .get();
 
   String currency;
-  String firstName;
-  String lastName;
+  String firstname;
+  String lastname;
   String language;
 
   switch (languageCode) {
     case 'hu':
       currency = 'HUF';
       language = 'magyar';
-      firstName = userData['lastName'] ?? '';
-      lastName = userData['firstName'] ?? '';
+      firstname = userData['lastname'] ?? '';
+      lastname = userData['firstname'] ?? '';
       break;
     case 'en':
       currency = 'USD';
       language = 'angol';
-      firstName = userData['firstName'] ?? '';
-      lastName = userData['lastName'] ?? '';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
     case 'es':
       currency = 'EUR';
       language = 'spanyol';
-      firstName = userData['firstName'] ?? '';
-      lastName = userData['lastName'] ?? '';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
       break;
     case 'fr':
       currency = 'EUR';
       language = 'francia';
-      firstName = userData['firstName'] ?? '';
-      lastName = userData['lastName'] ?? '';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
+      break;
+    case 'pt':
+      currency = 'EUR';
+      language = 'portugál';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
+      break;
+    case 'it':
+      currency = 'EUR';
+      language = 'olasz';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
       break;
     default:
       currency = 'EUR';
       language = 'német';
-      firstName = userData['firstName'] ?? '';
-      lastName = userData['lastName'] ?? '';
+      firstname = userData['firstname'] ?? '';
+      lastname = userData['lastname'] ?? '';
       break;
   }
 
   Map<String, dynamic> common = {
-    'firstName': firstName,
-    'lastName': lastName,
+    'firstname': firstname,
+    'lastname': lastname,
     'orderId': orderId,
     'orderDate': DateTime.parse(orderDate)
         .toIso8601String()
@@ -110,6 +122,14 @@ Future sendCustomerEmail(
     case 'fr':
       languageBasedTexts.addAll(common_fr);
       languageBasedTexts.addAll(customer_fr);
+      break;
+    case 'pt':
+      languageBasedTexts.addAll(common_pt);
+      languageBasedTexts.addAll(customer_pt);
+      break;
+    case 'it':
+      languageBasedTexts.addAll(common_it);
+      languageBasedTexts.addAll(customer_it);
       break;
     default:
       languageBasedTexts.addAll(common_en);

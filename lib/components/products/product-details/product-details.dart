@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../constants.dart';
 import '../../../menus/custom-bottom-menu.dart' as Footer;
 import 'package:badges/badges.dart' as badges;
@@ -8,7 +9,7 @@ import '../../../providers/theme.provider.dart';
 import 'package:provider/provider.dart';
 import 'details-sections/cart-adder.dart';
 import 'details-sections/delivery-and-favourite.dart';
-import 'details-sections/description.dart';
+import 'details-sections/material.dart';
 import 'details-sections/header.dart';
 import 'details-sections/size-selector.dart';
 
@@ -68,7 +69,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               shape: badges.BadgeShape.circle,
               borderRadius: BorderRadius.circular(10),
             ),
-            badgeContent: Text(cartProvider.totalQuantity.toString()),
+            badgeContent: Text(
+              cartProvider.totalQuantity.toString(),
+              style: GoogleFonts.cabin(color: Colors.black),
+            ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
               iconSize: 25,
@@ -119,7 +123,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           onStockChanged: updateStockQuantity,
                         ),
                         const SizedBox(height: 20.0 / 2),
-                        ProductDescription(product: widget.product),
+                        ProductMaterial(product: widget.product),
                         const SizedBox(height: 20.0 / 2),
                         ProductQuantityAndFavourite(
                             product: widget.product,

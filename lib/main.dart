@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:android_studio_projects/providers/cart.provider.dart';
 import 'package:android_studio_projects/providers/favourites.provider.dart';
+import 'package:android_studio_projects/providers/grid-layout.provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ import 'authentication/email-verification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Locales.init(['hu', 'en', 'de', 'es', 'fr']);
+  Locales.init(['hu', 'en', 'de', 'es', 'fr', 'pt', 'it']);
   Stripe.publishableKey = stripePublishableKey;
   Platform.isAndroid
       ? await Firebase.initializeApp(
@@ -51,6 +52,7 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
           ChangeNotifierProvider(create: (_) => FavouritesProvider()),
           ChangeNotifierProvider(create: (_) => CartProvider()),
+          ChangeNotifierProvider(create: (_) => GridLayoutProvider()),
         ],
         child: Builder(builder: (BuildContext context) {
           final themeProvider = Provider.of<ThemeProvider>(context);

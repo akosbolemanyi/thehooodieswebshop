@@ -63,8 +63,12 @@ class SettingsPage extends StatelessWidget {
                   return const LocaleText('french');
                 case 'es':
                   return const LocaleText('spanish');
+                case 'pt':
+                  return const LocaleText('portugal');
+                case 'it':
+                  return const LocaleText('italian');
                 default:
-                  return const LocaleText('english'); // Alapértelmezett
+                  return const LocaleText('english');
               }
             }(),
             trailing: () {
@@ -96,6 +100,18 @@ class SettingsPage extends StatelessWidget {
                 case 'es':
                   return Image.asset(
                     'icons/flags/png100px/es.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'pt':
+                  return Image.asset(
+                    'icons/flags/png100px/pt.png',
+                    package: 'country_icons',
+                    width: 25,
+                  );
+                case 'it':
+                  return Image.asset(
+                    'icons/flags/png100px/it.png',
                     package: 'country_icons',
                     width: 25,
                   );
