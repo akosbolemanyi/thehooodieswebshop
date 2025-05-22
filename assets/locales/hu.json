@@ -1,6 +1,6 @@
 {
-  "firstname": "Vezetéknév",
-  "lastname": "Keresztnév",
+  "firstname": "Keresztnév",
+  "lastname": "Vezetéknév",
   "nickname_optional": "Becenév (opcionális)",
   "birthday": "Születésnap",
   "email": "E-mail",

@@ -150,10 +150,10 @@ class _ProfileFormState extends State<ProfileForm> {
                     ),
                     const SizedBox(height: 20),
                     _buildTextField(
-                        context, 'firstname', firstNameController, themeMode),
+                        context, 'lastname', lastNameController, themeMode),
                     const SizedBox(height: 30),
                     _buildTextField(
-                        context, 'lastname', lastNameController, themeMode),
+                        context, 'firstname', firstNameController, themeMode),
                     const SizedBox(height: 30),
                     _buildTextField(context, 'nickname_optional',
                         nicknameController, themeMode,

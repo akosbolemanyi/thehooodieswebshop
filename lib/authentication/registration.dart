@@ -71,12 +71,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               //----------------------------------------------------------------------------------------------------
               const SizedBox(height: 40),
               LocaleText(
-                'firstname',
+                'lastname',
                 style: GoogleFonts.cabin(
                     color: Colors.grey.shade500, fontSize: 15),
               ),
               TextFormField(
-                controller: firstNameController,
+                controller: lastNameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
@@ -85,12 +85,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               const SizedBox(height: 30),
               LocaleText(
-                'lastname',
+                'firstname',
                 style: GoogleFonts.cabin(
                     color: Colors.grey.shade500, fontSize: 15),
               ),
               TextFormField(
-                controller: lastNameController,
+                controller: firstNameController,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
