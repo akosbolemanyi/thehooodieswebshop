@@ -38,17 +38,17 @@
   "menu_favourites": "Favoris",
   "menu_cart": "Panier",
   "menu_map": "Notre boutique",
-  "menu_contact_us": "Contactez-nous",
+  "menu_contact_us": "Contact",
   "menu_settings": "Paramètres",
   "menu_profile": "Mon profil",
 
   "about_us": "À propos",
   "our_purpose": "Notre objectif",
-  "our_purpose_description": "Notre rêve n’est pas seulement de transmettre du style, mais aussi du confort à ceux qui ressentent la puissance du Hooodie.\nNotre concept repose sur une seule règle : la qualité avant la quantité.\nVous avez déjà vu toutes les couleurs, ressenti tous les matériaux. Ce que nous offrons est simple :\nLe design le plus simple et pourtant le plus désirable : notre Hooodie.",
-  "how_it_started": "Comment ça a commencé ?",
-  "how_it_started_description": "Nous avons toujours voulu offrir des produits de qualité, créer des tendances et du style.\nNous avons commencé comme une petite équipe – quelques amis – désireux de faire la différence.\nNous avons rassemblé les meilleurs matériaux que nous avons toujours souhaité, et nous avons commencé à réaliser nos rêves.\nC’était un projet de cœur.\nAvec cette passion, nous avons décidé de le partager avec le monde, AVEC VOUS !",
+  "our_purpose_description": "Notre rêve n’est pas seulement de transmettre du style, mais aussi du confort à ceux qui ressentent la puissance du Hooodie. Notre concept repose sur une seule règle : la qualité avant la quantité. Vous avez déjà vu toutes les couleurs, ressenti tous les matériaux. Ce que nous offrons est simple : Le design le plus simple et pourtant le plus désirable : notre Hooodie.",
+  "how_it_started": "Début",
+  "how_it_started_description": "Nous avons toujours voulu offrir des produits de qualité, créer des tendances et du style. Nous avons commencé comme une petite équipe – quelques amis – désireux de faire la différence. Nous avons rassemblé les meilleurs matériaux que nous avons toujours souhaité, et nous avons commencé à réaliser nos rêves. C’était un projet de cœur. Avec cette passion, nous avons décidé de le partager avec le monde, AVEC VOUS !",
   "our_materials": "Nos matériaux",
-  "our_materials_description": "La qualité est l’ingrédient essentiel du hoodie parfait.\nNous ne croyons pas à la sous-traitance.\nNous voulions le faire nous-mêmes – et maintenant nous pouvons enfin. Nous espérons que vous le ressentez aussi.",
+  "our_materials_description": "La qualité est l’ingrédient essentiel du hoodie parfait. Nous ne croyons pas à la sous-traitance. Nous voulions le faire nous-mêmes – et maintenant nous pouvons enfin. Nous espérons que vous le ressentez aussi.",
   "work_with_us": "Travaillez avec nous !",
   "work_with_us_description": "Nous grandissons constamment. Nous voulons partager notre joie et notre passion avec vous ! Notre premier magasin est à Szeged, et nous souhaitons nous étendre. Que ce soit par téléphone, e-mail ou en personne – contactez-nous ! Ce serait un honneur que vous nous rejoigniez !",
 
@@ -65,9 +65,9 @@
   "spanish": "Español",
 
 
-  "home_title": "Tout le monde a besoin d’un comme ça chez soi !",
+  "home_title": "Un chez-soi comme ça pour tous !",
   "made_in_szeged": "Fabriqué à Szeged",
-  "shop_now": "Achetez maintenant !",
+  "shop_now": "Acheter!",
 
   "default": "Par défaut",
   "searching": "Recherche...",
@@ -92,12 +92,12 @@
   "click_me": "Voir le panier",
   "added_to_cart": "Ajouté au panier !",
   "too_many_or_out_of_stock": "Cette quantité n’est pas disponible actuellement !",
-  "delivery_days": "Livraison : 3 jours ouvrés",
+  "delivery_days": "Livraison : 3 j ouvrés",
   "price": "Prix",
   "size": "Taille",
   "in_stock": "En stock",
   "quantity": "quantité",
-  "out_of_stock": "Rupture de stock",
+  "out_of_stock": "Rupt. stock",
 
   "no_favourites": "Vous n’avez pas encore de favoris.",
 
@@ -108,7 +108,7 @@
 
   "successful_order": "Commande réussie !",
   "thank_you_order": "Merci pour votre commande !",
-  "order_number_is": "Votre numéro de commande :",
+  "order_number_is": "N° de commande :",
   "order_email_sent": "Un email de confirmation a été envoyé à votre adresse !",
   "payment": "Paiement",
   "pay_online": "Payez facilement en ligne !",

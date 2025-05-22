@@ -7,7 +7,7 @@
   "password": "Contraseña",
   "password_again": "Contraseña nuevamente",
   "sign_in_motto": "¡Bienvenido de nuevo!",
-  "sign_up_motto": "Sería un honor\nque te unieras a nosotros.",
+  "sign_up_motto": "Sería un honor que\nte unieras a nosotros.",
   "sign_in": "Iniciar sesión",
   "sign_up": "Regístrate",
   "sign_out": "Cerrar sesión",
@@ -36,7 +36,7 @@
   "menu_home": "Inicio",
   "menu_products": "Productos",
   "menu_favourites": "Favoritos",
-  "menu_cart": "Carrito de compras",
+  "menu_cart": "Carrito",
   "menu_map": "Nuestra tienda",
   "menu_contact_us": "Contacto",
   "menu_settings": "Configuración",
@@ -44,11 +44,11 @@
 
   "about_us": "Sobre nosotros",
   "our_purpose": "Nuestro propósito",
-  "our_purpose_description": "Nuestro sueño no es solo transmitir estilo, sino también comodidad a quienes sienten el poder del hooodie.\nNuestro concepto se basa en una sola regla: calidad sobre cantidad.\nHas visto todos los colores, has sentido todos los materiales. Lo que ofrecemos es simple:\nEl diseño más simple y a la vez más deseado: nuestro hooodie.",
+  "our_purpose_description": "Nuestro sueño no es solo transmitir estilo, sino también comodidad a quienes sienten el poder del hooodie. Nuestro concepto se basa en una sola regla: calidad sobre cantidad. Has visto todos los colores, has sentido todos los materiales. Lo que ofrecemos es simple: El diseño más simple y a la vez más deseado: nuestro hooodie.",
   "how_it_started": "¿Cómo empezó?",
-  "how_it_started_description": "Siempre quisimos ofrecer productos de calidad, crear tendencias y estilo.\nComenzamos como un pequeño equipo — unos amigos — con ganas de hacer la diferencia.\nReunimos los mejores materiales que siempre quisimos y empezamos a hacer realidad nuestros sueños.\nFue un proyecto de amor.\nCon esta pasión decidimos compartirlo con el mundo, ¡CONTIGO!",
+  "how_it_started_description": "Siempre quisimos ofrecer productos de calidad, crear tendencias y estilo. Comenzamos como un pequeño equipo — unos amigos — con ganas de hacer la diferencia. Reunimos los mejores materiales que siempre quisimos y empezamos a hacer realidad nuestros sueños. Fue un proyecto de amor. Con esta pasión decidimos compartirlo con el mundo, ¡CONTIGO!",
   "our_materials": "Nuestros materiales",
-  "our_materials_description": "La calidad es el ingrediente más importante de un hooodie perfecto.\nNo creemos en externalizar la producción.\nQueríamos hacerlo nosotros mismos — y ahora finalmente podemos. Esperamos que tú también lo sientas.",
+  "our_materials_description": "La calidad es el ingrediente más importante de un hooodie perfecto. No creemos en externalizar la producción. Queríamos hacerlo nosotros mismos — y ahora finalmente podemos. Esperamos que tú también lo sientas.",
   "work_with_us": "¡Trabaja con nosotros!",
   "work_with_us_description": "Estamos creciendo constantemente. ¡Queremos compartir nuestra alegría y pasión contigo! Nuestra primera tienda está en Szeged, y queremos expandirnos. Ya sea por teléfono, correo electrónico o en persona — contáctanos sin problema. ¡Sería un honor que te unieras a nosotros!",
 
@@ -67,7 +67,7 @@
 
   "home_title": "¡Todo el mundo necesita uno así en casa!",
   "made_in_szeged": "Hecho en Szeged",
-  "shop_now": "¡Compra ahora!",
+  "shop_now": "¡Compra!",
 
   "default": "Por defecto",
   "searching": "Buscando...",

@@ -12,23 +12,6 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
   List<Map<String, dynamic>> orderedProducts = cartProvider.cartItems;
   final Map<String, dynamic> languageBasedTexts;
 
-  switch (languageCode) {
-    case 'hu':
-      languageBasedTexts = common_hu;
-      break;
-    case 'de':
-      languageBasedTexts = common_de;
-      break;
-    case 'es':
-      languageBasedTexts = common_es;
-      break;
-    case 'fr':
-      languageBasedTexts = common_fr;
-      break;
-    default:
-      languageBasedTexts = common_en;
-  }
-
   DocumentSnapshot userData = await FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -102,7 +85,6 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
     'totalPrice':
         currencyService.format(cartProvider.sumPrice(languageCode), currency),
     'customerEmail': userData['email'] ?? '',
-    ...languageBasedTexts,
   };
   await sendCustomerEmail(common, languageCode);
   await sendManufacturerEmail(common);
@@ -110,17 +92,28 @@ Future sendEmails(String orderId, String orderDate, CartProvider cartProvider,
 
 Future sendCustomerEmail(
     Map<String, dynamic> common, String languageCode) async {
-  final Map<String, dynamic> languageBasedTexts;
+  final Map<String, dynamic> languageBasedTexts = {};
 
   switch (languageCode) {
     case 'hu':
-      languageBasedTexts = customer_hu;
+      languageBasedTexts.addAll(common_hu);
+      languageBasedTexts.addAll(customer_hu);
       break;
     case 'de':
-      languageBasedTexts = customer_de;
+      languageBasedTexts.addAll(common_de);
+      languageBasedTexts.addAll(customer_de);
+      break;
+    case 'es':
+      languageBasedTexts.addAll(common_es);
+      languageBasedTexts.addAll(customer_es);
+      break;
+    case 'fr':
+      languageBasedTexts.addAll(common_fr);
+      languageBasedTexts.addAll(customer_fr);
       break;
     default:
-      languageBasedTexts = customer_en;
+      languageBasedTexts.addAll(common_en);
+      languageBasedTexts.addAll(customer_en);
   }
 
   final serviceId = 'service_ln0x71t';
@@ -145,7 +138,9 @@ Future sendCustomerEmail(
 }
 
 Future sendManufacturerEmail(Map<String, dynamic> common) async {
-  final Map<String, dynamic> languageBasedTexts = manufacturer_hu;
+  final Map<String, dynamic> languageBasedTexts = {}
+    ..addAll(common_hu)
+    ..addAll(manufacturer_hu);
 
   String email = '';
   String phone = '';

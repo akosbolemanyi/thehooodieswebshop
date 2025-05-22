@@ -98,6 +98,7 @@ class PaymentBackground extends StatelessWidget {
                     String orderDate = DateTime.now().toString();
                     await sendEmails(
                         orderId, orderDate, cartProvider, languageCode!);
+                    cartProvider.cartItems = [];
                     Navigator.of(context).push(PageTransition(
                       type: PageTransitionType.fade,
                       child: SuccessAnimationPage(orderId: orderId),

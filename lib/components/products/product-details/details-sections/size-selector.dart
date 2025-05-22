@@ -108,8 +108,7 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
                       ? Locales.string(context, 'in_stock')
                       : (stockQuantity > 0
                           ? "$stockQuantity ${Locales.string(context, 'quantity')}"
-                          : Locales.string(
-                              context, 'out_of_stockout_of_stock')),
+                          : Locales.string(context, 'out_of_stock')),
                   style: TextStyle(
                     color: stockQuantity > 5
                         ? Colors.green

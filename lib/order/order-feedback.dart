@@ -52,7 +52,7 @@ class OrderFeedbackPage extends StatelessWidget {
                         text:
                             '${Locales.string(context, 'thank_you_order')}\n'),
                     TextSpan(
-                        text: '${Locales.string(context, 'thank_you_order')} '),
+                        text: '${Locales.string(context, 'order_number_is')} '),
                     TextSpan(
                       text: '$orderId\n',
                       style: TextStyle(fontWeight: FontWeight.bold),

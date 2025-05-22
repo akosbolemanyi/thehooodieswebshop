@@ -39,6 +39,7 @@ var common_fr = {
 };
 
 var customer_hu = {
+  'customer_email_title': 'Hooodies! | Sikeres rendelés',
   'greeting': 'Kedves',
   'message_01': 'Az alább leadott rendelésedet',
   'message_02': 'sikeresen rögzítettük!',
@@ -54,6 +55,7 @@ var customer_hu = {
 };
 
 var customer_en = {
+  'customer_email_title': 'Hooodies! | Successful order',
   'greeting': 'Dear',
   'message_01': 'Your order has been',
   'message_02': 'successfully generated!',
@@ -69,6 +71,7 @@ var customer_en = {
 };
 
 var customer_de = {
+  'customer_email_title': 'Hooodies! | Erfolgreiche Bestellung',
   'greeting': 'Liebe(r)',
   'message_01': 'Ihre unten aufgegebene Bestellung',
   'message_02': 'wurde erfolgreich registriert!',
@@ -84,6 +87,7 @@ var customer_de = {
 };
 
 var customer_es = {
+  'customer_email_title': 'Hooodies! | Pedido exitoso',
   'greeting': 'Estimado/a',
   'message_01': 'Su pedido realizado a continuación',
   'message_02': 'ha sido registrado con éxito!',
@@ -99,6 +103,7 @@ var customer_es = {
 };
 
 var customer_fr = {
+  'customer_email_title': 'Hooodies ! | Commande réussie',
   'greeting': 'Cher/Chère',
   'message_01': 'Votre commande ci-dessous',
   'message_02': 'a été enregistrée avec succès !',
@@ -114,6 +119,7 @@ var customer_fr = {
 };
 
 var manufacturer_hu = {
+  'manufacturer_email_title': 'Hooodies! | Újabb rendelés',
   'message_01': 'Újabb rendelés',
   'message_02': 'került rögzítésre a rendszerben!',
   'order_details_title': 'A rendelés adatai:',
@@ -130,6 +136,7 @@ var manufacturer_hu = {
 };
 
 var manufacturer_en = {
+  'manufacturer_email_title': 'Hooodies! | New order',
   'message_01': 'A new order',
   'message_02': 'has been registered in the system!',
   'order_details_title': 'Order details:',
@@ -146,6 +153,7 @@ var manufacturer_en = {
 };
 
 var manufacturer_de = {
+  'manufacturer_email_title': 'Hooodies! | Neue Bestellung',
   'message_01': 'Eine neue Bestellung',
   'message_02': 'wurde im System registriert!',
   'order_details_title': 'Bestelldetails:',
@@ -162,6 +170,7 @@ var manufacturer_de = {
 };
 
 var manufacturer_es = {
+  'manufacturer_email_title': 'Hooodies! | Nuevo pedido',
   'message_01': 'Un nuevo pedido',
   'message_02': 'ha sido registrado en el sistema!',
   'order_details_title': 'Detalles del pedido:',
@@ -178,6 +187,7 @@ var manufacturer_es = {
 };
 
 var manufacturer_fr = {
+  'manufacturer_email_title': 'Hooodies ! | Nouvelle commande',
   'message_01': 'Une nouvelle commande',
   'message_02': 'a été enregistrée dans le système !',
   'order_details_title': 'Détails de la commande :',
