@@ -7,7 +7,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
-import 'package:firebase_storage/firebase_storage.dart' as storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.provider.dart';
@@ -164,7 +164,7 @@ class _UserImageState extends State<UserImage> {
 
   Future _uploadFile(String path) async {
     final oldImageUrl = imageUrl;
-    final ref = storage.FirebaseStorage.instance
+    final ref = FirebaseStorage.instance
         .ref()
         .child('profile-pictures')
         .child('${DateTime.now().toIso8601String() + p.basename(path)}');
@@ -174,10 +174,10 @@ class _UserImageState extends State<UserImage> {
 
     if (oldImageUrl != null && oldImageUrl.isNotEmpty) {
       try {
-        final oldRef = storage.FirebaseStorage.instance.refFromURL(oldImageUrl);
+        final oldRef = FirebaseStorage.instance.refFromURL(oldImageUrl);
         await oldRef.delete();
-      } catch (e) {
-        print("Couldn't delete old picture: $e");
+      } catch (error) {
+        print("Old profile picture couldn't be deleted: $error");
       }
     }
 

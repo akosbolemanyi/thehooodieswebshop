@@ -43,8 +43,8 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
       if (snapshot.exists && snapshot.data() != null) {
         return snapshot['inStock'] ?? 0;
       }
-    } catch (e) {
-      print("Error fetching stock quantity: $e");
+    } catch (error) {
+      print("Error fetching stock quantity: $error");
     }
     return 0;
   }

@@ -8,8 +8,8 @@ class StripeService {
 
   static final StripeService instance = StripeService._();
 
-  Future<bool> makePayment(
-      String price, String currency, ThemeProvider themeProvider) async {
+  Future<bool> makePayment(String price, String currency,
+      ThemeProvider themeProvider, String name) async {
     try {
       String? paymentIntentClientSecret =
           await _createPaymentIntent(price, currency);
