@@ -6,9 +6,12 @@ In addition, the ```hooodies.apk``` file is also available under the ```lib``` f
 
 Feel free to try it both using an Android Emulator or a real life device with the ```APK``` attached!
 
-IMPORTANT! 
-
-However the registration is part of the application, and is required, a test user has been created for preference!
+IMPORTANT!
+- Credit card payment
+  - The card number in demo mode is always ```4242 4242 4242 4242```
+  - The date should be in the future, for instance: ```12/30```
+  - Every other input should be filled with ```1``` characters, the pay button will transfer from disabled to enabled!
+- However the registration is part of the application, and is required, a test user has been created for preference!
 ```console
 email: microwavednutella@gmail.com
 password: test123
