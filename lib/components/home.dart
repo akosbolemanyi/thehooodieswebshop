@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../abstract-classes/page-content.dart';
 import '../menus/custom-bottom-menu.dart' as Footer;
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../providers/theme-colour.provider.dart';
 import '../providers/theme.provider.dart';
-import '../utils/utils.dart';
 
 class HomePage extends StatefulWidget implements PageContent {
   const HomePage({super.key});
@@ -95,9 +95,9 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(10),
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      Footer.CustomBottomMenu(page: Footer.Page.PRODUCTS),
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: Footer.CustomBottomMenu(page: Footer.Page.PRODUCTS),
                 ),
               ),
               child: Align(

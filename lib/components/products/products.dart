@@ -2,7 +2,9 @@ import 'package:android_studio_projects/components/products/product-details/prod
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../abstract-classes/page-content.dart';
 import '../../menus/custom-side-menu.dart' as Sidebar;
@@ -206,8 +208,9 @@ class _ProductsPageState extends State<ProductsPage> {
     final currency = currencyService.getCurrency(nation);
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ProductDetailsPage(
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: ProductDetailsPage(
           product: ProductModel(
             id: item['id'],
             name: item['name'],
@@ -281,8 +284,9 @@ class _ProductsPageState extends State<ProductsPage> {
                           iconSize: 25,
                           onPressed: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => Footer.CustomBottomMenu(
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: Footer.CustomBottomMenu(
                                     page: Footer.Page.CART)),
                           ),
                         ),
@@ -303,7 +307,12 @@ class _ProductsPageState extends State<ProductsPage> {
     return Consumer<CartProvider>(
       builder: (context, cartProvider, child) {
         if (cartProvider.shopItems.isEmpty) {
-          return Center(child: CircularProgressIndicator(color: Colors.red));
+          return Center(
+            child: SpinKitDualRing(
+              color: Colors.red,
+              size: 40.0,
+            ),
+          );
         }
         if (isInitialize && _searchController.text == '') {
           _filteredItems = List.from(cartProvider.shopItems);

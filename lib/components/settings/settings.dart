@@ -3,6 +3,7 @@ import 'package:android_studio_projects/providers/theme.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../menus/custom-side-menu.dart' as Sidebar;
 import 'language-settings.dart';
@@ -34,8 +35,9 @@ class SettingsPage extends StatelessWidget {
       body: Column(
         children: [
           ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ThemePage(),
+            onTap: () => Navigator.of(context).push(PageTransition(
+              type: PageTransitionType.fade,
+              child: ThemePage(),
             )),
             title: const LocaleText('theme'),
             subtitle: themeProvider.themeMode == ThemeMode.dark
@@ -47,8 +49,9 @@ class SettingsPage extends StatelessWidget {
             splashColor: Colors.indigo.shade200,
           ),
           ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => SettingScreen(),
+            onTap: () => Navigator.of(context).push(PageTransition(
+              type: PageTransitionType.fade,
+              child: SettingScreen(),
             )),
             title: const LocaleText("language"),
             subtitle: () {

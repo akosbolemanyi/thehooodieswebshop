@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -126,7 +127,10 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                       ),
                     )),
                 body: Center(
-                    child: CircularProgressIndicator(color: Colors.red)));
+                    child: SpinKitDualRing(
+                  color: Colors.red,
+                  size: 40.0,
+                )));
           }
           return Scaffold(
             appBar: PreferredSize(
@@ -220,8 +224,9 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                               if (!widget.isPaymentMode) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProfilePage()),
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: ProfilePage()),
                                 );
                               }
                             },

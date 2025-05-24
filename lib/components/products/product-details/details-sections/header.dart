@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../../models/product.model.dart';
@@ -61,9 +62,15 @@ class ProductHeader extends StatelessWidget {
                 child: Hero(
                   tag: 1,
                   child: CachedNetworkImage(
-                    key: UniqueKey(),
                     imageUrl: product.imageUrl,
                     height: 300,
+                    placeholder: (context, url) => Center(
+                      child: SpinKitDualRing(
+                        color: Colors.red,
+                        size: 40.0,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               )

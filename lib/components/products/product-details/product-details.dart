@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../menus/custom-bottom-menu.dart' as Footer;
 import 'package:badges/badges.dart' as badges;
 import '../../../models/product.model.dart';
@@ -89,9 +90,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Footer.CustomBottomMenu(page: Footer.Page.CART)),
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      child: Footer.CustomBottomMenu(page: Footer.Page.CART)),
                 );
               },
             ),

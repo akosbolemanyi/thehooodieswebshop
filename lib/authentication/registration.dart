@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import '../components/settings/language-settings.dart';
 import '../components/settings/theme-settings.dart';
 import '../utils/utils.dart';
@@ -278,8 +279,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               heroTag: "btn1",
               backgroundColor: Colors.red.shade400,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const SettingScreen()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: const SettingScreen()));
               },
               child: const Icon(
                 Icons.language_rounded,
@@ -291,8 +295,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               heroTag: "btn2",
               backgroundColor: Colors.red.shade400,
               onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const ThemePage()))
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: const ThemePage()))
               },
               child: const Icon(
                 Icons.lightbulb_outline,
@@ -328,7 +335,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => VerifyEmailPage()),
+        PageTransition(type: PageTransitionType.fade, child: VerifyEmailPage()),
       );
     } on FirebaseAuthException catch (error) {
       Utils.showSnackBar(

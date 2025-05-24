@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.provider.dart';
+import '../providers/theme.provider.dart';
 import '../services/currency.service.dart';
 import '../services/order.service.dart';
 import '../services/order-email.service.dart';
@@ -17,6 +18,7 @@ class PaymentBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final nation = Locales.currentLocale(context)?.languageCode;
     final cartProvider = Provider.of<CartProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final cartItems = Provider.of<CartProvider>(context).orderItems;
     final languageCode = Locales.currentLocale(context)?.languageCode;
     final currencyService = CurrencyService.instance;
@@ -91,7 +93,8 @@ class PaymentBackground extends StatelessWidget {
               ),
               onPressed: () async {
                 bool isPaymentSuccessful = await StripeService.instance
-                    .makePayment(cartProvider.sumPrice(nation), currency);
+                    .makePayment(
+                        cartProvider.sumPrice(nation), currency, themeProvider);
                 String orderId = await OrderService.instance.create(cartItems);
                 if (isPaymentSuccessful) {
                   if (orderId != '') {

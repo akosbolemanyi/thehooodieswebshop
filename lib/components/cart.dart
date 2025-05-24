@@ -2,7 +2,9 @@ import 'package:android_studio_projects/components/profile/shipping-address-form
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../providers/cart.provider.dart';
@@ -43,9 +45,15 @@ class CartPage extends StatelessWidget {
 
   Widget buildImage(String imageUrl) {
     return CachedNetworkImage(
-      key: UniqueKey(),
       imageUrl: imageUrl,
       width: 100,
+      placeholder: (context, url) => Center(
+        child: SpinKitDualRing(
+          color: Colors.red,
+          size: 40.0,
+        ),
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
 
@@ -207,8 +215,9 @@ class CartPage extends StatelessWidget {
                               if (!cartIsEmpty) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ShippingAddressForm(
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: ShippingAddressForm(
                                           isPaymentMode: true)),
                                 );
                               } else {

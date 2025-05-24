@@ -1,6 +1,6 @@
 import 'package:android_studio_projects/constants.dart';
+import 'package:android_studio_projects/providers/theme.provider.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 class StripeService {
@@ -8,14 +8,15 @@ class StripeService {
 
   static final StripeService instance = StripeService._();
 
-  Future<bool> makePayment(String price, String currency) async {
+  Future<bool> makePayment(
+      String price, String currency, ThemeProvider themeProvider) async {
     try {
       String? paymentIntentClientSecret =
           await _createPaymentIntent(price, currency);
       if (paymentIntentClientSecret == null) return false;
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
-              style: ThemeMode.dark,
+              style: themeProvider.themeMode,
               customFlow: false,
               appearance: PaymentSheetAppearance(
                   primaryButton: PaymentSheetPrimaryButtonAppearance(

@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.provider.dart';
 import 'authentication.dart';
@@ -116,17 +118,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) =>
-          Center(child: CircularProgressIndicator(color: Colors.red)),
+      builder: (context) => Center(
+        child: SpinKitDualRing(
+          color: Colors.red,
+          size: 40.0,
+        ),
+      ),
     );
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
       Utils.showSnackBar('Reset-password email has been sent!', 'information');
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => AuthPage(),
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: AuthPage(),
         ),
       );
     } catch (error) {

@@ -2,6 +2,7 @@ import 'package:android_studio_projects/authentication/email-verification.dart';
 import 'package:android_studio_projects/authentication/reset-password.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:page_transition/page_transition.dart';
 import '../components/settings/language-settings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -117,8 +118,9 @@ class _LoginWidgetState extends State<LoginWidget> {
             GestureDetector(
               child: LocaleText('forgot_password',
                   style: GoogleFonts.cabin(color: Colors.purple.shade400)),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ForgotPasswordPage(),
+              onTap: () => Navigator.of(context).push(PageTransition(
+                type: PageTransitionType.fade,
+                child: ForgotPasswordPage(),
               )),
             ),
             const SizedBox(height: 12),
@@ -148,8 +150,11 @@ class _LoginWidgetState extends State<LoginWidget> {
               heroTag: "btn1",
               backgroundColor: Colors.red.shade400,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const SettingScreen()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: const SettingScreen()));
               },
               child: const Icon(
                 Icons.language_rounded,
@@ -161,8 +166,11 @@ class _LoginWidgetState extends State<LoginWidget> {
               heroTag: "btn2",
               backgroundColor: Colors.red.shade400,
               onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const ThemePage()))
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: const ThemePage()))
               },
               child: const Icon(
                 Icons.lightbulb_outline,
@@ -184,7 +192,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => VerifyEmailPage()),
+        PageTransition(type: PageTransitionType.fade, child: VerifyEmailPage()),
       );
     } catch (error) {
       Utils.showSnackBar(Locales.string(context, 'invalid_credentials'));

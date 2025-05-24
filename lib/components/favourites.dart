@@ -3,6 +3,7 @@ import 'package:android_studio_projects/components/products/product-details/prod
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../models/product.model.dart';
 import 'package:badges/badges.dart' as badges;
@@ -41,8 +42,9 @@ class _FavouritesPageState extends State<FavouritesPage> {
     final currency = currencyService.getCurrency(nation);
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ProductDetailsPage(
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: ProductDetailsPage(
           product: ProductModel(
             id: item['id'],
             name: item['name'],
@@ -115,8 +117,9 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           iconSize: 25,
                           onPressed: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => Footer.CustomBottomMenu(
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: Footer.CustomBottomMenu(
                                     page: Footer.Page.CART)),
                           ),
                         ),

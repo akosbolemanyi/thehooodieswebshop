@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../../../models/product.model.dart';
 import '../../../../providers/cart.provider.dart';
@@ -70,8 +71,9 @@ class ProductCartAdder extends StatelessWidget {
                           mainButton: TextButton(
                             onPressed: () => Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => Footer.CustomBottomMenu(
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: Footer.CustomBottomMenu(
                                       page: Footer.Page.CART)),
                             ),
                             child: LocaleText(
@@ -121,8 +123,9 @@ class ProductCartAdder extends StatelessWidget {
                         cartProvider.addItem(index, selectedSize, quantity);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => Footer.CustomBottomMenu(
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: Footer.CustomBottomMenu(
                                   page: Footer.Page.CART)),
                         );
                       }

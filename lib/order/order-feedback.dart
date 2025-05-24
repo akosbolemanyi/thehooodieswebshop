@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -42,41 +43,75 @@ class OrderFeedbackPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 50, right: 50),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  style: GoogleFonts.cabin(
-                    fontSize: 25,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black, // Add color if necessary
+              child: Column(
+                children: [
+                  Text(
+                    Locales.string(context, 'thank_you_order'),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.cabin(
+                      fontSize: 25,
+                      color: themeProvider.themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
                   ),
-                  children: [
-                    TextSpan(
-                        text: '${Locales.string(context, 'thank_you_order')}\n',
-                        style: GoogleFonts.cabin(
-                            color: themeProvider.themeMode == ThemeMode.dark
-                                ? Colors.white
-                                : Colors.black)),
-                    TextSpan(
-                        text: '${Locales.string(context, 'order_number_is')} ',
-                        style: GoogleFonts.cabin(
-                            color: themeProvider.themeMode == ThemeMode.dark
-                                ? Colors.white
-                                : Colors.black)),
-                    TextSpan(
-                        text: '$orderId\n',
-                        style: GoogleFonts.cabin(
-                            color: themeProvider.themeMode == ThemeMode.dark
-                                ? Colors.white
-                                : Colors.black)),
-                    TextSpan(
-                        text: Locales.string(context, 'order_email_sent'),
-                        style: GoogleFonts.cabin(
-                            color: themeProvider.themeMode == ThemeMode.dark
-                                ? Colors.white
-                                : Colors.black)),
-                  ],
-                ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    Locales.string(context, 'order_number_is'),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.cabin(
+                      fontSize: 22,
+                      color: themeProvider.themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            orderId,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.cabin(
+                              fontSize: 22,
+                              color: themeProvider.themeMode == ThemeMode.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.copy, color: Colors.grey[600]),
+                          tooltip: Locales.string(context, 'copy_order_id'),
+                          onPressed: () {
+                            Clipboard.setData(ClipboardData(text: orderId));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(Locales.string(
+                                      context, 'order_id_copied'))),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(Locales.string(context, 'order_email_sent'),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.cabin(
+                          fontSize: 20,
+                          color: themeProvider.themeMode == ThemeMode.dark
+                              ? Colors.white
+                              : Colors.black)),
+                ],
               ),
             ),
             SizedBox(height: 20),

@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../authentication/authentication.dart';
 import '../../image-management/user-image.dart';
@@ -36,8 +38,9 @@ class _ProfilePageState extends State<ProfilePage> {
     favouritesProvider.favourites = [];
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => AuthPage(),
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: AuthPage(),
       ),
     );
   }
@@ -53,7 +56,12 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
-              body: Center(child: CircularProgressIndicator()),
+              body: Center(
+                child: SpinKitDualRing(
+                  color: Colors.red,
+                  size: 40.0,
+                ),
+              ),
             );
           }
           final profile = snapshot.data!.data() as Map<String, dynamic>;
@@ -132,9 +140,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             icon: Icons.account_circle_rounded,
                             onPress: () => Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) {
-                                return ProfileForm(isReadOnly: true);
-                              }),
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ProfileForm(isReadOnly: true)),
                             ),
                           ),
                           const SizedBox(height: 5.0),
@@ -143,10 +151,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Locales.string(context, 'shipping_address'),
                               icon: Icons.local_shipping,
                               onPress: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return ShippingAddressForm();
-                                }));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: ShippingAddressForm()));
                               }),
                           const SizedBox(height: 10),
                           const Divider(),

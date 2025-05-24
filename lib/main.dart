@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:android_studio_projects/providers/cart.provider.dart';
 import 'package:android_studio_projects/providers/favourites.provider.dart';
 import 'package:android_studio_projects/providers/grid-layout.provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'constants.dart';
@@ -87,28 +90,57 @@ class App extends StatelessWidget {
   }
 }
 
-class LoginApp extends StatelessWidget {
+class LoginApp extends StatefulWidget {
   const LoginApp({super.key});
+
+  @override
+  State<LoginApp> createState() => _LoginAppState();
+}
+
+class _LoginAppState extends State<LoginApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await precacheProductImages(context);
+    });
+  }
+
+  Future<void> precacheProductImages(BuildContext context) async {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+    for (var result in querySnapshot.docs) {
+      var product = result.data();
+      print(product['imageUrl']);
+      await precacheImage(
+          CachedNetworkImageProvider(product['imageUrl']), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                  child: CircularProgressIndicator(color: Colors.red));
-            } else if (snapshot.hasError) {
-              return const Center(
-                  child:
-                      Text("Something went wrong... Please restart the app!"));
-            } else if (snapshot.hasData) {
-              return VerifyEmailPage();
-            } else {
-              return AuthPage();
-            }
-          }),
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: SpinKitDualRing(
+                color: Colors.red,
+                size: 40.0,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text("Something went wrong... Please restart the app!"),
+            );
+          } else if (snapshot.hasData) {
+            return VerifyEmailPage();
+          } else {
+            return AuthPage();
+          }
+        },
+      ),
     );
   }
 }

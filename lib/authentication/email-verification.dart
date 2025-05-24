@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.provider.dart';
 import '../utils/utils.dart';
@@ -71,8 +72,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => AuthPage(),
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: AuthPage(),
       ),
     );
   }

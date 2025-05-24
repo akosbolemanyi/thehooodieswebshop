@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/favourites.provider.dart';
@@ -58,48 +59,54 @@ class _ProductModelState extends State<ProductModel> {
       onTap: widget.onTap,
       child: Stack(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  widget.name,
-                  style: GoogleFonts.lobster(
-                    fontSize: widget.textSize,
-                    fontWeight: FontWeight.bold,
+          Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    widget.name,
+                    style: GoogleFonts.lobster(
+                      fontSize: widget.textSize,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                // TODO - Research cached network images!
-                CachedNetworkImage(
-                  key: UniqueKey(),
-                  imageUrl: widget.imageUrl,
-                  height: widget.imageHeight,
-                ),
-                // TODO - Redesign the price display. Think about what else to display, if needed.
-                Text(
-                  currencyService.format(widget.price, currency),
-                  style: GoogleFonts.cabin(
-                    fontWeight: FontWeight.bold,
-                    fontSize: widget.buttonFontSize,
+                  CachedNetworkImage(
+                    imageUrl: widget.imageUrl,
+                    height: widget.imageHeight,
+                    placeholder: (context, url) => Center(
+                      child: SpinKitDualRing(
+                        color: Colors.red,
+                        size: 40.0,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
-                ),
-                widget.crossAxisCount == 1
-                    ? Container(
-                        padding: EdgeInsets.only(left: 50.0, right: 50.0),
-                        child: Divider(
-                          thickness: 2.0,
-                        ),
-                      )
-                    : Container(),
-              ],
+                  Text(
+                    currencyService.format(widget.price, currency),
+                    style: GoogleFonts.cabin(
+                      fontWeight: FontWeight.bold,
+                      fontSize: widget.buttonFontSize,
+                    ),
+                  ),
+                  widget.crossAxisCount == 1
+                      ? Container(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: Divider(
+                            thickness: 2.0,
+                          ),
+                        )
+                      : Container(),
+                ],
+              ),
             ),
           ),
-          // Kedvenc ikon, amely dinamikusan változik
           Positioned(
-            top: widget.crossAxisCount == 2 ? 45 : 10,
-            right: widget.crossAxisCount == 2 ? 30 : 30,
+            top: widget.crossAxisCount == 2 ? 50 : 75,
+            right: widget.crossAxisCount == 2 ? 15 : 30,
             child: GestureDetector(
               onTap: () {
                 favouritesProvider.toggleFavourite(widget);

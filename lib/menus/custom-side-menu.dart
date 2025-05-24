@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../components/contacts.dart';
 import '../components/map.dart';
@@ -59,7 +61,12 @@ class CustomSideMenuState extends State<CustomSideMenu> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
             padding: EdgeInsets.all(20),
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+              child: SpinKitDualRing(
+                color: Colors.red,
+                size: 40.0,
+              ),
+            ),
           );
         }
         final profile = snapshot.data!.data() as Map<String, dynamic>;
@@ -136,10 +143,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                   'menu_home',
                   style: GoogleFonts.cabin(fontSize: 15),
                 ),
-                onTap: () =>
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) =>
-                          Footer.CustomBottomMenu(page: Footer.Page.HOME),
+                onTap: () => Navigator.of(context).push(PageTransition(
+                      type: PageTransitionType.fade,
+                      child: Footer.CustomBottomMenu(page: Footer.Page.HOME),
                     ))),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
@@ -149,9 +155,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      Footer.CustomBottomMenu(page: Footer.Page.PRODUCTS),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: Footer.CustomBottomMenu(page: Footer.Page.PRODUCTS),
                 ));
               },
             ),
@@ -163,9 +169,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      Footer.CustomBottomMenu(page: Footer.Page.FAVOURITES),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: Footer.CustomBottomMenu(page: Footer.Page.FAVOURITES),
                 ));
               },
             ),
@@ -177,9 +183,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      Footer.CustomBottomMenu(page: Footer.Page.CART),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: Footer.CustomBottomMenu(page: Footer.Page.CART),
                 ));
               },
             ),
@@ -200,8 +206,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const MapPage(), //const HiddenDrawer(),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: const MapPage(), //const HiddenDrawer(),
                 ));
               },
             ),
@@ -213,8 +220,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ContactPage(),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: const ContactPage(),
                 ));
               },
             ),
@@ -235,8 +243,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SettingsPage(),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: SettingsPage(),
                 ));
               },
             ),
@@ -248,8 +257,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProfilePage(),
+                Navigator.of(context).push(PageTransition(
+                  type: PageTransitionType.fade,
+                  child: ProfilePage(),
                 ));
               },
             )

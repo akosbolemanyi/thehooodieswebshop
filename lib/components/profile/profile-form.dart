@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme.provider.dart';
 import '../../utils/utils.dart';
@@ -83,7 +85,12 @@ class _ProfileFormState extends State<ProfileForm> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(
+              child: SpinKitDualRing(
+                color: Colors.red,
+                size: 40.0,
+              ),
+            ),
           );
         }
         if (!snapshot.hasData || !snapshot.data!.exists) {
@@ -110,7 +117,12 @@ class _ProfileFormState extends State<ProfileForm> {
                     // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
-            body: Center(child: CircularProgressIndicator(color: Colors.red)),
+            body: Center(
+              child: SpinKitDualRing(
+                color: Colors.red,
+                size: 40.0,
+              ),
+            ),
           );
         }
         return Scaffold(
@@ -187,8 +199,9 @@ class _ProfileFormState extends State<ProfileForm> {
                           updateProfile();
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfilePage()),
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: ProfilePage()),
                           );
                         },
                       ),
@@ -209,9 +222,9 @@ class _ProfileFormState extends State<ProfileForm> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) {
-                              return ProfileForm();
-                            }),
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: ProfileForm()),
                           );
                         },
                       ),
