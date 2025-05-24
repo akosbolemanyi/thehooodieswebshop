@@ -1,16 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../providers/theme-colour.provider.dart';
+import 'package:flutter/material.dart';
+import 'package:android_studio_projects/providers/theme-colour.provider.dart';
 
 void main() {
-  test("Changing the background color between black and white:", () {
-    final theme = ThemeColourProvider();
-    print("Default color: " + theme.myTitleColor.toString());
-    final default_color = theme.myTitleColor;
-    theme.toggleTTL();
-    print("After calling toggleBGC function: " + theme.myTitleColor.toString());
-    theme.toggleTTL();
-    print("After calling it again, the color is: " +
-        theme.myTitleColor.toString());
-    expect(default_color, theme.myTitleColor);
+  group('ThemeColourProvider', () {
+    test('toggleTTL should toggle between red and indigo and back', () {
+      final themeProvider = ThemeColourProvider();
+
+      final initialColor = themeProvider.myTitleColor;
+      expect(initialColor, equals(Colors.red));
+
+      themeProvider.toggleTTL();
+      final toggledColor = themeProvider.myTitleColor;
+      expect(toggledColor, equals(Colors.indigo.shade300));
+
+      themeProvider.toggleTTL();
+      final revertedColor = themeProvider.myTitleColor;
+      expect(revertedColor, equals(Colors.red));
+    });
   });
 }
