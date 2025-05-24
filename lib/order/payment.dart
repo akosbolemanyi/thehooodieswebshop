@@ -44,7 +44,6 @@ class PaymentBackground extends StatelessWidget {
                 style: GoogleFonts.cabin(
                     fontWeight: FontWeight.bold, color: Colors.black),
               ),
-              // backgroundColor: Colors.indigo.shade300,
             ),
           )),
       body: Center(

@@ -57,7 +57,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //----------------------------------------------------------------------------------------------------
               const SizedBox(height: 40),
               Text(
                 "Hooodies!",
@@ -69,7 +68,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 style: GoogleFonts.cabin(
                     fontSize: 32, fontWeight: FontWeight.bold),
               ),
-              //----------------------------------------------------------------------------------------------------
               const SizedBox(height: 40),
               LocaleText(
                 'lastname',

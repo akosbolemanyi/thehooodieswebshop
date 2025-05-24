@@ -87,9 +87,7 @@ class _HomePageState extends State<HomePage> {
           LocaleText(
             'made_in_szeged',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                // color: provider.myTextColor,
-                ),
+            style: GoogleFonts.cabin(),
           ),
           Padding(
             padding: const EdgeInsets.all(10),

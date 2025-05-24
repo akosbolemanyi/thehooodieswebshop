@@ -22,7 +22,7 @@ class StripeService {
                   primaryButton: PaymentSheetPrimaryButtonAppearance(
                       shapes: PaymentSheetPrimaryButtonShape(blurRadius: 20.0)),
                   shapes: PaymentSheetShape(
-                    borderRadius: 20.0, // Corner radius of components.
+                    borderRadius: 20.0,
                   )),
               paymentIntentClientSecret: paymentIntentClientSecret,
               merchantDisplayName: 'Bolemányi Ákos'));

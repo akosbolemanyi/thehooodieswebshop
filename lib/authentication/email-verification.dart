@@ -83,7 +83,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return isEmailVerified
-        ? Footer.CustomBottomMenu(page: Footer.Page.HOME) //HiddenDrawer
+        ? Footer.CustomBottomMenu(page: Footer.Page.HOME)
         : Scaffold(
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(kToolbarHeight + 10),

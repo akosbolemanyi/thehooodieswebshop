@@ -83,7 +83,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: GoogleFonts.cabin(
                             fontWeight: FontWeight.bold, color: Colors.black),
                       ),
-                      // backgroundColor: Colors.indigo.shade300,
                     ),
                   )),
               body: SingleChildScrollView(
@@ -134,7 +133,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(height: 20),
                           const Divider(),
                           const SizedBox(height: 20),
-                          // MENU
                           ProfileMenuItem(
                             title: Locales.string(context, 'profile_details'),
                             icon: Icons.account_circle_rounded,

@@ -208,7 +208,7 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 Navigator.pop(context);
                 Navigator.of(context).push(PageTransition(
                   type: PageTransitionType.fade,
-                  child: const MapPage(), //const HiddenDrawer(),
+                  child: const MapPage(),
                 ));
               },
             ),

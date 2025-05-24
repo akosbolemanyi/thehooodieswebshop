@@ -29,7 +29,6 @@ class SettingsPage extends StatelessWidget {
                 style: GoogleFonts.cabin(
                     fontWeight: FontWeight.bold, color: Colors.black),
               ),
-              // backgroundColor: Colors.indigo.shade300,
             ),
           )),
       body: Column(

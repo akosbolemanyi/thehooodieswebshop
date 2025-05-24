@@ -27,7 +27,7 @@ class ProductHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            product.name, // hoodie.itemName,
+            product.name,
             style: GoogleFonts.lobster(
               fontSize: 40,
               fontWeight: FontWeight.bold,

@@ -123,7 +123,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                           style: GoogleFonts.cabin(
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),
-                        // backgroundColor: Colors.indigo.shade300,
                       ),
                     )),
                 body: Center(
@@ -152,7 +151,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
-                    // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
             body: Form(
@@ -240,7 +238,6 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
         });
   }
 
-  // Common Fields
   Widget _buildCountryField(String languageCode, ThemeMode themeMode) {
     return _buildTextField(
       label: Locales.string(context, 'country'),

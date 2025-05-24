@@ -114,7 +114,6 @@ class _ProfileFormState extends State<ProfileForm> {
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
-                    // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
             body: Center(
@@ -145,7 +144,6 @@ class _ProfileFormState extends State<ProfileForm> {
                       style: GoogleFonts.cabin(
                           fontWeight: FontWeight.bold, color: Colors.black),
                     ),
-                    // backgroundColor: Colors.indigo.shade300,
                   ),
                 )),
             body: Form(
