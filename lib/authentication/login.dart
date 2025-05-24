@@ -190,7 +190,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         password: passwordController.text.trim(),
       );
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         PageTransition(type: PageTransitionType.fade, child: VerifyEmailPage()),
       );

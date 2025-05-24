@@ -213,9 +213,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.next,
                 obscureText: !isPasswordVisible,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => (value == null || value.isEmpty)
-                    ? Locales.string(context, 'field_cannot_be_empty')
-                    : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return Locales.string(context, 'field_cannot_be_empty');
+                  } else if (value != passwordController.text) {
+                    return Locales.string(context, 'passwords_do_not_match');
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   isDense: true,
                   suffixIcon: IconButton(
@@ -331,7 +336,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         'imageUrl': imageUrl,
       });
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         PageTransition(type: PageTransitionType.fade, child: VerifyEmailPage()),
       );

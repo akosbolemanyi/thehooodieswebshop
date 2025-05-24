@@ -108,7 +108,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                       ),
                     ))),
             body: Padding(
-              padding: EdgeInsets.all(16),
+              padding:
+                  EdgeInsets.only(top: 16, bottom: 150, right: 16, left: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

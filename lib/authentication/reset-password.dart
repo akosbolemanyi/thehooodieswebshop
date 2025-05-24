@@ -1,7 +1,6 @@
 import 'package:android_studio_projects/utils/utils.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

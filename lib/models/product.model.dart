@@ -55,13 +55,13 @@ class _ProductModelState extends State<ProductModel> {
     final currencyService = CurrencyService.instance;
     final currency = currencyService.getCurrency(nation);
 
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: Container(
+    return Padding(
+      padding: EdgeInsets.only(top: 20.0),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Stack(
+          children: [
+            Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -74,16 +74,18 @@ class _ProductModelState extends State<ProductModel> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  CachedNetworkImage(
-                    imageUrl: widget.imageUrl,
-                    height: widget.imageHeight,
-                    placeholder: (context, url) => Center(
-                      child: SpinKitDualRing(
-                        color: Colors.red,
-                        size: 40.0,
+                  Flexible(
+                    child: CachedNetworkImage(
+                      imageUrl: widget.imageUrl,
+                      height: widget.imageHeight,
+                      placeholder: (context, url) => Center(
+                        child: SpinKitDualRing(
+                          color: Colors.red,
+                          size: 40.0,
+                        ),
                       ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                   Text(
                     currencyService.format(widget.price, currency),
@@ -94,37 +96,40 @@ class _ProductModelState extends State<ProductModel> {
                   ),
                   widget.crossAxisCount == 1
                       ? Container(
-                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          padding: EdgeInsets.only(left: 125.0, right: 125.0),
                           child: Divider(
                             thickness: 2.0,
                           ),
                         )
                       : Container(),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
-          ),
-          Positioned(
-            top: widget.crossAxisCount == 2 ? 50 : 75,
-            right: widget.crossAxisCount == 2 ? 15 : 30,
-            child: GestureDetector(
-              onTap: () {
-                favouritesProvider.toggleFavourite(widget);
-              },
-              child: Icon(
-                favouritesProvider.isExist(widget)
-                    ? Icons.favorite
-                    : Icons.favorite_border,
-                color: favouritesProvider.isExist(widget)
-                    ? Colors.red
-                    : (themeProvider.themeMode == ThemeMode.dark
-                        ? Colors.white54
-                        : Colors.black),
-                size: widget.crossAxisCount == 2 ? 30 : 40,
+            Positioned(
+              top: widget.crossAxisCount == 2 ? 50 : 75,
+              right: widget.crossAxisCount == 2 ? 15 : 30,
+              child: GestureDetector(
+                onTap: () {
+                  favouritesProvider.toggleFavourite(widget);
+                },
+                child: Icon(
+                  favouritesProvider.isExist(widget)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: favouritesProvider.isExist(widget)
+                      ? Colors.red
+                      : (themeProvider.themeMode == ThemeMode.dark
+                          ? Colors.white54
+                          : Colors.black),
+                  size: widget.crossAxisCount == 2 ? 30 : 40,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

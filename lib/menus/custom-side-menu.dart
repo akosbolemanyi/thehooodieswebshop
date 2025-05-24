@@ -71,6 +71,7 @@ class CustomSideMenuState extends State<CustomSideMenu> {
         }
         final profile = snapshot.data!.data() as Map<String, dynamic>;
         final nation = Locales.currentLocale(context)?.languageCode;
+        final nickname = profile['nickname'];
         final name = nation == 'hu'
             ? '${profile['lastname']} ${profile['firstname']}'
             : '${profile['firstname']} ${profile['lastname']}';
@@ -111,7 +112,7 @@ class CustomSideMenuState extends State<CustomSideMenu> {
                 ),
                 SizedBox(height: 7.5),
                 Text(
-                  name,
+                  nickname ?? name,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lobster(
                       fontSize: 20, fontWeight: FontWeight.bold),
