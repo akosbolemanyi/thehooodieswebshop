@@ -25,7 +25,7 @@ class StripeService {
                     borderRadius: 20.0,
                   )),
               paymentIntentClientSecret: paymentIntentClientSecret,
-              merchantDisplayName: 'Bolemányi Ákos'));
+              merchantDisplayName: name));
       return await _processPayment();
     } catch (error) {
       print('Payment setup related error was caught! | $error');

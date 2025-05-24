@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 /**
  * This file contains the keys of APIs that are used for the UI.
  */
