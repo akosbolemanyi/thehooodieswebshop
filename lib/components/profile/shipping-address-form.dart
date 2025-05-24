@@ -104,10 +104,10 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
           if (!snapshot.hasData || !snapshot.data!.exists) {
             return Scaffold(
                 appBar: PreferredSize(
-                    preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                    preferredSize: Size.fromHeight(kToolbarHeight + 10),
                     child: Container(
                       color: Colors.red,
-                      padding: EdgeInsets.only(top: 15),
+                      padding: EdgeInsets.only(top: 10),
                       child: AppBar(
                         leading: IconButton(
                           icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -130,10 +130,10 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
           }
           return Scaffold(
             appBar: PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                preferredSize: Size.fromHeight(kToolbarHeight + 10),
                 child: Container(
                   color: Colors.red,
-                  padding: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.only(top: 10),
                   child: AppBar(
                     leading: IconButton(
                       icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -166,17 +166,17 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                     ),
                     const SizedBox(height: 20),
                     _buildCountryField(nation!, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildZipField(nation, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildCityField(nation, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildAddressField(nation, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildNotesFields(nation, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildPhoneNotificationField(nation, themeMode),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 30),
                     widget.isPaymentMode
                         ? ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
@@ -210,8 +210,8 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                             ),
                             icon: const Icon(Icons.save_alt_outlined,
                                 size: 32, color: Colors.black),
-                            label: Text(
-                              'Save',
+                            label: LocaleText(
+                              'save',
                               style: GoogleFonts.cabin(
                                   fontSize: 24, color: Colors.black),
                             ),
@@ -320,6 +320,9 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
           ),
         ),
         TextFormField(
+          decoration: InputDecoration(
+            isDense: true,
+          ),
           style: TextStyle(
               color: isReadOnly
                   ? (themeMode == ThemeMode.light
@@ -329,11 +332,10 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
                       ? Colors.black
                       : Colors.white)),
           controller: controller,
-          cursorColor: Colors.black,
           textAlign: TextAlign.center,
           readOnly: isReadOnly,
           keyboardType: keyboardType,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: isRequired
               ? (value) => (value != null && value.length == 0)

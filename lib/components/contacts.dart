@@ -33,10 +33,10 @@ class _ContactPageState extends State<ContactPage> {
     return Scaffold(
       drawer: Sidebar.CustomSideMenu(),
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          preferredSize: Size.fromHeight(kToolbarHeight + 10),
           child: Container(
               color: Colors.red,
-              padding: EdgeInsets.only(top: 15),
+              padding: EdgeInsets.only(top: 10),
               child: AppBar(
                 iconTheme: IconThemeData(color: Colors.black),
                 title: LocaleText(
@@ -71,25 +71,28 @@ class _ContactPageState extends State<ContactPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: LocaleText(
-                        'contact_phone_num',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.tinos(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: LocaleText(
+                          'contact_phone_num',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.tinos(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.copy, color: Colors.grey[600]),
-                      onPressed: () => _copyToClipboard(_landPhoneNumber),
-                    ),
-                  ],
+                      IconButton(
+                        icon: Icon(Icons.copy, color: Colors.grey[600]),
+                        onPressed: () => _copyToClipboard(_landPhoneNumber),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
@@ -103,22 +106,25 @@ class _ContactPageState extends State<ContactPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LocaleText(
-                      'contact_mobile_num',
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.tinos(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
+                Padding(
+                  padding: const EdgeInsets.only(left: 17.5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LocaleText(
+                        'contact_mobile_num',
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.tinos(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.copy, color: Colors.grey[600]),
-                      onPressed: () => _copyToClipboard(_phoneNumber),
-                    ),
-                  ],
+                      IconButton(
+                        icon: Icon(Icons.copy, color: Colors.grey[600]),
+                        onPressed: () => _copyToClipboard(_phoneNumber),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
@@ -133,22 +139,25 @@ class _ContactPageState extends State<ContactPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LocaleText(
-                      'contact_email_str',
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.tinos(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LocaleText(
+                        'contact_email_str',
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.tinos(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.copy, color: Colors.grey[600]),
-                      onPressed: () => _copyToClipboard(_email),
-                    ),
-                  ],
+                      IconButton(
+                        icon: Icon(Icons.copy, color: Colors.grey[600]),
+                        onPressed: () => _copyToClipboard(_email),
+                      ),
+                    ],
+                  ),
                 )
               ],
             )

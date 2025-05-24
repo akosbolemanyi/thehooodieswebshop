@@ -68,7 +68,6 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             TextFormField(
               controller: emailController,
-              cursorColor: Colors.black,
               textInputAction: TextInputAction.next,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.emailAddress,
@@ -83,14 +82,15 @@ class _LoginWidgetState extends State<LoginWidget> {
               style:
                   GoogleFonts.cabin(color: Colors.grey.shade500, fontSize: 15),
             ),
-            TextField(
+            TextFormField(
               controller: passwordController,
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.next,
               obscureText: !isPasswordVisible,
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   icon: Icon(
                     isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    size: 25,
                   ),
                   onPressed: () {
                     setState(() {

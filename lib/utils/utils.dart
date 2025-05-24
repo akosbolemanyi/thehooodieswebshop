@@ -78,7 +78,7 @@ class Utils {
             ),
           ),
           Positioned(
-              top: -15,
+              top: -10,
               left: 0,
               child: Stack(
                 alignment: Alignment.center,

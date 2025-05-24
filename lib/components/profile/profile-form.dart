@@ -89,10 +89,10 @@ class _ProfileFormState extends State<ProfileForm> {
         if (!snapshot.hasData || !snapshot.data!.exists) {
           return Scaffold(
             appBar: PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                preferredSize: Size.fromHeight(kToolbarHeight + 10),
                 child: Container(
                   color: Colors.red,
-                  padding: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.only(top: 10),
                   child: AppBar(
                     leading: IconButton(
                       icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -115,10 +115,10 @@ class _ProfileFormState extends State<ProfileForm> {
         }
         return Scaffold(
             appBar: PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                preferredSize: Size.fromHeight(kToolbarHeight + 10),
                 child: Container(
                   color: Colors.red,
-                  padding: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.only(top: 10),
                   child: AppBar(
                     leading: IconButton(
                       icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -152,22 +152,22 @@ class _ProfileFormState extends State<ProfileForm> {
                     const SizedBox(height: 20),
                     _buildTextField(
                         context, 'lastname', lastnameController, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildTextField(
                         context, 'firstname', firstnameController, themeMode),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildTextField(context, 'nickname_optional',
                         nicknameController, themeMode,
                         isRequired: false),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildTextField(
                         context, 'birthday', birthDateController, themeMode,
                         isDate: true),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     _buildTextField(
                         context, 'email', emailController, themeMode,
                         isNotModifiable: true),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 30),
                     if (!widget.isReadOnly) ...[
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
@@ -268,6 +268,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 : null;
           },
           decoration: InputDecoration(
+            isDense: true,
             suffixIcon: isDate && !widget.isReadOnly
                 ? IconButton(
                     icon: const Icon(Icons.calendar_today),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../constants.dart';
 import '../../../menus/custom-bottom-menu.dart' as Footer;
 import 'package:badges/badges.dart' as badges;
 import '../../../models/product.model.dart';
@@ -51,7 +50,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           : Colors.grey.shade400,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: themeProvider.themeMode == ThemeMode.dark
+                ? Colors.white
+                : Colors.black,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -74,7 +78,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               style: GoogleFonts.cabin(color: Colors.black),
             ),
             child: IconButton(
-              icon: Icon(Icons.shopping_cart),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: themeProvider.themeMode == ThemeMode.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
               iconSize: 25,
               color: Colors.black,
               onPressed: () {

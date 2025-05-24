@@ -68,10 +68,10 @@ class _MapPageState extends State<MapPage> {
         extendBodyBehindAppBar: true,
         drawer: Sidebar.CustomSideMenu(),
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight + 15),
+            preferredSize: Size.fromHeight(kToolbarHeight + 10),
             child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: 10),
                 child: AppBar(
                   backgroundColor: Colors.transparent,
                   iconTheme: IconThemeData(

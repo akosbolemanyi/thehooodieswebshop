@@ -34,10 +34,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight + 15),
+            preferredSize: Size.fromHeight(kToolbarHeight + 10),
             child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: 10),
                 child: AppBar(
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -81,6 +81,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   TextFormField(
                     controller: emailController,
+                    decoration: InputDecoration(
+                      isDense: true,
+                    ),
                     textInputAction: TextInputAction.next,
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.emailAddress,

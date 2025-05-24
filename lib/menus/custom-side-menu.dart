@@ -57,8 +57,9 @@ class CustomSideMenuState extends State<CustomSideMenu> {
           FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          return Container(
+            padding: EdgeInsets.all(20),
+            child: Center(child: CircularProgressIndicator()),
           );
         }
         final profile = snapshot.data!.data() as Map<String, dynamic>;
@@ -128,7 +129,6 @@ class CustomSideMenuState extends State<CustomSideMenu> {
         padding:
             const EdgeInsets.only(top: 10, bottom: 24, right: 24, left: 10),
         child: Wrap(
-          runSpacing: 10,
           children: [
             ListTile(
                 leading: const Icon(Icons.home),

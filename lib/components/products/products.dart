@@ -238,10 +238,10 @@ class _ProductsPageState extends State<ProductsPage> {
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
     return PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight + 15),
+        preferredSize: Size.fromHeight(kToolbarHeight + 10),
         child: Container(
             color: Colors.red,
-            padding: EdgeInsets.only(top: 15),
+            padding: EdgeInsets.only(top: 10),
             child: AppBar(
               iconTheme: IconThemeData(color: Colors.black),
               title: LocaleText('menu_products',
@@ -305,7 +305,7 @@ class _ProductsPageState extends State<ProductsPage> {
         if (cartProvider.shopItems.isEmpty) {
           return Center(child: CircularProgressIndicator(color: Colors.red));
         }
-        if (isInitialize) {
+        if (isInitialize && _searchController.text == '') {
           _filteredItems = List.from(cartProvider.shopItems);
           isInitialize = false;
           print(_filteredItems.length);
@@ -317,20 +317,26 @@ class _ProductsPageState extends State<ProductsPage> {
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.withOpacity(0.4),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                            borderSide: BorderSide.none),
-                        hintText: Locales.string(context, 'searching'),
-                        prefixIcon: Icon(Icons.search),
+                    child: SizedBox(
+                      height: 50,
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                              borderSide: BorderSide.none),
+                          hintText: Locales.string(context, 'searching'),
+                          prefixIcon: Icon(Icons.search, size: 20),
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        style: TextStyle(fontSize: 14),
                       ),
                     ),
                   ),
                   IconButton(
+                    iconSize: 25,
                     icon: Icon(Icons.filter_list),
                     onPressed: openFilterSheet,
                   )

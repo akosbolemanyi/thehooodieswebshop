@@ -17,10 +17,10 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       drawer: Sidebar.CustomSideMenu(),
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          preferredSize: Size.fromHeight(kToolbarHeight + 10),
           child: Container(
             color: Colors.red,
-            padding: EdgeInsets.only(top: 15),
+            padding: EdgeInsets.only(top: 10),
             child: AppBar(
               iconTheme: IconThemeData(color: Colors.black),
               title: LocaleText(

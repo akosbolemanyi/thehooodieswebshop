@@ -84,10 +84,10 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
         ? Footer.CustomBottomMenu(page: Footer.Page.HOME) //HiddenDrawer
         : Scaffold(
             appBar: PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight + 15),
+                preferredSize: Size.fromHeight(kToolbarHeight + 10),
                 child: Container(
                     color: Colors.transparent,
-                    padding: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(top: 10),
                     child: AppBar(
                       leading: IconButton(
                         icon: Icon(Icons.arrow_back_ios_new_rounded,

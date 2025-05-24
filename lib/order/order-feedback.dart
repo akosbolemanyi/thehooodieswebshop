@@ -17,10 +17,10 @@ class OrderFeedbackPage extends StatelessWidget {
     return Scaffold(
       drawer: Sidebar.CustomSideMenu(),
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight + 15),
+          preferredSize: Size.fromHeight(kToolbarHeight + 10),
           child: Container(
               color: Colors.green,
-              padding: EdgeInsets.only(top: 15),
+              padding: EdgeInsets.only(top: 10),
               child: AppBar(
                 backgroundColor: Colors.green,
                 iconTheme: IconThemeData(color: Colors.black),

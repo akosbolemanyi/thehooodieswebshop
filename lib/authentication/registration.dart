@@ -77,7 +77,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: lastnameController,
-                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  isDense: true,
+                ),
+                textInputAction: TextInputAction.next,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
                     ? Locales.string(context, 'field_cannot_be_empty')
@@ -91,7 +94,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: firstnameController,
-                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  isDense: true,
+                ),
+                textInputAction: TextInputAction.next,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length == 0)
                     ? Locales.string(context, 'field_cannot_be_empty')
@@ -105,7 +111,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: nicknameController,
-                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  isDense: true,
+                ),
+                textInputAction: TextInputAction.next,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: 30),
@@ -118,8 +127,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 controller: birthDateController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.calendar_today),
-                ),
+                    suffixIcon: Icon(
+                      Icons.calendar_today,
+                      size: 25,
+                    ),
+                    isDense: true),
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -149,7 +161,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: emailController,
-                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  isDense: true,
+                ),
                 textInputAction: TextInputAction.next,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
@@ -166,18 +180,20 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: passwordController,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 obscureText: !isPasswordVisible,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value != null && value.length < 6)
                     ? Locales.string(context, 'minimum_6')
                     : null,
                 decoration: InputDecoration(
+                  isDense: true,
                   suffixIcon: IconButton(
                     icon: Icon(
                       isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
+                      size: 25,
                     ),
                     onPressed: () {
                       setState(() {
@@ -195,18 +211,20 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               TextFormField(
                 controller: confirmPasswordController,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 obscureText: !isPasswordVisible,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => (value == null || value.isEmpty)
                     ? Locales.string(context, 'field_cannot_be_empty')
                     : null,
                 decoration: InputDecoration(
+                  isDense: true,
                   suffixIcon: IconButton(
                     icon: Icon(
                       isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
+                      size: 25,
                     ),
                     onPressed: () {
                       setState(() {
