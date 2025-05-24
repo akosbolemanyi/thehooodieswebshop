@@ -6,6 +6,15 @@ In addition, the ```hooodies.apk``` file is also available under the ```lib``` f
 
 Feel free to try it both using an Android Emulator or a real life device with the ```APK``` attached!
 
+IMPORTANT! 
+
+However the registration is part of the application, and is required, a test user has been created for preference!
+This ie specially important, because the manufacturing order confirmation email will only be sent to this address!
+```console
+email: thehooodieswebshop@gmail.com
+password: test123
+```
+
 # Context of development
 
 For the development, the following versions were used.
