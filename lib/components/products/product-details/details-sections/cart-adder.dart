@@ -27,7 +27,7 @@ class ProductCartAdder extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     int cartQuantity = 0;
     var existingItem = cartProvider.cartItems.firstWhere(
-      (item) => item['id'] == product.name && item['size'] == selectedSize,
+      (item) => item['id'] == product.id && item['size'] == selectedSize,
       orElse: () => {},
     );
 

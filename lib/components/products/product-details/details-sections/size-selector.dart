@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:provider/provider.dart';
 import '../../../../models/product.model.dart';
+import '../../../../providers/cart.provider.dart';
 
 class ProductSizeSelector extends StatefulWidget {
   const ProductSizeSelector({
@@ -51,9 +53,8 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
     setState(() {
       selectedSize = size;
     });
-
-    print(size);
     int newStockQuantity = await fetchStockQuantity(size);
+
     setState(() {
       stockQuantity = newStockQuantity;
     });
@@ -64,63 +65,77 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const LocaleText(
-                "size",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: ["S", "M", "L", "XL"]
-                    .map((size) => SizeOption(
-                          size: size,
-                          isSelected: selectedSize == size,
-                          onTap: onSizeSelected,
-                        ))
-                    .toList(),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30, left: 40),
-            child: Row(
-              children: [
-                Icon(
-                  stockQuantity > 5
-                      ? Icons.check_circle
-                      : (stockQuantity > 0 ? Icons.warning : Icons.cancel),
-                  color: stockQuantity > 5
-                      ? Colors.green
-                      : (stockQuantity > 0 ? Colors.orange : Colors.red),
+    return Consumer<CartProvider>(builder: (context, cartProvider, _) {
+      int cartQuantity = 0;
+      var existingItem = cartProvider.cartItems.firstWhere(
+        (item) =>
+            item['id'] == widget.product.id && item['size'] == selectedSize,
+        orElse: () => {},
+      );
+      if (existingItem.isNotEmpty) {
+        cartQuantity = existingItem['quantity'] ?? 0;
+      }
+
+      final int activeStock = stockQuantity - cartQuantity;
+      return Row(
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const LocaleText(
+                  "size",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  stockQuantity > 5
-                      ? Locales.string(context, 'in_stock')
-                      : (stockQuantity > 0
-                          ? "$stockQuantity ${Locales.string(context, 'quantity')}"
-                          : Locales.string(context, 'out_of_stock')),
-                  style: TextStyle(
-                    color: stockQuantity > 5
-                        ? Colors.green
-                        : (stockQuantity > 0 ? Colors.orange : Colors.red),
-                    fontWeight: FontWeight.bold,
-                    fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-                  ),
+                const SizedBox(height: 8),
+                Row(
+                  children: ["S", "M", "L", "XL"]
+                      .map((size) => SizeOption(
+                            size: size,
+                            isSelected: selectedSize == size,
+                            onTap: onSizeSelected,
+                          ))
+                      .toList(),
                 ),
               ],
             ),
           ),
-        ),
-      ],
-    );
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30, left: 40),
+              child: Row(
+                children: [
+                  Icon(
+                    activeStock > 5
+                        ? Icons.check_circle
+                        : (activeStock > 0 ? Icons.warning : Icons.cancel),
+                    color: activeStock > 5
+                        ? Colors.green
+                        : (activeStock > 0 ? Colors.orange : Colors.red),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    activeStock > 5
+                        ? Locales.string(context, 'in_stock')
+                        : (activeStock > 0
+                            ? "$activeStock ${Locales.string(context, 'quantity')}"
+                            : Locales.string(context, 'out_of_stock')),
+                    style: TextStyle(
+                      color: activeStock > 5
+                          ? Colors.green
+                          : (activeStock > 0 ? Colors.orange : Colors.red),
+                      fontWeight: FontWeight.bold,
+                      fontSize:
+                          Theme.of(context).textTheme.titleMedium!.fontSize,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
 
