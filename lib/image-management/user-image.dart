@@ -163,6 +163,7 @@ class _UserImageState extends State<UserImage> {
   }
 
   Future _uploadFile(String path) async {
+    final oldImageUrl = imageUrl;
     final ref = storage.FirebaseStorage.instance
         .ref()
         .child('profile-pictures')
@@ -170,6 +171,15 @@ class _UserImageState extends State<UserImage> {
 
     final result = await ref.putFile(File(path));
     final fileUrl = await result.ref.getDownloadURL();
+
+    if (oldImageUrl != null && oldImageUrl.isNotEmpty) {
+      try {
+        final oldRef = storage.FirebaseStorage.instance.refFromURL(oldImageUrl);
+        await oldRef.delete();
+      } catch (e) {
+        print("Couldn't delete old picture: $e");
+      }
+    }
 
     setState(() {
       imageUrl = fileUrl;

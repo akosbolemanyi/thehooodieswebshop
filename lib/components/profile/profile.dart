@@ -94,15 +94,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ? Colors.white
                                           : Colors.black,
                                 )),
-                            child: UserImage(onFileChanged: (imageUrl) {
-                              setState(() async {
-                                await FirebaseAuth.instance.currentUser!
-                                    .updatePhotoURL(imageUrl);
-                                await FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(_uid)
-                                    .update({"imageUrl": imageUrl});
-                              });
+                            child: UserImage(onFileChanged: (imageUrl) async {
+                              await FirebaseAuth.instance.currentUser!
+                                  .updatePhotoURL(imageUrl);
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(_uid)
+                                  .update({"imageUrl": imageUrl});
                             }),
                           ),
                           const SizedBox(height: 20),
