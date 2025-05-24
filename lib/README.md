@@ -9,9 +9,8 @@ Feel free to try it both using an Android Emulator or a real life device with th
 IMPORTANT! 
 
 However the registration is part of the application, and is required, a test user has been created for preference!
-This ie specially important, because the manufacturing order confirmation email will only be sent to this address!
 ```console
-email: thehooodieswebshop@gmail.com
+email: microwavednutella@gmail.com
 password: test123
 ```
 
