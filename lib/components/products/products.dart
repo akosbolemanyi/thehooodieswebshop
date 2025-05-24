@@ -33,6 +33,7 @@ class ProductsPage extends StatefulWidget implements PageContent {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
+  bool isInitialize = true;
   TextEditingController _searchController = TextEditingController();
   List<dynamic> _filteredItems = [];
   String? searchedFor;
@@ -304,8 +305,9 @@ class _ProductsPageState extends State<ProductsPage> {
         if (cartProvider.shopItems.isEmpty) {
           return Center(child: CircularProgressIndicator(color: Colors.red));
         }
-        if (_filteredItems.isEmpty || _filteredItems.length < 5) {
+        if (isInitialize) {
           _filteredItems = List.from(cartProvider.shopItems);
+          isInitialize = false;
           print(_filteredItems.length);
         }
         return Padding(
