@@ -1,7 +1,7 @@
 var common_hu = {
   'order_id_label': 'Rendelés azonosító:',
   'size_label': 'Méret:',
-  'quantity_label': 'Mennyiség',
+  'quantity_label': 'Mennyiség:',
   'shipping_cost_label': 'Szállítási díj:',
   'total_price_label': 'Végösszeg:',
 };
@@ -41,7 +41,7 @@ var common_fr = {
 var common_pt = {
   'order_id_label': 'ID do pedido:',
   'size_label': 'Tamanho:',
-  'quantity_label': 'Quantidade',
+  'quantity_label': 'Quantidade:',
   'shipping_cost_label': 'Custo de envio:',
   'total_price_label': 'Preço total:',
 };
@@ -49,7 +49,7 @@ var common_pt = {
 var common_it = {
   'order_id_label': 'ID ordine:',
   'size_label': 'Taglia:',
-  'quantity_label': 'Quantità',
+  'quantity_label': 'Quantità:',
   'shipping_cost_label': 'Costo di spedizione:',
   'total_price_label': 'Prezzo totale:',
 };

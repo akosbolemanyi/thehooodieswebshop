@@ -19,6 +19,7 @@
 
   "field_cannot_be_empty": "Ez a mező nem lehet üres!",
   "not_valid_email": "Nem érvényes e-mail cím!",
+  "passwords_do_not_match": "A két jelszó nem egyezik!",
   "minimum_6": "Legalább 6 karakter hosszúnak kell lennie!",
   "invalid_credentials": "Helytelen email cím vagy jelszó!",
   "sign_up_error": "Nem sikerült létrehozni a fiókot!",

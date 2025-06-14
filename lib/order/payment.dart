@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -134,9 +135,19 @@ class PaymentBackground extends StatelessWidget {
                       bool isPaymentSuccessful = await StripeService.instance
                           .makePayment(cartProvider.sumPrice(nation), currency,
                               themeProvider, name);
-                      String orderId =
-                          await OrderService.instance.create(cartItems);
                       if (isPaymentSuccessful) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => const Center(
+                            child: SpinKitDualRing(
+                              color: Colors.red,
+                              size: 40.0,
+                            ),
+                          ),
+                        );
+                        String orderId =
+                            await OrderService.instance.create(cartItems);
                         if (orderId != '') {
                           String orderDate = DateTime.now().toString();
                           await sendEmails(

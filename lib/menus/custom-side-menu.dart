@@ -60,6 +60,7 @@ class CustomSideMenuState extends State<CustomSideMenu> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
+            height: 200,
             padding: EdgeInsets.all(20),
             child: Center(
               child: SpinKitDualRing(

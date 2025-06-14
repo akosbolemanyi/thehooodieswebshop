@@ -105,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   fontSize: 20,
                 ),
               ),
-              activeColor: Colors.amberAccent,
+              activeColor: Colors.red,
             ),
             RadioListTile(
               value: 'fr',

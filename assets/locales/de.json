@@ -19,6 +19,7 @@
 
   "field_cannot_be_empty": "Dieses Feld darf nicht leer sein!",
   "not_valid_email": "Ungültige E-Mail-Adresse!",
+  "passwords_do_not_match": "Die beiden Passwörter stimmen nicht überein!",
   "minimum_6": "Mindestens 6 Zeichen erforderlich!",
   "invalid_credentials": "Falsche E-Mail oder Passwort!",
   "sign_up_error": "Registrierung fehlgeschlagen!",

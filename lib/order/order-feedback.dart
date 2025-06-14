@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../menus/custom-side-menu.dart' as Sidebar;
 import '../menus/custom-bottom-menu.dart' as Footer;
 import '../providers/theme.provider.dart';
+import '../utils/utils.dart';
 
 class OrderFeedbackPage extends StatelessWidget {
   final String orderId;
@@ -91,11 +92,6 @@ class OrderFeedbackPage extends StatelessWidget {
                           tooltip: Locales.string(context, 'copy_order_id'),
                           onPressed: () {
                             Clipboard.setData(ClipboardData(text: orderId));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(Locales.string(
-                                      context, 'order_id_copied'))),
-                            );
                           },
                         ),
                       ],

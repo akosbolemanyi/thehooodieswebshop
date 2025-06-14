@@ -19,6 +19,7 @@
 
   "field_cannot_be_empty": "Ce champ ne peut pas être vide !",
   "not_valid_email": "Adresse e-mail invalide !",
+  "passwords_do_not_match": "Les deux mots de passe ne correspondent pas !",
   "minimum_6": "Au moins 6 caractères requis !",
   "invalid_credentials": "Email ou mot de passe incorrect !",
   "sign_up_error": "Échec de la création du compte !",

@@ -19,6 +19,7 @@
 
   "field_cannot_be_empty": "Este campo não pode ficar vazio!",
   "not_valid_email": "Endereço de e-mail inválido!",
+  "passwords_do_not_match": "As duas senhas não coincidem!",
   "minimum_6": "Deve ter pelo menos 6 caracteres!",
   "invalid_credentials": "E-mail ou senha incorretos!",
   "sign_up_error": "Falha ao criar a conta!",

@@ -63,17 +63,27 @@ class _ShippingAddressFormState extends State<ShippingAddressForm> {
   Future<void> updateUserAddress() async {
     if (user == null) return;
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .collection('address')
-          .doc('shipping')
-          .update({
-        'zip': zipController.text.trim(),
-        'city': cityController.text.trim(),
-        'address': addressController.text.trim(),
-        'notes': notesController.text.trim(),
-      });
+      final userDoc =
+          FirebaseFirestore.instance.collection('users').doc(user!.uid);
+      final address = userDoc.collection('address');
+      final shipping = address.doc('shipping');
+
+      final docSnapshot = await shipping.get();
+      if (!docSnapshot.exists) {
+        await shipping.set({
+          'zip': zipController.text.trim(),
+          'city': cityController.text.trim(),
+          'address': addressController.text.trim(),
+          'notes': notesController.text.trim(),
+        });
+      } else {
+        await shipping.update({
+          'zip': zipController.text.trim(),
+          'city': cityController.text.trim(),
+          'address': addressController.text.trim(),
+          'notes': notesController.text.trim(),
+        });
+      }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
